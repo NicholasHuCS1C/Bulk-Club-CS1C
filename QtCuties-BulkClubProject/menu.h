@@ -2,6 +2,10 @@
 #define MENU_H
 
 #include <QMainWindow>
+#include <QString>
+#include <QFile>
+#include <QMessageBox>
+#include <QTextStream>
 
 namespace Ui {
 class Menu;

@@ -27,10 +27,12 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
+        member.cpp \
         menu.cpp
 
 HEADERS += \
         mainwindow.h \
+        member.h \
         menu.h
 
 FORMS += \
@@ -41,3 +43,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resource.qrc
