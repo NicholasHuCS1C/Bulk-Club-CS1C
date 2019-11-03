@@ -3,12 +3,20 @@
 #include <QString>
 #include <QMessageBox>
 #include "menu.h"
+#include <QMessageBox>
+#include <QPixmap>
+#include <QDesktopServices>
+#include <QUrl>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    if (!connOpen())
+        ui->Status->setText("Failed to open the database");
+    else
+        ui->Status->setText("Database Connected...");
 }
 
 MainWindow::~MainWindow()

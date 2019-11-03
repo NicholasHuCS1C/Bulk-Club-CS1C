@@ -2,6 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtSql>
+#include <QSqlDatabase>
+#include <QSqlDriver>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QtDebug>
+#include <QFileInfo>
 
 namespace Ui {
 class MainWindow;
@@ -10,6 +17,30 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+
+public:
+    QSqlDatabase mydb;
+    void connClose()
+    {
+        mydb.close();
+        mydb.removeDatabase(QSqlDatabase::defaultConnection);
+    }
+    bool connOpen()
+    {
+        mydb=QSqlDatabase::addDatabase("QSQLITE");
+        mydb.setDatabaseName("/Users/allisonchu/Desktop/BulkClub/customer.db");
+
+        if (!mydb.open())
+        {
+            qDebug() << ("Failed to open the database");
+            return false;
+        }
+        else
+        {
+            qDebug() << ("Database Conneceted...");
+            return true;
+        }
+    }
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
