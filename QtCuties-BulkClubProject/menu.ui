@@ -18,13 +18,13 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>20</y>
       <width>781</width>
       <height>541</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tabSalesReport">
      <attribute name="title">
@@ -156,16 +156,6 @@
      <attribute name="title">
       <string>Members</string>
      </attribute>
-     <widget class="QTableWidget" name="tableWidgetDisplayMember">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>551</width>
-        <height>481</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QLineEdit" name="lineEditSearchNum">
       <property name="geometry">
        <rect>
@@ -194,7 +184,7 @@
        <rect>
         <x>580</x>
         <y>270</y>
-        <width>91</width>
+        <width>121</width>
         <height>28</height>
        </rect>
       </property>
@@ -288,6 +278,29 @@
       </property>
       <property name="text">
        <string>Search month:</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="load_all">
+      <property name="geometry">
+       <rect>
+        <x>580</x>
+        <y>310</y>
+        <width>121</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Load All</string>
+      </property>
+     </widget>
+     <widget class="QTableView" name="tableViewDisplayMember">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>481</width>
+        <height>441</height>
+       </rect>
       </property>
      </widget>
     </widget>

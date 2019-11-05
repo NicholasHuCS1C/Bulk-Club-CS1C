@@ -2,6 +2,7 @@
 #define MENU_H
 
 #include <QMainWindow>
+#include "mainwindow.h"
 
 namespace Ui {
 class Menu;
@@ -14,6 +15,9 @@ class Menu : public QMainWindow
 public:
     explicit Menu(QWidget *parent = nullptr);
     ~Menu();
+
+private slots:
+    //void on_load_all_clicked();
 
 private:
     Ui::Menu *ui;

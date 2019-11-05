@@ -20,6 +20,7 @@ class MainWindow : public QMainWindow
 
 public:
     QSqlDatabase mydb;
+
     void connClose()
     {
         mydb.close();
@@ -37,7 +38,7 @@ public:
         }
         else
         {
-            qDebug() << ("Database Conneceted...");
+            qDebug() << ("Database Connected");
             return true;
         }
     }

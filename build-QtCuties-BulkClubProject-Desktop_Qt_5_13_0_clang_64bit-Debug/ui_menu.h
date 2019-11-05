@@ -21,6 +21,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTableView>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QWidget>
 
@@ -39,12 +40,13 @@ public:
     QLabel *labelTXTTotalRevenue;
     QLabel *labelTotalRevenue;
     QWidget *tabDisplayMembers;
-    QTableWidget *tableWidgetDisplayMember;
     QLineEdit *lineEditSearchNum;
     QLabel *labelTXTSearchNum;
     QPushButton *buttonSortRebates;
     QComboBox *comboBox;
     QLabel *label;
+    QPushButton *load_all;
+    QTableView *tableViewDisplayMember;
     QWidget *tabEditMembers;
     QLineEdit *lineEditDeleteName;
     QLabel *labelTXTName;
@@ -102,7 +104,7 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         tabWidget = new QTabWidget(centralwidget);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
-        tabWidget->setGeometry(QRect(10, 10, 781, 541));
+        tabWidget->setGeometry(QRect(10, 20, 781, 541));
         tabSalesReport = new QWidget();
         tabSalesReport->setObjectName(QString::fromUtf8("tabSalesReport"));
         comboBoxDays = new QComboBox(tabSalesReport);
@@ -139,9 +141,6 @@ public:
         tabWidget->addTab(tabSalesReport, QString());
         tabDisplayMembers = new QWidget();
         tabDisplayMembers->setObjectName(QString::fromUtf8("tabDisplayMembers"));
-        tableWidgetDisplayMember = new QTableWidget(tabDisplayMembers);
-        tableWidgetDisplayMember->setObjectName(QString::fromUtf8("tableWidgetDisplayMember"));
-        tableWidgetDisplayMember->setGeometry(QRect(10, 20, 551, 481));
         lineEditSearchNum = new QLineEdit(tabDisplayMembers);
         lineEditSearchNum->setObjectName(QString::fromUtf8("lineEditSearchNum"));
         lineEditSearchNum->setGeometry(QRect(660, 30, 113, 22));
@@ -150,7 +149,7 @@ public:
         labelTXTSearchNum->setGeometry(QRect(570, 30, 55, 16));
         buttonSortRebates = new QPushButton(tabDisplayMembers);
         buttonSortRebates->setObjectName(QString::fromUtf8("buttonSortRebates"));
-        buttonSortRebates->setGeometry(QRect(580, 270, 91, 28));
+        buttonSortRebates->setGeometry(QRect(580, 270, 121, 28));
         comboBox = new QComboBox(tabDisplayMembers);
         comboBox->addItem(QString());
         comboBox->addItem(QString());
@@ -170,6 +169,12 @@ public:
         label = new QLabel(tabDisplayMembers);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(570, 80, 81, 31));
+        load_all = new QPushButton(tabDisplayMembers);
+        load_all->setObjectName(QString::fromUtf8("load_all"));
+        load_all->setGeometry(QRect(580, 310, 121, 28));
+        tableViewDisplayMember = new QTableView(tabDisplayMembers);
+        tableViewDisplayMember->setObjectName(QString::fromUtf8("tableViewDisplayMember"));
+        tableViewDisplayMember->setGeometry(QRect(20, 30, 481, 441));
         tabWidget->addTab(tabDisplayMembers, QString());
         tabEditMembers = new QWidget();
         tabEditMembers->setObjectName(QString::fromUtf8("tabEditMembers"));
@@ -326,7 +331,7 @@ public:
 
         retranslateUi(Menu);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(Menu);
@@ -365,6 +370,7 @@ public:
         comboBox->setItemText(12, QString());
 
         label->setText(QCoreApplication::translate("Menu", "Search month:", nullptr));
+        load_all->setText(QCoreApplication::translate("Menu", "Load All", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tabDisplayMembers), QCoreApplication::translate("Menu", "Members", nullptr));
         labelTXTName->setText(QCoreApplication::translate("Menu", "Name:", nullptr));
         labelTXTAddCustomer->setText(QCoreApplication::translate("Menu", "Add Customer", nullptr));
