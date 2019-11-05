@@ -10,6 +10,8 @@
 #include <QtDebug>
 #include <QFileInfo>
 
+
+
 namespace Ui {
 class MainWindow;
 }
@@ -18,30 +20,22 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+private:
+    Ui::MainWindow *ui;
+    //QSqlDatabase mydb;
+
 public:
-    QSqlDatabase mydb;
 
-    void connClose()
-    {
-        mydb.close();
-        mydb.removeDatabase(QSqlDatabase::defaultConnection);
-    }
-    bool connOpen()
-    {
-        mydb=QSqlDatabase::addDatabase("QSQLITE");
-        mydb.setDatabaseName("/Users/allisonchu/Desktop/BulkClub/customer.db");
 
-        if (!mydb.open())
-        {
-            qDebug() << ("Failed to open the database");
-            return false;
-        }
-        else
-        {
-            qDebug() << ("Database Connected");
-            return true;
-        }
-    }
+//    void connClose()
+//    {
+//        mydb.close();
+//        mydb.removeDatabase(QSqlDatabase::defaultConnection);
+//    }
+
+
+    //QSqlDatabase getDB();
+
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
@@ -50,8 +44,15 @@ public:
 private slots:
     void on_pushButton_clicked();
 
-private:
-    Ui::MainWindow *ui;
+
 };
+
+//QSqlDatabase MainWindow::getDB()
+//{
+//    return mydb;
+//}
+
+
+
 
 #endif // MAINWINDOW_H

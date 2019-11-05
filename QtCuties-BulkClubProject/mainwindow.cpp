@@ -13,16 +13,35 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    if (!connOpen())
-        ui->Status->setText("Failed to open the database");
-    else
-        ui->Status->setText("Database Connected...");
+//    if(mydb.open())
+//    {
+//        mydb.close();
+//        mydb.removeDatabase(QSqlDatabase::defaultConnection);
+//    }
+
+
+//    mydb=QSqlDatabase::addDatabase("QSQLITE");
+//    mydb.setDatabaseName("/Users/SeanVHatfield/SeanHatfield/Documents/CS 1C Projects/databases/test.db");
+
+//        if (!mydb.open())
+//        {
+//            qDebug() << ("Failed to open the database");
+
+//        }
+//        else
+//        {
+//            qDebug() << ("Database Connected");
+
+//        }
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
 
 void MainWindow::on_pushButton_clicked()
 {
