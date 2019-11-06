@@ -15,11 +15,14 @@ class Menu : public QMainWindow
 
 private:
     Ui::Menu *ui;
+
     //QSqlDatabase mydb;
 
 public:
     explicit Menu(QWidget *parent = nullptr);
     QSqlDatabase mydb;
+    QString dataPath;
+    void loadFirstSalesReport();
     //QSqlDatabase getDB();
     ~Menu();
 

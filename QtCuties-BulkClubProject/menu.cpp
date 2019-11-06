@@ -28,12 +28,14 @@ Menu::Menu(QWidget *parent) :
 
 
 
-    mydb = QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("/Users/SeanVHatfield/SeanHatfield/Documents/CS 1C Projects/databases/test.db");
+        mydb = QSqlDatabase::addDatabase("QSQLITE");
+        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
+                                                 "/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
+                                                 QFileDialog::ShowDirsOnly
+                                                 | QFileDialog::DontResolveSymlinks);
 
-    //    QString fileName = QFileDialog::getOpenFileName(this,
-    //     tr("Open Database"), "", tr("Database Files (*.db)"));
-    //    mydb.setDatabaseName(fileName);
+
+        mydb.setDatabaseName(dataPath + "/database.db");
 
 
         if (!mydb.open())
@@ -47,6 +49,7 @@ Menu::Menu(QWidget *parent) :
 
         }
 
+        loadFirstSalesReport();
 
 }
 
@@ -56,22 +59,11 @@ Menu::~Menu()
 }
 
 
-//Button to load the customer list
-// QSqlDatabasePrivate::removeDatabase: connection 'qt_sql_default_connection'
-//is still in use, all queries will cease to work.
 
 
 void Menu::on_load_all_clicked()
 {
 
-
-//    Format of the data
-//    Date of purchase
-//    Customer number who bought the product
-//    Product description
-//    Price of product
-//    Quantity
-//    ******************************
 
     //Customer Name
     //Member #
@@ -83,7 +75,7 @@ void Menu::on_load_all_clicked()
     QString tempCustomerType;
     QString tempMembershipExp;
 
-    QFile file("/Users/SeanVHatfield/SeanHatfield/Downloads/Bulk Club Project-1/warehouse shoppers.txt");
+    QFile file(dataPath + "/warehouse shoppers.txt");
 
     if(!file.open(QFile::ReadOnly | QFile::Text))
     {
@@ -159,7 +151,7 @@ void Menu::on_comboBoxDays_activated(const QString &arg1)
         QString tempPrice;
         QString tempQuantity;
 
-        QFile file("/Users/SeanVHatfield/SeanHatfield/Downloads/Bulk Club Project-1/" + textName);
+        QFile file(dataPath + "/" + textName);
 
         if(!file.open(QFile::ReadOnly | QFile::Text))
         {
@@ -212,4 +204,77 @@ void Menu::on_comboBoxDays_activated(const QString &arg1)
 
         qDebug() << (modal->rowCount());
 
+}
+
+void Menu::loadFirstSalesReport()
+{
+    //Load Sunday on salesReportTableView when window is opened
+
+
+    //    Date of purchase
+    //    Customer number who bought the product
+    //    Product description
+    //    Price of product
+    //    Quantity
+
+        QString tempDate;
+        QString tempCustomerNum;
+        QString tempDescription;
+        QString tempPrice;
+        QString tempQuantity;
+
+        QFile file(dataPath + "/day1.txt");
+
+        if(!file.open(QFile::ReadOnly | QFile::Text))
+        {
+            QMessageBox::warning(this, "title", "file not open");
+        }
+        QTextStream in(&file);
+
+
+
+
+        QSqlQueryModel * modal = new QSqlQueryModel();
+
+        QSqlQuery* qry = new QSqlQuery(this->mydb);
+
+        qry->prepare("delete from Sunday");
+        qry->exec();
+        for (int i = 0; !in.atEnd(); i++)
+        {
+
+            tempDate = in.readLine();
+            tempCustomerNum = in.readLine();
+            tempDescription = in.readLine();
+            tempPrice = in.readLine();
+            tempQuantity = in.readLine();
+
+            qDebug() << "Date: " << tempDate;
+            qDebug() << "Customer Number: " << tempCustomerNum;
+            qDebug() << "Description: " << tempDescription;
+            qDebug() << "Price: " << tempPrice;
+            qDebug() << "Quantity: " << tempQuantity;
+
+            qry->prepare("insert into Sunday (Date,Number,Description,Price,Quantity)" "VALUES ('"+tempDate+"', '"+tempCustomerNum+"', '"+tempDescription+"', '"+tempPrice+"', '"+tempQuantity+"')");
+            if(qry->exec())
+            {
+                qDebug() << "Success!";
+
+            }
+            else {
+                qDebug() << qry->lastError().text();
+            }
+        }
+
+        qry->prepare("select * from Sunday");
+
+        qry->exec();
+        modal->setQuery(*qry);
+        ui->salesReportTableView->setModel(modal);
+        ui->salesReportTableView->resizeColumnsToContents();
+
+        qDebug() << (modal->rowCount());
+
+
+        //END Load Sunday
 }
