@@ -1,5 +1,6 @@
 #include "menu.h"
 #include "ui_menu.h"
+#include "mainwindow.h"
 
 Menu::Menu(QWidget *parent) :
     QMainWindow(parent),
@@ -24,4 +25,17 @@ Menu::Menu(QWidget *parent) :
 Menu::~Menu()
 {
     delete ui;
+}
+
+void Menu::on_buttonLogout_clicked()
+{
+    MainWindow * login = new MainWindow;
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Logout", "You sure you wanna logout homie?",
+                                  QMessageBox::Yes | QMessageBox::No);
+    if (reply == QMessageBox::Yes)
+    {
+        this->close();
+        login->show();
+    }
 }

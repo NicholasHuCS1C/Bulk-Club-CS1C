@@ -28,16 +28,19 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         member.cpp \
-        menu.cpp
+        menu.cpp \
+        menumanager.cpp
 
 HEADERS += \
         mainwindow.h \
         member.h \
-        menu.h
+        menu.h \
+        menumanager.h
 
 FORMS += \
         mainwindow.ui \
-        menu.ui
+        menu.ui \
+        menumanager.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
