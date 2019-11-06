@@ -75,16 +75,6 @@
        </property>
       </item>
      </widget>
-     <widget class="QTableWidget" name="tableWidgetSalesReport">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>611</width>
-        <height>481</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QCheckBox" name="checkBoxStandard">
       <property name="geometry">
        <rect>
@@ -151,21 +141,21 @@
        <string/>
       </property>
      </widget>
+     <widget class="QTableView" name="salesReportTableView">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>601</width>
+        <height>461</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tabDisplayMembers">
      <attribute name="title">
       <string>Members</string>
      </attribute>
-     <widget class="QTableWidget" name="tableWidgetDisplayMember">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>551</width>
-        <height>481</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QLineEdit" name="lineEditSearchNum">
       <property name="geometry">
        <rect>
@@ -194,7 +184,7 @@
        <rect>
         <x>580</x>
         <y>270</y>
-        <width>91</width>
+        <width>121</width>
         <height>28</height>
        </rect>
       </property>
@@ -283,6 +273,29 @@
       </property>
       <property name="text">
        <string>Search month:</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="load_all">
+      <property name="geometry">
+       <rect>
+        <x>580</x>
+        <y>310</y>
+        <width>121</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Load All</string>
+      </property>
+     </widget>
+     <widget class="QTableView" name="tableViewDisplayMember">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>481</width>
+        <height>441</height>
+       </rect>
       </property>
      </widget>
     </widget>
@@ -865,7 +878,7 @@
      <x>0</x>
      <y>0</y>
      <width>803</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

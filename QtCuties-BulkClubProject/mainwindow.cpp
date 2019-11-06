@@ -4,18 +4,45 @@
 #include <QString>
 #include <QMessageBox>
 #include "menu.h"
+#include <QMessageBox>
+#include <QPixmap>
+#include <QDesktopServices>
+#include <QUrl>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+//    if(mydb.open())
+//    {
+//        mydb.close();
+//        mydb.removeDatabase(QSqlDatabase::defaultConnection);
+//    }
+
+
+//    mydb=QSqlDatabase::addDatabase("QSQLITE");
+//    mydb.setDatabaseName("/Users/SeanVHatfield/SeanHatfield/Documents/CS 1C Projects/databases/test.db");
+
+//        if (!mydb.open())
+//        {
+//            qDebug() << ("Failed to open the database");
+
+//        }
+//        else
+//        {
+//            qDebug() << ("Database Connected");
+
+//        }
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
 
 void MainWindow::on_pushButton_clicked()
 {
