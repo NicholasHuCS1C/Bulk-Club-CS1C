@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 #include "mainwindow.h"
+#include <QString>
+#include <QFile>
+#include <QMessageBox>
+#include <QTextStream>
 
 namespace Ui {
 class Menu;
@@ -31,6 +35,12 @@ private slots:
 
 
     void on_comboBoxDays_activated(const QString &arg1);
+
+    void on_buttonLogout_clicked();
+
+private:
+    Ui::Menu *ui;
+
 };
 
 //QSqlDatabase Menu::getDB()

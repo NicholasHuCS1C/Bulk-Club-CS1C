@@ -27,17 +27,25 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-        menu.cpp
+        member.cpp \
+        menu.cpp \
+        menumanager.cpp
 
 HEADERS += \
         mainwindow.h \
-        menu.h
+        member.h \
+        menu.h \
+        menumanager.h
 
 FORMS += \
         mainwindow.ui \
-        menu.ui
+        menu.ui \
+        menumanager.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resource.qrc
