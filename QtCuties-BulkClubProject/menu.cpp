@@ -1,18 +1,5 @@
 #include "menu.h"
 #include "ui_menu.h"
-#include <QMainWindow>
-#include <QtSql>
-#include <QSqlDatabase>
-#include <QSqlDriver>
-#include <QSqlQuery>
-#include <QSqlError>
-#include <QtDebug>
-#include <QFileInfo>
-#include "mainwindow.h"
-#include <QString>
-#include <QFileDialog>
-#include <QFile>
-#include <QMessageBox>
 
 Menu::Menu(QWidget *parent) :
     QMainWindow(parent),
@@ -277,4 +264,16 @@ void Menu::loadFirstSalesReport()
 
 
         //END Load Sunday
+}
+
+void Menu::on_pushButton_clicked()
+{
+    QMessageBox::StandardButton logout = QMessageBox::question(this, "Logout", "Are you sure you want to logout?",
+                                                               QMessageBox::Yes | QMessageBox::No);
+    if (logout == QMessageBox::Yes)
+    {
+        MainWindow * loginScreen = new MainWindow;
+        loginScreen->show();
+        this->close();
+    }
 }

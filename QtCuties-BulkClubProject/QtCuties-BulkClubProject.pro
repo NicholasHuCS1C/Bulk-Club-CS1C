@@ -27,15 +27,18 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-        menu.cpp
+        menu.cpp \
+        menusalesmanager.cpp
 
 HEADERS += \
         mainwindow.h \
-        menu.h
+        menu.h \
+        menusalesmanager.h
 
 FORMS += \
         mainwindow.ui \
-        menu.ui
+        menu.ui \
+        menusalesmanager.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

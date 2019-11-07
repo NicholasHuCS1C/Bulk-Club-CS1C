@@ -2,14 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QtSql>
-#include <QSqlDatabase>
-#include <QSqlDriver>
-#include <QSqlQuery>
-#include <QSqlError>
-#include <QtDebug>
-#include <QFileInfo>
-
+#include "menusalesmanager.h"
+#include "menu.h"
 
 
 namespace Ui {
