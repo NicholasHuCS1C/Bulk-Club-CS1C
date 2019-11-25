@@ -39,6 +39,8 @@ public:
     QLabel *labelTXTTotalRevenue;
     QLabel *labelTotalRevenue;
     QTableView *salesReportTableView;
+    QPushButton *standardButton;
+    QPushButton *executiveButton;
     QWidget *tabDisplayMembers;
     QLineEdit *lineEditSearchNum;
     QLabel *labelTXTSearchNum;
@@ -48,13 +50,11 @@ public:
     QPushButton *load_all;
     QTableView *tableViewDisplayMember;
     QWidget *tabEditMembers;
-    QLineEdit *lineEditDeleteName;
+    QLineEdit *lineEditAddName;
     QLabel *labelTXTName;
     QLabel *labelTXTAddCustomer;
     QLineEdit *lineEditAddMemberNum;
     QLabel *labelTXTMemberNum;
-    QCheckBox *checkBoxEditStandard;
-    QCheckBox *checkBoxAddExecutive;
     QLabel *labelTXTStatus;
     QLabel *labelTXTDeleteCustomer;
     QPushButton *buttonAddCustomer;
@@ -63,6 +63,8 @@ public:
     QLabel *labelTXTMemberNum_2;
     QComboBox *comboBoxDeleteMemberNum;
     QPushButton *buttonDeleteCustomer;
+    QComboBox *addCustomerStatus;
+    QPushButton *saveDatabaseTxt;
     QWidget *tabDisplayInventory;
     QTableWidget *tableWidgetInventory;
     QLabel *labelTXTSearchNum_2;
@@ -138,6 +140,12 @@ public:
         salesReportTableView = new QTableView(tabSalesReport);
         salesReportTableView->setObjectName(QString::fromUtf8("salesReportTableView"));
         salesReportTableView->setGeometry(QRect(10, 20, 601, 461));
+        standardButton = new QPushButton(tabSalesReport);
+        standardButton->setObjectName(QString::fromUtf8("standardButton"));
+        standardButton->setGeometry(QRect(640, 340, 113, 32));
+        executiveButton = new QPushButton(tabSalesReport);
+        executiveButton->setObjectName(QString::fromUtf8("executiveButton"));
+        executiveButton->setGeometry(QRect(640, 380, 113, 32));
         tabWidget->addTab(tabSalesReport, QString());
         tabDisplayMembers = new QWidget();
         tabDisplayMembers->setObjectName(QString::fromUtf8("tabDisplayMembers"));
@@ -178,9 +186,9 @@ public:
         tabWidget->addTab(tabDisplayMembers, QString());
         tabEditMembers = new QWidget();
         tabEditMembers->setObjectName(QString::fromUtf8("tabEditMembers"));
-        lineEditDeleteName = new QLineEdit(tabEditMembers);
-        lineEditDeleteName->setObjectName(QString::fromUtf8("lineEditDeleteName"));
-        lineEditDeleteName->setGeometry(QRect(90, 80, 161, 22));
+        lineEditAddName = new QLineEdit(tabEditMembers);
+        lineEditAddName->setObjectName(QString::fromUtf8("lineEditAddName"));
+        lineEditAddName->setGeometry(QRect(90, 80, 161, 22));
         labelTXTName = new QLabel(tabEditMembers);
         labelTXTName->setObjectName(QString::fromUtf8("labelTXTName"));
         labelTXTName->setGeometry(QRect(30, 80, 55, 16));
@@ -193,12 +201,6 @@ public:
         labelTXTMemberNum = new QLabel(tabEditMembers);
         labelTXTMemberNum->setObjectName(QString::fromUtf8("labelTXTMemberNum"));
         labelTXTMemberNum->setGeometry(QRect(20, 130, 55, 16));
-        checkBoxEditStandard = new QCheckBox(tabEditMembers);
-        checkBoxEditStandard->setObjectName(QString::fromUtf8("checkBoxEditStandard"));
-        checkBoxEditStandard->setGeometry(QRect(90, 180, 81, 20));
-        checkBoxAddExecutive = new QCheckBox(tabEditMembers);
-        checkBoxAddExecutive->setObjectName(QString::fromUtf8("checkBoxAddExecutive"));
-        checkBoxAddExecutive->setGeometry(QRect(180, 180, 81, 20));
         labelTXTStatus = new QLabel(tabEditMembers);
         labelTXTStatus->setObjectName(QString::fromUtf8("labelTXTStatus"));
         labelTXTStatus->setGeometry(QRect(30, 180, 55, 16));
@@ -223,6 +225,14 @@ public:
         buttonDeleteCustomer = new QPushButton(tabEditMembers);
         buttonDeleteCustomer->setObjectName(QString::fromUtf8("buttonDeleteCustomer"));
         buttonDeleteCustomer->setGeometry(QRect(470, 240, 93, 28));
+        addCustomerStatus = new QComboBox(tabEditMembers);
+        addCustomerStatus->addItem(QString());
+        addCustomerStatus->addItem(QString());
+        addCustomerStatus->setObjectName(QString::fromUtf8("addCustomerStatus"));
+        addCustomerStatus->setGeometry(QRect(90, 180, 171, 32));
+        saveDatabaseTxt = new QPushButton(tabEditMembers);
+        saveDatabaseTxt->setObjectName(QString::fromUtf8("saveDatabaseTxt"));
+        saveDatabaseTxt->setGeometry(QRect(190, 380, 261, 32));
         tabWidget->addTab(tabEditMembers, QString());
         tabDisplayInventory = new QWidget();
         tabDisplayInventory->setObjectName(QString::fromUtf8("tabDisplayInventory"));
@@ -331,7 +341,7 @@ public:
 
         retranslateUi(Menu);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(Menu);
@@ -352,6 +362,8 @@ public:
         checkBoxExecutive->setText(QCoreApplication::translate("Menu", "Executive Only", nullptr));
         labelTXTTotalRevenue->setText(QCoreApplication::translate("Menu", "Total Revenue:", nullptr));
         labelTotalRevenue->setText(QString());
+        standardButton->setText(QCoreApplication::translate("Menu", "Standard Only", nullptr));
+        executiveButton->setText(QCoreApplication::translate("Menu", "Executive Only", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tabSalesReport), QCoreApplication::translate("Menu", "Sales Report", nullptr));
         labelTXTSearchNum->setText(QCoreApplication::translate("Menu", "Search #:", nullptr));
         buttonSortRebates->setText(QCoreApplication::translate("Menu", "Check Rebates", nullptr));
@@ -375,14 +387,16 @@ public:
         labelTXTName->setText(QCoreApplication::translate("Menu", "Name:", nullptr));
         labelTXTAddCustomer->setText(QCoreApplication::translate("Menu", "Add Customer", nullptr));
         labelTXTMemberNum->setText(QCoreApplication::translate("Menu", "Mem #:", nullptr));
-        checkBoxEditStandard->setText(QCoreApplication::translate("Menu", "Standard", nullptr));
-        checkBoxAddExecutive->setText(QCoreApplication::translate("Menu", "Executive", nullptr));
         labelTXTStatus->setText(QCoreApplication::translate("Menu", "Status:", nullptr));
         labelTXTDeleteCustomer->setText(QCoreApplication::translate("Menu", "Delete Customer", nullptr));
         buttonAddCustomer->setText(QCoreApplication::translate("Menu", "Add", nullptr));
         labelTXTName_2->setText(QCoreApplication::translate("Menu", "Name:", nullptr));
         labelTXTMemberNum_2->setText(QCoreApplication::translate("Menu", "Mem #:", nullptr));
         buttonDeleteCustomer->setText(QCoreApplication::translate("Menu", "Delete", nullptr));
+        addCustomerStatus->setItemText(0, QCoreApplication::translate("Menu", "Executive", nullptr));
+        addCustomerStatus->setItemText(1, QCoreApplication::translate("Menu", "Standard", nullptr));
+
+        saveDatabaseTxt->setText(QCoreApplication::translate("Menu", "Test Save to Database", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tabEditMembers), QCoreApplication::translate("Menu", "Edit Members", nullptr));
         labelTXTSearchNum_2->setText(QCoreApplication::translate("Menu", "Search:", nullptr));
         labelTXTAddItem_2->setText(QCoreApplication::translate("Menu", "Add item:", nullptr));

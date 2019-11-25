@@ -51,6 +51,36 @@ Menu::Menu(QWidget *parent) :
 
         loadFirstSalesReport();
 
+        QSqlQuery query;
+//        bool firstLine=true;
+//        query.prepare("SELECT * FROM customerTable");
+//        if(query.exec())
+//        {
+//            while (query.next())
+//            {
+//                const QSqlRecord recrd = query.record();
+//                if(firstLine)
+//                {
+//                    for(int i = 0;i < recrd.count();++i)
+//                    {
+//                        qDebug() << recrd.field(i); //Headers
+//                    }
+//                }
+//                firstLine=false;
+//                for(int i = 0;i < recrd.count();++i)
+//                {
+//                    outTest << recrd.value(i).toString();
+//                    outTest << endl;
+
+//                }
+//            }
+//        }
+
+        query.prepare("SELECT FROM customerTable WHERE Name *");
+        query.exec();
+        QString itemName;
+//        ui->comboBoxDeleteName->addItem()
+
 }
 
 Menu::~Menu()
@@ -76,6 +106,7 @@ void Menu::on_load_all_clicked()
     QString tempMembershipExp;
 
     QFile file(dataPath + "/warehouse shoppers.txt");
+//      QFile file(dataPath + "/testingDatabase.txt");
 
     if(!file.open(QFile::ReadOnly | QFile::Text))
     {
@@ -126,6 +157,7 @@ void Menu::on_comboBoxDays_activated(const QString &arg1)
 {
     QString argVar;
     argVar = arg1;
+    daySelected = arg1;
 
     qDebug() << "ArgVar: " << argVar;
 
@@ -232,8 +264,6 @@ void Menu::loadFirstSalesReport()
         QTextStream in(&file);
 
 
-
-
         QSqlQueryModel * modal = new QSqlQueryModel();
 
         QSqlQuery* qry = new QSqlQuery(this->mydb);
@@ -273,8 +303,128 @@ void Menu::loadFirstSalesReport()
         ui->salesReportTableView->setModel(modal);
         ui->salesReportTableView->resizeColumnsToContents();
 
+        qry->prepare("select SUM(Price) from Sunday");
+
+        if(qry->exec())
+        {
+            qDebug() << "Success!";
+
+        }
+        else {
+            qDebug() << qry->lastError().text();
+        }
+
+        QString totalRevenue = qry->value("Price").toString();
+
+        qDebug() << totalRevenue;
+
         qDebug() << (modal->rowCount());
 
 
         //END Load Sunday
+}
+
+void Menu::on_checkBoxStandard_toggled(bool checked)
+{
+//    QSqlQueryModel * modal = new QSqlQueryModel();
+//    QSqlQuery* qry = new QSqlQuery(this->mydb);
+
+//    qry->prepare("");
+//    qry->exec();
+
+//    modal->setQuery(*qry);
+//    ui->salesReportTableView->setModel(modal);
+//    ui->salesReportTableView->resizeColumnsToContents();
+
+    qDebug() << checked;
+}
+
+void Menu::on_standardButton_clicked()
+{
+    QSqlQueryModel * modal = new QSqlQueryModel();
+    QSqlQuery* qry = new QSqlQuery(this->mydb);
+
+    qry->prepare("select * from '"+daySelected+"' where customerTable.Number = '"+daySelected+"'.Number and Type = Regular");
+
+    if(qry->exec())
+    {
+        qDebug() << "Success!";
+
+    }
+    else {
+        qDebug() << qry->lastError().text();
+    }
+
+    modal->setQuery(*qry);
+    ui->salesReportTableView->setModel(modal);
+    ui->salesReportTableView->resizeColumnsToContents();
+}
+
+void Menu::on_buttonAddCustomer_clicked()
+{
+    QFile file(dataPath + "/warehouse shoppers.txt");
+    if(!file.open(QFile::WriteOnly | QFile::Text | QFile::Append))
+    {
+        qDebug() << "File not open\n";
+    }
+    QString date = "12/31/2021";
+    QTextStream outCustomer(&file);
+
+    outCustomer << endl;
+    outCustomer << ui->lineEditAddName->text() << endl;
+    outCustomer << ui->lineEditAddMemberNum->text() << endl;
+    QString addMemberStatus;
+    if(ui->addCustomerStatus->currentIndex() == 0)
+    {
+        addMemberStatus = "Executive";
+    }
+    else if(ui->addCustomerStatus->currentIndex() == 1)
+    {
+        addMemberStatus = "Standard";
+    }
+
+    outCustomer << addMemberStatus << endl;
+    outCustomer << date;
+
+    ui->lineEditAddName->setText("");
+    ui->lineEditAddMemberNum->setText("");
+
+    QMessageBox::information(this, tr("Customer Info"), tr("Customer Added!"));
+}
+
+
+
+void Menu::on_saveDatabaseTxt_clicked()
+{
+    QFile file(dataPath + "/warehouse shoppers.txt");
+    if(!file.open(QFile::WriteOnly | QFile::Text | QFile::Truncate))
+    {
+        qDebug() << "File not open\n";
+    }
+
+    QTextStream outTest(&file);
+    QSqlQuery query;
+    bool firstLine=true;
+    query.prepare("SELECT * FROM customerTable");
+    if(query.exec())
+    {
+        while (query.next())
+        {
+            const QSqlRecord recrd = query.record();
+            if(firstLine)
+            {
+                for(int i = 0;i < recrd.count();++i)
+                {
+                    qDebug() << recrd.field(i); //Headers
+                }
+            }
+            firstLine=false;
+            for(int i = 0;i < recrd.count();++i)
+            {
+                outTest << recrd.value(i).toString();
+                outTest << endl;
+
+            }
+        }
+    }
 }

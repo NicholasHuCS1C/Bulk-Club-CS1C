@@ -22,6 +22,7 @@ public:
     explicit Menu(QWidget *parent = nullptr);
     QSqlDatabase mydb;
     QString dataPath;
+    QString daySelected;
     void loadFirstSalesReport();
     //QSqlDatabase getDB();
     ~Menu();
@@ -31,6 +32,10 @@ private slots:
 
 
     void on_comboBoxDays_activated(const QString &arg1);
+    void on_checkBoxStandard_toggled(bool checked);
+    void on_standardButton_clicked();
+    void on_buttonAddCustomer_clicked();
+    void on_saveDatabaseTxt_clicked();
 };
 
 //QSqlDatabase Menu::getDB()

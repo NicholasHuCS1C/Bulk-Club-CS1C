@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tabSalesReport">
      <attribute name="title">
@@ -149,6 +149,32 @@
         <width>601</width>
         <height>461</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="standardButton">
+      <property name="geometry">
+       <rect>
+        <x>640</x>
+        <y>340</y>
+        <width>113</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Standard Only</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="executiveButton">
+      <property name="geometry">
+       <rect>
+        <x>640</x>
+        <y>380</y>
+        <width>113</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Executive Only</string>
       </property>
      </widget>
     </widget>
@@ -308,7 +334,7 @@
      <attribute name="title">
       <string>Edit Members</string>
      </attribute>
-     <widget class="QLineEdit" name="lineEditDeleteName">
+     <widget class="QLineEdit" name="lineEditAddName">
       <property name="geometry">
        <rect>
         <x>90</x>
@@ -365,32 +391,6 @@
       </property>
       <property name="text">
        <string>Mem #:</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxEditStandard">
-      <property name="geometry">
-       <rect>
-        <x>90</x>
-        <y>180</y>
-        <width>81</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Standard</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxAddExecutive">
-      <property name="geometry">
-       <rect>
-        <x>180</x>
-        <y>180</y>
-        <width>81</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Executive</string>
       </property>
      </widget>
      <widget class="QLabel" name="labelTXTStatus">
@@ -481,14 +481,60 @@
      <widget class="QPushButton" name="buttonDeleteCustomer">
       <property name="geometry">
        <rect>
-        <x>470</x>
-        <y>240</y>
-        <width>93</width>
+        <x>450</x>
+        <y>110</y>
+        <width>161</width>
         <height>28</height>
        </rect>
       </property>
       <property name="text">
-       <string>Delete</string>
+       <string>Delete By Name</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="addCustomerStatus">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>180</y>
+        <width>171</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>Executive</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Standard</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="saveDatabaseTxt">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>380</y>
+        <width>261</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Test Save to Database</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="buttonDeleteCustomer_2">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>220</y>
+        <width>201</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Delete By Member Number</string>
       </property>
      </widget>
     </widget>
