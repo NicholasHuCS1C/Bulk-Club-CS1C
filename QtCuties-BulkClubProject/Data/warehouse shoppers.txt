@@ -18,10 +18,6 @@ Sam Single
 31311
 Executive
 12/05/2020
-Mary IsHappy
-96309
-Executive
-12/05/2020
 Harry Havealotsofkids
 12121
 Executive
@@ -30,10 +26,6 @@ Sam Spendstomuch
 77777
 Executive
 11/15/2020
-Benjamin BusinessShopper
-16161
-Regular
-11/20/2020
 Sally SuperShopper
 61616
 Regular
@@ -58,7 +50,7 @@ Betty Buysalot
 67890
 Regular
 03/12/2020
-Sean Hatfield
-39293084
+Booma
+3242
 Executive
 12/31/2021

@@ -29,10 +29,17 @@ Menu::Menu(QWidget *parent) :
 
 
         mydb = QSqlDatabase::addDatabase("QSQLITE");
+//        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
+//                                                 "/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
+//                                                 QFileDialog::ShowDirsOnly
+//                                                 | QFileDialog::DontResolveSymlinks);
+
+
         dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
-                                                 "/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
+                                                 "C:\\Users\\Sean Hatfield\\Documents\\GitHub\\Bulk-Club-CS1C\\QtCuties-BulkClubProject",
                                                  QFileDialog::ShowDirsOnly
                                                  | QFileDialog::DontResolveSymlinks);
+
 
 
         mydb.setDatabaseName(dataPath + "/database.db");
@@ -50,36 +57,10 @@ Menu::Menu(QWidget *parent) :
         }
 
         loadFirstSalesReport();
+        loadDeleteComboBox();
+        loadDeleteNumberComboBox();
+        loadMembersTable();
 
-        QSqlQuery query;
-//        bool firstLine=true;
-//        query.prepare("SELECT * FROM customerTable");
-//        if(query.exec())
-//        {
-//            while (query.next())
-//            {
-//                const QSqlRecord recrd = query.record();
-//                if(firstLine)
-//                {
-//                    for(int i = 0;i < recrd.count();++i)
-//                    {
-//                        qDebug() << recrd.field(i); //Headers
-//                    }
-//                }
-//                firstLine=false;
-//                for(int i = 0;i < recrd.count();++i)
-//                {
-//                    outTest << recrd.value(i).toString();
-//                    outTest << endl;
-
-//                }
-//            }
-//        }
-
-        query.prepare("SELECT FROM customerTable WHERE Name *");
-        query.exec();
-        QString itemName;
-//        ui->comboBoxDeleteName->addItem()
 
 }
 
@@ -93,63 +74,7 @@ Menu::~Menu()
 
 void Menu::on_load_all_clicked()
 {
-
-
-    //Customer Name
-    //Member #
-    //Customer Type
-    //Membership Expiration Date
-
-    QString tempName;
-    QString tempMemberNumber;
-    QString tempCustomerType;
-    QString tempMembershipExp;
-
-    QFile file(dataPath + "/warehouse shoppers.txt");
-//      QFile file(dataPath + "/testingDatabase.txt");
-
-    if(!file.open(QFile::ReadOnly | QFile::Text))
-    {
-        QMessageBox::warning(this, "title", "file not open");
-    }
-    QTextStream in(&file);
-
-
-
-
-    QSqlQueryModel * modal = new QSqlQueryModel();
-
-    QSqlQuery* qry = new QSqlQuery(this->mydb);
-
-    qry->prepare("delete from customerTable");
-    qry->exec();
-
-    for (int i = 0; !in.atEnd(); i++)
-    {
-        tempName = in.readLine();
-        tempMemberNumber = in.readLine();
-        tempCustomerType = in.readLine();
-        tempMembershipExp = in.readLine();
-
-        qDebug() << "Name: " << tempName;
-        qDebug() << "Membership Number: " << tempMemberNumber;
-        qDebug() << "Customer Type: " << tempCustomerType;
-        qDebug() << "Membership Expiration Date: " << tempMembershipExp;
-
-        qry->prepare("insert into customerTable (Name,Number,Type,Expiration)" "VALUES ('"+tempName+"', '"+tempMemberNumber+"', '"+tempCustomerType+"', '"+tempMembershipExp+"')");
-        qry->exec();
-
-    }
-
-    qry->prepare("select * from customerTable");
-
-    qry->exec();
-    modal->setQuery(*qry);
-    ui->tableViewDisplayMember->setModel(modal);
-    ui->tableViewDisplayMember->resizeColumnsToContents();
-
-    qDebug() << (modal->rowCount());
-
+    loadMembersTable();
 }
 
 
@@ -209,16 +134,16 @@ void Menu::on_comboBoxDays_activated(const QString &arg1)
             tempPrice = in.readLine();
             tempQuantity = in.readLine();
 
-            qDebug() << "Date: " << tempDate;
-            qDebug() << "Customer Number: " << tempCustomerNum;
-            qDebug() << "Description: " << tempDescription;
-            qDebug() << "Price: " << tempPrice;
-            qDebug() << "Quantity: " << tempQuantity;
+//            qDebug() << "Date: " << tempDate;
+//            qDebug() << "Customer Number: " << tempCustomerNum;
+//            qDebug() << "Description: " << tempDescription;
+//            qDebug() << "Price: " << tempPrice;
+//            qDebug() << "Quantity: " << tempQuantity;
 
             qry->prepare("insert into '"+argVar+"' (Date,Number,Description,Price,Quantity)" "VALUES ('"+tempDate+"', '"+tempCustomerNum+"', '"+tempDescription+"', '"+tempPrice+"', '"+tempQuantity+"')");
             if(qry->exec())
             {
-                qDebug() << "Success!";
+//                qDebug() << "Success!";
 
             }
             else {
@@ -236,6 +161,83 @@ void Menu::on_comboBoxDays_activated(const QString &arg1)
 
         qDebug() << (modal->rowCount());
 
+}
+
+void Menu::loadDeleteComboBox()
+{
+    QSqlQuery query;
+    QString itemName;
+
+    ui->comboBoxDeleteName->clear();
+
+    bool firstLine=true;
+    query.prepare("SELECT Name from customerTable");
+
+    if(query.exec())
+    {
+        qDebug() << "Success for delete";
+        while (query.next())
+        {
+            const QSqlRecord recrd = query.record();
+            if(firstLine)
+            {
+                for(int i = 0;i < recrd.count();++i)
+                {
+                    qDebug() << recrd.field(i); //Headers
+                }
+            }
+            firstLine=false;
+            for(int i = 0;i < recrd.count();++i)
+            {
+                qDebug() << recrd.value(i).toString();
+                itemName = recrd.value(i).toString();
+                ui->comboBoxDeleteName->addItem(itemName);
+
+            }
+
+        }
+    }else {
+            qDebug() << query.lastError().text();
+        }
+}
+
+
+void Menu::loadDeleteNumberComboBox()
+{
+    QSqlQuery query;
+    QString itemName;
+
+    ui->comboBoxDeleteMemberNum->clear();
+
+    bool firstLine=true;
+    query.prepare("SELECT Number from customerTable");
+
+    if(query.exec())
+    {
+        qDebug() << "Success for delete by number";
+        while (query.next())
+        {
+            const QSqlRecord recrd = query.record();
+            if(firstLine)
+            {
+                for(int i = 0;i < recrd.count();++i)
+                {
+                    qDebug() << recrd.field(i); //Headers
+                }
+            }
+            firstLine=false;
+            for(int i = 0;i < recrd.count();++i)
+            {
+                qDebug() << recrd.value(i).toString();
+                itemName = recrd.value(i).toString();
+                ui->comboBoxDeleteMemberNum->addItem(itemName);
+
+            }
+
+        }
+    }else {
+            qDebug() << query.lastError().text();
+        }
 }
 
 void Menu::loadFirstSalesReport()
@@ -388,22 +390,83 @@ void Menu::on_buttonAddCustomer_clicked()
 
     ui->lineEditAddName->setText("");
     ui->lineEditAddMemberNum->setText("");
+    loadDatabaseFromFile();
+    loadDeleteComboBox();
+    loadDeleteNumberComboBox();
+
 
     QMessageBox::information(this, tr("Customer Info"), tr("Customer Added!"));
 }
 
-
-
-void Menu::on_saveDatabaseTxt_clicked()
+void Menu::loadDatabaseFromFile()
 {
+    QString tempName;
+    QString tempMemberNumber;
+    QString tempCustomerType;
+    QString tempMembershipExp;
+
+    QFile file(dataPath + "/warehouse shoppers.txt");
+
+    if(!file.open(QFile::ReadOnly | QFile::Text))
+    {
+        QMessageBox::warning(this, "title", "file not open");
+    }
+    QTextStream in(&file);
+
+
+
+    QSqlQuery* qry = new QSqlQuery(this->mydb);
+
+    qry->prepare("delete from customerTable");
+    qry->exec();
+
+    for (int i = 0; !in.atEnd(); i++)
+    {
+        tempName = in.readLine();
+        tempMemberNumber = in.readLine();
+        tempCustomerType = in.readLine();
+        tempMembershipExp = in.readLine();
+
+        qDebug() << "Name: " << tempName;
+        qDebug() << "Membership Number: " << tempMemberNumber;
+        qDebug() << "Customer Type: " << tempCustomerType;
+        qDebug() << "Membership Expiration Date: " << tempMembershipExp;
+
+        qry->prepare("insert into customerTable (Name,Number,Type,Expiration)" "VALUES ('"+tempName+"', '"+tempMemberNumber+"', '"+tempCustomerType+"', '"+tempMembershipExp+"')");
+        qry->exec();
+
+    }
+}
+void Menu::saveDatabaseTxt()
+{
+    QSqlQuery query;
+    int totalCount = 0;
+    int currentCount = 0;
+
+    query.prepare("SELECT * FROM customerTable");
+    if(query.exec())
+    {
+        while (query.next())
+        {
+            const QSqlRecord recrd = query.record();
+
+            for(int i = 0;i < recrd.count();++i)
+            {
+                totalCount++;
+            }
+        }
+
+        qDebug() << totalCount;
+    }
+
+
     QFile file(dataPath + "/warehouse shoppers.txt");
     if(!file.open(QFile::WriteOnly | QFile::Text | QFile::Truncate))
     {
         qDebug() << "File not open\n";
     }
 
-    QTextStream outTest(&file);
-    QSqlQuery query;
+    QTextStream outFile(&file);
     bool firstLine=true;
     query.prepare("SELECT * FROM customerTable");
     if(query.exec())
@@ -421,10 +484,144 @@ void Menu::on_saveDatabaseTxt_clicked()
             firstLine=false;
             for(int i = 0;i < recrd.count();++i)
             {
-                outTest << recrd.value(i).toString();
-                outTest << endl;
+                outFile << recrd.value(i).toString();
+                currentCount++;
+                if (currentCount < (totalCount))
+                {
+                    outFile << endl;
+                }
+
 
             }
         }
     }
+
+    file.close();
+}
+
+
+void Menu::on_buttonDeleteCustomer_clicked()
+{
+    QSqlQuery query;
+    QString deleteName;
+
+    deleteName = ui->comboBoxDeleteName->currentText();
+
+    query.prepare("SELECT Number from customerTable");
+    query.prepare("DELETE FROM customerTable WHERE Name='"+deleteName+"'");
+
+
+    if(query.exec())
+    {
+        saveDatabaseTxt();
+        loadDeleteComboBox();
+        loadDeleteNumberComboBox();
+        loadMembersTable();
+        QMessageBox::information(this, tr("Customer Info"), tr("Customer: '"+deleteName.toLocal8Bit()+"' was deleted!"));
+
+        if(ui->comboBoxDeleteName->currentIndex() != 0)
+        {
+            ui->comboBoxDeleteName->setCurrentIndex(0);
+        } else{
+            ui->comboBoxDeleteName->setCurrentIndex(1);
+            ui->comboBoxDeleteName->setCurrentIndex(0);
+        }
+
+    } else {
+        qDebug() << query.lastError().text();
+    }
+
+
+}
+
+
+
+void Menu::on_buttonDeleteCustomerNum_clicked()
+{
+    QSqlQuery query;
+    QString deleteNum;
+
+    deleteNum = ui->comboBoxDeleteMemberNum->currentText();
+
+    query.prepare("SELECT Number from customerTable");
+    query.prepare("DELETE FROM customerTable WHERE Number='"+deleteNum+"'");
+
+
+    if(query.exec())
+    {
+        saveDatabaseTxt();
+        loadDeleteComboBox();
+        loadDeleteNumberComboBox();
+        loadMembersTable();
+
+        QMessageBox::information(this, tr("Customer Info"), tr("Customer: '"+deleteNum.toLocal8Bit()+"' was deleted!"));
+
+        if(ui->comboBoxDeleteName->currentIndex() != 0)
+        {
+            ui->comboBoxDeleteName->setCurrentIndex(0);
+        } else{
+            ui->comboBoxDeleteName->setCurrentIndex(1);
+            ui->comboBoxDeleteName->setCurrentIndex(0);
+        }
+
+    } else {
+        qDebug() << query.lastError().text();
+    }
+}
+
+void Menu::loadMembersTable()
+{
+    //Customer Name
+    //Member #
+    //Customer Type
+    //Membership Expiration Date
+
+    QString tempName;
+    QString tempMemberNumber;
+    QString tempCustomerType;
+    QString tempMembershipExp;
+
+    QFile file(dataPath + "/warehouse shoppers.txt");
+
+    if(!file.open(QFile::ReadOnly | QFile::Text))
+    {
+        QMessageBox::warning(this, "title", "file not open");
+    }
+    QTextStream in(&file);
+
+
+
+
+    QSqlQueryModel * modal = new QSqlQueryModel();
+
+    QSqlQuery* qry = new QSqlQuery(this->mydb);
+
+    qry->prepare("delete from customerTable");
+    qry->exec();
+
+    for (int i = 0; !in.atEnd(); i++)
+    {
+        tempName = in.readLine();
+        tempMemberNumber = in.readLine();
+        tempCustomerType = in.readLine();
+        tempMembershipExp = in.readLine();
+
+//        qDebug() << "Name: " << tempName;
+//        qDebug() << "Membership Number: " << tempMemberNumber;
+//        qDebug() << "Customer Type: " << tempCustomerType;
+//        qDebug() << "Membership Expiration Date: " << tempMembershipExp;
+
+        qry->prepare("insert into customerTable (Name,Number,Type,Expiration)" "VALUES ('"+tempName+"', '"+tempMemberNumber+"', '"+tempCustomerType+"', '"+tempMembershipExp+"')");
+        qry->exec();
+
+    }
+
+    qry->prepare("select * from customerTable");
+
+    qry->exec();
+    modal->setQuery(*qry);
+    ui->tableViewDisplayMember->setModel(modal);
+    ui->tableViewDisplayMember->resizeColumnsToContents();
+
+    qDebug() << (modal->rowCount());
 }
