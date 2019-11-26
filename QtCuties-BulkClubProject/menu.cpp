@@ -29,16 +29,16 @@ Menu::Menu(QWidget *parent) :
 
 
         mydb = QSqlDatabase::addDatabase("QSQLITE");
-//        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
-//                                                 "/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
-//                                                 QFileDialog::ShowDirsOnly
-//                                                 | QFileDialog::DontResolveSymlinks);
-
-
         dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
-                                                 "C:\\Users\\Sean Hatfield\\Documents\\GitHub\\Bulk-Club-CS1C\\QtCuties-BulkClubProject",
+                                                 "/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
                                                  QFileDialog::ShowDirsOnly
                                                  | QFileDialog::DontResolveSymlinks);
+
+
+//        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
+//                                                 "C:\\Users\\Sean Hatfield\\Documents\\GitHub\\Bulk-Club-CS1C\\QtCuties-BulkClubProject",
+//                                                 QFileDialog::ShowDirsOnly
+//                                                 | QFileDialog::DontResolveSymlinks);
 
 
 
@@ -60,6 +60,7 @@ Menu::Menu(QWidget *parent) :
         loadDeleteComboBox();
         loadDeleteNumberComboBox();
         loadMembersTable();
+
 
 
 }
@@ -160,6 +161,7 @@ void Menu::on_comboBoxDays_activated(const QString &arg1)
         ui->salesReportTableView->resizeColumnsToContents();
 
         qDebug() << (modal->rowCount());
+        displayRevenue(argVar);
 
 }
 
@@ -321,6 +323,8 @@ void Menu::loadFirstSalesReport()
         qDebug() << totalRevenue;
 
         qDebug() << (modal->rowCount());
+
+        displayRevenue("Sunday");
 
 
         //END Load Sunday
@@ -624,4 +628,55 @@ void Menu::loadMembersTable()
     ui->tableViewDisplayMember->resizeColumnsToContents();
 
     qDebug() << (modal->rowCount());
+}
+void Menu::displayRevenue(QString day)
+{
+   double totalRevenue = 0;
+   int tempQuantity;
+   double tempPrice;
+
+   QSqlQuery query;
+   QSqlQuery query2;
+
+   query.prepare("SELECT Quantity FROM '"+day+"'");
+   query2.prepare("SELECT Price FROM '"+day+"'");
+
+
+   if(query.exec())
+   {
+       if(query2.exec())
+       {
+           while (query.next() && query2.next())
+           {
+
+               const QSqlRecord recrd = query.record();
+               const QSqlRecord recrdPrice = query2.record();
+
+               for(int i = 0;i < recrd.count();++i)
+               {
+                   tempQuantity = recrd.value(i).toInt();
+                   tempPrice = recrdPrice.value(i).toDouble();
+
+                   qDebug() << "Temp Quantity: " << tempQuantity;
+                   qDebug() << "Temp Price: " << tempPrice;
+
+
+
+                   totalRevenue += (tempQuantity*tempPrice);
+    //               itemName = recrd.value(i).toString();
+    //               ui->comboBoxDeleteName->addItem(itemName);
+
+
+                   qDebug() << totalRevenue;
+               }
+
+
+           }
+       }
+
+   }
+
+   ui->labelTotalRevenue->setText("$ " + QString::number(totalRevenue));
+
+
 }

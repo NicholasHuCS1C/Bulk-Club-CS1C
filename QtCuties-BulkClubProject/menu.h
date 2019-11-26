@@ -29,6 +29,7 @@ public:
     void saveDatabaseTxt();
     void loadDatabaseFromFile();
     void loadMembersTable();
+    void displayRevenue(QString day);
     //QSqlDatabase getDB();
     ~Menu();
 

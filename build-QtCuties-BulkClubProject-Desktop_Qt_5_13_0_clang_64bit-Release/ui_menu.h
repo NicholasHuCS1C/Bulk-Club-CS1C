@@ -64,7 +64,7 @@ public:
     QComboBox *comboBoxDeleteMemberNum;
     QPushButton *buttonDeleteCustomer;
     QComboBox *addCustomerStatus;
-    QPushButton *saveDatabaseTxt;
+    QPushButton *buttonDeleteCustomerNum;
     QWidget *tabDisplayInventory;
     QTableWidget *tableWidgetInventory;
     QLabel *labelTXTSearchNum_2;
@@ -224,15 +224,15 @@ public:
         comboBoxDeleteMemberNum->setGeometry(QRect(450, 180, 161, 22));
         buttonDeleteCustomer = new QPushButton(tabEditMembers);
         buttonDeleteCustomer->setObjectName(QString::fromUtf8("buttonDeleteCustomer"));
-        buttonDeleteCustomer->setGeometry(QRect(470, 240, 93, 28));
+        buttonDeleteCustomer->setGeometry(QRect(450, 110, 161, 28));
         addCustomerStatus = new QComboBox(tabEditMembers);
         addCustomerStatus->addItem(QString());
         addCustomerStatus->addItem(QString());
         addCustomerStatus->setObjectName(QString::fromUtf8("addCustomerStatus"));
         addCustomerStatus->setGeometry(QRect(90, 180, 171, 32));
-        saveDatabaseTxt = new QPushButton(tabEditMembers);
-        saveDatabaseTxt->setObjectName(QString::fromUtf8("saveDatabaseTxt"));
-        saveDatabaseTxt->setGeometry(QRect(190, 380, 261, 32));
+        buttonDeleteCustomerNum = new QPushButton(tabEditMembers);
+        buttonDeleteCustomerNum->setObjectName(QString::fromUtf8("buttonDeleteCustomerNum"));
+        buttonDeleteCustomerNum->setGeometry(QRect(430, 220, 201, 28));
         tabWidget->addTab(tabEditMembers, QString());
         tabDisplayInventory = new QWidget();
         tabDisplayInventory->setObjectName(QString::fromUtf8("tabDisplayInventory"));
@@ -341,7 +341,7 @@ public:
 
         retranslateUi(Menu);
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(Menu);
@@ -392,11 +392,11 @@ public:
         buttonAddCustomer->setText(QCoreApplication::translate("Menu", "Add", nullptr));
         labelTXTName_2->setText(QCoreApplication::translate("Menu", "Name:", nullptr));
         labelTXTMemberNum_2->setText(QCoreApplication::translate("Menu", "Mem #:", nullptr));
-        buttonDeleteCustomer->setText(QCoreApplication::translate("Menu", "Delete", nullptr));
+        buttonDeleteCustomer->setText(QCoreApplication::translate("Menu", "Delete By Name", nullptr));
         addCustomerStatus->setItemText(0, QCoreApplication::translate("Menu", "Executive", nullptr));
         addCustomerStatus->setItemText(1, QCoreApplication::translate("Menu", "Standard", nullptr));
 
-        saveDatabaseTxt->setText(QCoreApplication::translate("Menu", "Test Save to Database", nullptr));
+        buttonDeleteCustomerNum->setText(QCoreApplication::translate("Menu", "Delete By Member Number", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tabEditMembers), QCoreApplication::translate("Menu", "Edit Members", nullptr));
         labelTXTSearchNum_2->setText(QCoreApplication::translate("Menu", "Search:", nullptr));
         labelTXTAddItem_2->setText(QCoreApplication::translate("Menu", "Add item:", nullptr));
