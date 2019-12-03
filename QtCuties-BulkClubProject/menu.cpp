@@ -28,17 +28,17 @@ Menu::Menu(QWidget *parent) :
 
 
 
-        mydb = QSqlDatabase::addDatabase("QSQLITE");
-        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
-                                                 "/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
-                                                 QFileDialog::ShowDirsOnly
-                                                 | QFileDialog::DontResolveSymlinks);
-
-
+//        mydb = QSqlDatabase::addDatabase("QSQLITE");
 //        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
-//                                                 "C:\\Users\\Sean Hatfield\\Documents\\GitHub\\Bulk-Club-CS1C\\QtCuties-BulkClubProject",
+//                                                 "/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
 //                                                 QFileDialog::ShowDirsOnly
 //                                                 | QFileDialog::DontResolveSymlinks);
+
+        mydb = QSqlDatabase::addDatabase("QSQLITE");
+        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
+                                                 "C:\\Users\\Sean Hatfield\\Documents\\GitHub\\Bulk-Club-CS1C\\QtCuties-BulkClubProject",
+                                                 QFileDialog::ShowDirsOnly
+                                                 | QFileDialog::DontResolveSymlinks);
 
 
 
@@ -60,7 +60,7 @@ Menu::Menu(QWidget *parent) :
 
         loadAllComboBoxes();
         loadMembersTable();
-        createCustomerPurchasesDB();
+        //createCustomerPurchasesDB();
         createPurchasesTables();
 
 
@@ -350,8 +350,9 @@ void Menu::on_standardButton_clicked()
 {
     QSqlQueryModel * modal = new QSqlQueryModel();
     QSqlQuery* qry = new QSqlQuery(this->mydb);
+    QString daySelected = ui->comboBoxDays->currentText();
 
-    qry->prepare("select * from '"+daySelected+"' where customerTable.Number = '"+daySelected+"'.Number and Type = Regular");
+    qry->prepare("select * from '"+daySelected+"' where Type = Standard");
 
     if(qry->exec())
     {
@@ -370,6 +371,10 @@ void Menu::on_standardButton_clicked()
 void Menu::on_buttonAddCustomer_clicked()
 {
     QFile file(dataPath + "/warehouse shoppers.txt");
+
+    QSqlQuery query;
+    QString tempMemberNum = ui->lineEditAddMemberNum->text();
+
     if(!file.open(QFile::WriteOnly | QFile::Text | QFile::Append))
     {
         qDebug() << "File not open\n";
@@ -400,6 +405,14 @@ void Menu::on_buttonAddCustomer_clicked()
 //    loadDeleteComboBox();
 //    loadDeleteNumberComboBox();
     loadAllComboBoxes();
+
+    query.prepare("create table '"+tempMemberNum+"' (\"Description\" TEXT, \"Quantity\" NUMERIC, \"Price\" NUMERIC)");
+    if(query.exec())
+    {
+        qDebug() << "Created table for '"+tempMemberNum+"'!";
+    } else {
+        qDebug() << "Failed creating table!" << query.lastError().text();
+    }
 
 
     QMessageBox::information(this, tr("Customer Info"), tr("Customer Added!"));
@@ -509,10 +522,33 @@ void Menu::saveDatabaseTxt()
 
 void Menu::on_buttonDeleteCustomer_clicked()
 {
+
+    qDebug() << "clicked";
     QSqlQuery query;
     QString deleteName;
-
     deleteName = ui->comboBoxDeleteName->currentText();
+
+    QString deleteNum;
+
+    query.prepare("SELECT Number FROM customerTable WHERE '"+deleteNum+"'");
+    query.exec();
+    QSqlRecord recrd = query.record();
+
+    deleteNum = recrd.value(0).toString();
+    qDebug() << "deleted database for " << deleteNum;
+
+
+    query.prepare("delete from '"+deleteNum+"'");
+    if(query.exec())
+    {
+
+        qDebug() << "Table deleted for '"+deleteNum+"'!";
+    } else {
+        qDebug() << "Failed deleting table!" << query.lastError().text();
+    }
+
+
+
 
     query.prepare("SELECT Number from customerTable");
     query.prepare("DELETE FROM customerTable WHERE Name='"+deleteName+"'");
@@ -540,6 +576,9 @@ void Menu::on_buttonDeleteCustomer_clicked()
     }
 
 
+
+
+
 }
 
 void Menu::on_buttonDeleteCustomerNum_clicked()
@@ -547,7 +586,25 @@ void Menu::on_buttonDeleteCustomerNum_clicked()
     QSqlQuery query;
     QString deleteNum;
 
+
     deleteNum = ui->comboBoxDeleteMemberNum->currentText();
+
+//    query.prepare("SELECT Number FROM customerTable WHERE '"+deleteNum+"'");
+//    query.exec();
+//    QSqlRecord recrd = query.record();
+
+//    deleteNum = recrd.value(0).toString();
+//    qDebug() << "deleted database for " << deleteNum;
+
+
+    query.prepare("delete from '"+deleteNum+"'");
+    if(query.exec())
+    {
+
+        qDebug() << "Table deleted for '"+deleteNum+"'!";
+    } else {
+        qDebug() << "Failed deleting table!" << query.lastError().text();
+    }
 
     query.prepare("SELECT Number from customerTable");
     query.prepare("DELETE FROM customerTable WHERE Number='"+deleteNum+"'");
@@ -573,6 +630,8 @@ void Menu::on_buttonDeleteCustomerNum_clicked()
     } else {
         qDebug() << query.lastError().text();
     }
+
+
 }
 
 void Menu::loadMembersTable()
@@ -801,29 +860,81 @@ void Menu::createCustomerPurchasesDB()
 
 void Menu::createPurchasesTables()
 {
-    QSqlQuery getIdNum;
-    QSqlQuery createTable;
+
+    QSqlQuery query;
+    QSqlQuery query2;
+    QSqlQuery query3;
     QString idNum;
+    bool firstLine = true;
 
-    idNum = "8458934785";
 
-    getIdNum.prepare("SELECT Number from customerTable");
-    if(getIdNum.exec())
+    query.prepare("SELECT Number from customerTable");
+
+    if(query.exec())
     {
-        qDebug() << "Number was selected from customerTable!";
-        const QSqlRecord idNumRecrd = getIdNum.record();
-
-        while(getIdNum.next())
+        qDebug() << "Number was selected from customerTable";
+        while (query.next())
         {
-            for (int i = 0; i < idNumRecrd.count(); i++)
+            const QSqlRecord recrd = query.record();
+            if(firstLine)
             {
-                QString tempIdNum = idNumRecrd.value(i).toString();
-                qDebug() << "Temp ID Num: " << tempIdNum;
+                for(int i = 0;i < recrd.count();++i)
+                {
+                    qDebug() << recrd.field(i); //Headers
+                }
+            }
+            firstLine=false;
+            for(int i = 0;i < recrd.count();++i)
+            {
+                idNum = recrd.value(i).toString();
+
+                //Create tables for each member
+
+                query3.prepare("DELETE FROM '"+idNum+"'");
+                if(query3.exec())
+                {
+                    qDebug() << "Table for '"+idNum+"' has been deleted";
+                } else {
+                    qDebug() << "Failed drop table!" << query2.lastError().text();
+                }
+
+                query2.prepare("create table '"+idNum+"' (\"Description\" TEXT, \"Quantity\" NUMERIC, \"Price\" NUMERIC)");
+                if(query2.exec())
+                {
+                    qDebug() << "Created table for '"+idNum+"'!";
+                } else {
+                    qDebug() << "Failed creating table!" << query2.lastError().text();
+                }
+                //End create tables for members
+
             }
 
         }
+    }else {
+            qDebug() << query.lastError().text();
+        }
+//    QSqlQuery getIdNum;
+//    QSqlQuery createTable;
+//    QString idNum;
 
-    }
+
+//    getIdNum.prepare("SELECT Number FROM customerTable");
+//    if(getIdNum.exec())
+//    {
+//        qDebug() << "Number was selected from customerTable!";
+//        QSqlRecord idNumRecrd = getIdNum.record();
+
+//        while(getIdNum.next())
+//        {
+//            for (int i = 0; i < idNumRecrd.count(); i++)
+//            {
+//                QString tempIdNum = idNumRecrd.value(i).toString();
+//                qDebug() << "Temp ID Num: " << tempIdNum;
+//            }
+
+//        }
+
+//    }
 
 
 //    createTable.prepare("create table '"+idNum+"' (\"Description\" TEXT, \"Quantity\" NUMERIC, \"Price\" NUMERIC)");
@@ -849,7 +960,7 @@ void Menu::createPurchasesTables()
 //            qDebug() << numberToInsert;
 //            //Insert number into numbers table if it doesnt exist already
 //            //WORKING
-////                    query2.prepare("insert into allNumbers (Number) VALUES ('"+numberToInsert+"')");
+//                    query2.prepare("insert into allNumbers (Number) VALUES ('"+numberToInsert+"')");
 //            //GET THIS TO WORK
 //            query2.prepare("insert into allNumbers (Number) VALUES ('"+numberToInsert+"')");
 
@@ -873,3 +984,4 @@ void Menu::createPurchasesTables()
 
 
 }
+

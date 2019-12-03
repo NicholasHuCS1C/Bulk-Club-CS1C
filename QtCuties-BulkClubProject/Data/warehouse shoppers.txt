@@ -1,5 +1,5 @@
 Fred Frugal
-12897 
+12897
 Executive
 12/15/2020
 Larry Largefamily
@@ -43,7 +43,7 @@ Sue Shoparound
 Executive
 03/21/2020
 BulkClub Bob
-67899 
+67899
 Regular
 10/22/2020
 Carrie CaresAboutMoney
