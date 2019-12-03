@@ -341,7 +341,7 @@ public:
 
         retranslateUi(Menu);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(4);
 
 
         QMetaObject::connectSlotsByName(Menu);

@@ -57,9 +57,10 @@ Menu::Menu(QWidget *parent) :
         }
 
         loadFirstSalesReport();
-        loadDeleteComboBox();
-        loadDeleteNumberComboBox();
+
+        loadAllComboBoxes();
         loadMembersTable();
+        createCustomerPurchasesDB();
 
 
 
@@ -202,7 +203,6 @@ void Menu::loadDeleteComboBox()
             qDebug() << query.lastError().text();
         }
 }
-
 
 void Menu::loadDeleteNumberComboBox()
 {
@@ -394,9 +394,11 @@ void Menu::on_buttonAddCustomer_clicked()
 
     ui->lineEditAddName->setText("");
     ui->lineEditAddMemberNum->setText("");
+
     loadDatabaseFromFile();
-    loadDeleteComboBox();
-    loadDeleteNumberComboBox();
+//    loadDeleteComboBox();
+//    loadDeleteNumberComboBox();
+    loadAllComboBoxes();
 
 
     QMessageBox::information(this, tr("Customer Info"), tr("Customer Added!"));
@@ -441,6 +443,7 @@ void Menu::loadDatabaseFromFile()
 
     }
 }
+
 void Menu::saveDatabaseTxt()
 {
     QSqlQuery query;
@@ -503,7 +506,6 @@ void Menu::saveDatabaseTxt()
     file.close();
 }
 
-
 void Menu::on_buttonDeleteCustomer_clicked()
 {
     QSqlQuery query;
@@ -518,8 +520,9 @@ void Menu::on_buttonDeleteCustomer_clicked()
     if(query.exec())
     {
         saveDatabaseTxt();
-        loadDeleteComboBox();
-        loadDeleteNumberComboBox();
+//        loadDeleteComboBox();
+//        loadDeleteNumberComboBox();
+        loadAllComboBoxes();
         loadMembersTable();
         QMessageBox::information(this, tr("Customer Info"), tr("Customer: '"+deleteName.toLocal8Bit()+"' was deleted!"));
 
@@ -538,8 +541,6 @@ void Menu::on_buttonDeleteCustomer_clicked()
 
 }
 
-
-
 void Menu::on_buttonDeleteCustomerNum_clicked()
 {
     QSqlQuery query;
@@ -554,8 +555,8 @@ void Menu::on_buttonDeleteCustomerNum_clicked()
     if(query.exec())
     {
         saveDatabaseTxt();
-        loadDeleteComboBox();
-        loadDeleteNumberComboBox();
+
+        loadAllComboBoxes();
         loadMembersTable();
 
         QMessageBox::information(this, tr("Customer Info"), tr("Customer: '"+deleteNum.toLocal8Bit()+"' was deleted!"));
@@ -629,6 +630,7 @@ void Menu::loadMembersTable()
 
     qDebug() << (modal->rowCount());
 }
+
 void Menu::displayRevenue(QString day)
 {
    double totalRevenue = 0;
@@ -667,6 +669,7 @@ void Menu::displayRevenue(QString day)
     //               ui->comboBoxDeleteName->addItem(itemName);
 
 
+
                    qDebug() << totalRevenue;
                }
 
@@ -677,6 +680,120 @@ void Menu::displayRevenue(QString day)
    }
 
    ui->labelTotalRevenue->setText("$ " + QString::number(totalRevenue));
+
+
+}
+
+void Menu::loadAddPurchaseCustomerCombo()
+{
+    QSqlQuery query;
+    QString itemName;
+
+    ui->comboBoxNameSearch->clear();
+
+    bool firstLine=true;
+    query.prepare("SELECT Name from customerTable");
+
+    if(query.exec())
+    {
+        qDebug() << "Success for delete";
+        while (query.next())
+        {
+            const QSqlRecord recrd = query.record();
+            if(firstLine)
+            {
+                for(int i = 0;i < recrd.count();++i)
+                {
+                    qDebug() << recrd.field(i); //Headers
+                }
+            }
+            firstLine=false;
+            for(int i = 0;i < recrd.count();++i)
+            {
+                qDebug() << recrd.value(i).toString();
+                itemName = recrd.value(i).toString();
+                ui->comboBoxNameSearch->addItem(itemName);
+
+            }
+
+        }
+    }else {
+            qDebug() << query.lastError().text();
+        }
+}
+
+void Menu::loadAllComboBoxes()
+{
+
+    loadDeleteComboBox();
+    loadDeleteNumberComboBox();
+    loadAddPurchaseCustomerCombo();
+}
+
+void Menu::createCustomerPurchasesDB()
+{
+    QSqlQuery query;
+    QSqlQuery query2;
+
+    QString daysAr[7] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
+    query.prepare("DELETE from allNumbers");
+    query.exec();
+
+
+    for(int i = 0; i < 7; i++)
+    {
+        //qDebug() << daysAr[i];
+
+        query.prepare("SELECT Number from '"+daysAr[i]+"'");
+
+        if(query.exec())
+        {
+            //qDebug() << "Success for customer db";
+            while (query.next())
+            {
+                const QSqlRecord recrd = query.record();
+
+                for(int i = 0;i < recrd.count();++i)
+                {
+                    QString numberToInsert = recrd.value(i).toString();
+
+                    qDebug() << numberToInsert;
+                    //Insert number into numbers table if it doesnt exist already
+                    //WORKING
+//                    query2.prepare("insert into allNumbers (Number) VALUES ('"+numberToInsert+"')");
+                    //GET THIS TO WORK
+                    query2.prepare("insert into allNumbers (Number) VALUES ('"+numberToInsert+"')");
+
+
+                    //query2.prepare("INSERT INTO memos(id,text) SELECT 5, 'text to insert' WHERE NOT EXISTS(SELECT 1 FROM memos WHERE id = 5 AND text = 'text to insert');");
+                   // qry->prepare("insert into '"+argVar+"' (Date,Number,Description,Price,Quantity)" "VALUES ('"+tempDate+"', '"+tempCustomerNum+"', '"+tempDescription+"', '"+tempPrice+"', '"+tempQuantity+"')");
+
+
+                    if(query2.exec())
+                    {
+                        qDebug() << "Number added successfully to numbers table";
+                    } else {
+                        qDebug() << query2.lastError().text();
+                    }
+
+                }
+
+            }
+        } else {
+
+            qDebug() << query.lastError().text();
+
+        }
+    }
+
+    query.prepare("SELECT * from Sunday WHERE Number=67890");
+
+
+
+
+
+
 
 
 }

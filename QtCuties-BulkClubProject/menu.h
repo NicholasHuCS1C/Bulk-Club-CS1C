@@ -30,6 +30,10 @@ public:
     void loadDatabaseFromFile();
     void loadMembersTable();
     void displayRevenue(QString day);
+    void loadAddPurchaseCustomerCombo();
+    void loadItemsPurchaseCombo();
+    void loadAllComboBoxes();
+    void createCustomerPurchasesDB();
     //QSqlDatabase getDB();
     ~Menu();
 
