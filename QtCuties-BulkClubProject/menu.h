@@ -34,6 +34,7 @@ public:
     void loadItemsPurchaseCombo();
     void loadAllComboBoxes();
     void createCustomerPurchasesDB();
+    void createPurchasesTables();
     //QSqlDatabase getDB();
     ~Menu();
 

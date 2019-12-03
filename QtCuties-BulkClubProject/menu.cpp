@@ -61,6 +61,7 @@ Menu::Menu(QWidget *parent) :
         loadAllComboBoxes();
         loadMembersTable();
         createCustomerPurchasesDB();
+        createPurchasesTables();
 
 
 
@@ -793,6 +794,81 @@ void Menu::createCustomerPurchasesDB()
 
 
 
+
+
+
+}
+
+void Menu::createPurchasesTables()
+{
+    QSqlQuery getIdNum;
+    QSqlQuery createTable;
+    QString idNum;
+
+    idNum = "8458934785";
+
+    getIdNum.prepare("SELECT Number from customerTable");
+    if(getIdNum.exec())
+    {
+        qDebug() << "Number was selected from customerTable!";
+        const QSqlRecord idNumRecrd = getIdNum.record();
+
+        while(getIdNum.next())
+        {
+            for (int i = 0; i < idNumRecrd.count(); i++)
+            {
+                QString tempIdNum = idNumRecrd.value(i).toString();
+                qDebug() << "Temp ID Num: " << tempIdNum;
+            }
+
+        }
+
+    }
+
+
+//    createTable.prepare("create table '"+idNum+"' (\"Description\" TEXT, \"Quantity\" NUMERIC, \"Price\" NUMERIC)");
+//    if(createTable.exec())
+//    {
+//        qDebug() << "Created table for '"+idNum+"'!";
+//    }
+
+
+
+
+
+
+
+//    while (query.next())
+//    {
+//        const QSqlRecord recrd = query.record();
+
+//        for(int i = 0;i < recrd.count();++i)
+//        {
+//            QString numberToInsert = recrd.value(i).toString();
+
+//            qDebug() << numberToInsert;
+//            //Insert number into numbers table if it doesnt exist already
+//            //WORKING
+////                    query2.prepare("insert into allNumbers (Number) VALUES ('"+numberToInsert+"')");
+//            //GET THIS TO WORK
+//            query2.prepare("insert into allNumbers (Number) VALUES ('"+numberToInsert+"')");
+
+
+//            if(query2.exec())
+//            {
+//                qDebug() << "Number added successfully to numbers table";
+//            } else {
+//                qDebug() << query2.lastError().text();
+//            }
+
+//        }
+
+//    }
+//} else {
+
+//    qDebug() << query.lastError().text();
+
+//    }
 
 
 
