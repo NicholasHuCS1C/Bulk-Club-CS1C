@@ -61,9 +61,12 @@ Menu::Menu(QWidget *parent) :
         loadFirstSalesReport();
 
         loadAllComboBoxes();
+
         loadMembersTable();
         createPurchasesTables();
         createCustomerPurchasesDB();
+
+        loadNumberAddCustomer();
 
 
 
@@ -713,7 +716,6 @@ void Menu::loadAddPurchaseCustomerCombo()
 
     if(query.exec())
     {
-        qDebug() << "Success for delete";
         while (query.next())
         {
             const QSqlRecord recrd = query.record();
@@ -754,22 +756,19 @@ void Menu::createCustomerPurchasesDB()
     QSqlQuery query;
     QSqlQuery query2;
     QSqlQuery addPurchases;
+    QSqlQuery addPurchases2;
     QSqlRecord recrd;
 
-    QString tempNumber;
-    QString tempDescription;
-    double tempPrice;
-    int tempQuqntity;
+
+
 
     QString daysAr[7] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
-    query.prepare("DELETE from allNumbers");
-    query.exec();
+
 
 
     for(int i = 0; i < 7; i++)
     {
-        //qDebug() << daysAr[i];
 
         addPurchases.prepare("SELECT Number, Description, Price, Quantity from '"+daysAr[i]+"'");
 
@@ -786,13 +785,35 @@ void Menu::createCustomerPurchasesDB()
                 {
                     QString tempNumber;
                     QString tempDescription;
-                    double tempPrice;
-                    int tempQuqntity;
+                    QString tempPrice;
+                    QString tempQuantity;
 
-                    qDebug() << "Num: " << recrd.value(n).toString();
-                    qDebug() << "Descr: " << recrd.value(n + 1).toString();
-                    qDebug() << "Price: " << recrd.value(n + 2).toString();
-                    qDebug() << "Quant: " << recrd.value(n + 3).toString();
+                    tempNumber = recrd.value(n).toString();
+                    tempDescription = recrd.value(n + 1).toString();
+                    tempPrice = recrd.value(n + 2).toString();
+                    tempQuantity = recrd.value(n + 3).toString();
+
+                    qDebug() << "Num: " << tempNumber;
+                    qDebug() << "Descr: " << tempDescription;
+                    qDebug() << "Price: " << tempPrice;
+                    qDebug() << "Quant: " << tempQuantity;
+
+                    query.prepare("delete from '"+tempNumber+"'");
+                    if(query.exec())
+                    {
+                        qDebug() << "Table '"+tempNumber+"' was emptied!";
+                    } else {
+                        qDebug() << query.lastError().text();
+                    }
+
+                    addPurchases2.prepare("insert into '"+tempNumber+"' (Description,Quantity,Price)" "VALUES ('"+tempDescription+"', '"+tempPrice+"', '"+tempQuantity+"')");
+
+                    if(addPurchases2.exec())
+                    {
+                        qDebug() << "Purchase added to customer table!";
+                    } else {
+                        qDebug() << addPurchases2.lastError().text();
+                    }
 
 
 
@@ -803,63 +824,12 @@ void Menu::createCustomerPurchasesDB()
 
         } else {
 
-            qDebug() << query.lastError().text();
+            qDebug() << addPurchases.lastError().text();
 
         }
 
 
     }
-
-
-
-
-//    addPurchases.prepare("SELECT Number, Description, Price, Quantity from Sunday");
-//    addPurchases.prepare("SELECT Number from Sunday");
-
-//    if(addPurchases.exec())
-//    {
-
-//        while(addPurchases.next())
-//        {
-//            recrd = addPurchases.record();
-
-//            for(int n = 0; n < recrd.count(); ++n)
-//            {
-//                qDebug() << "Num: " << recrd.value(n).toString();
-
-
-//                query.prepare("SELECT Description from Sunday");
-
-
-//            }
-//        }
-
-
-//    }
-
-//    addPurchases.prepare("SELECT Description from Sunday");
-
-//    if(addPurchases.exec())
-//    {
-//        while(addPurchases.next())
-//        {
-//            recrd = addPurchases.record();
-//        }
-
-//        for(int n = 0; n < recrd.count(); ++n)
-//        {
-//            QString tempNumber;
-//            QString tempDescription;
-//            double tempPrice;
-//            int tempQuqntity;
-
-//            qDebug() << "Num: " << recrd.value(n).toString();
-
-//        }
-//    }
-
-
-
 
 
 }
@@ -975,3 +945,31 @@ void Menu::on_buttonClearPurchases_clicked()
 {
     clearAllPurchasesTables();
 }
+
+void Menu::on_comboBoxNameSearch_activated(const QString &arg1)
+{
+    qDebug() << arg1;
+    loadNumberAddCustomer();
+}
+
+void Menu::loadNumberAddCustomer()
+{
+   QString name = ui->comboBoxNameSearch->currentText();
+   QSqlQuery query;
+
+
+   query.prepare("select Number from customerTable where Name=\"" + name + "\"");
+   if(query.exec())
+   {
+       while (query.next())
+       {
+           qDebug() << query.value(0).toString();
+           ui->labelMemberNum->setText("#" + query.value(0).toString());
+       }
+
+   } else {
+       qDebug() << query.lastError().text();
+   }
+
+}
+
