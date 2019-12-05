@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tabSalesReport">
      <attribute name="title">
@@ -327,6 +327,19 @@
         <width>481</width>
         <height>441</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="buttonClearPurchases">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>390</y>
+        <width>211</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Clear All Purchase Tables</string>
       </property>
      </widget>
     </widget>

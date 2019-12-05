@@ -49,6 +49,7 @@ public:
     QLabel *label;
     QPushButton *load_all;
     QTableView *tableViewDisplayMember;
+    QPushButton *buttonClearPurchases;
     QWidget *tabEditMembers;
     QLineEdit *lineEditAddName;
     QLabel *labelTXTName;
@@ -183,6 +184,9 @@ public:
         tableViewDisplayMember = new QTableView(tabDisplayMembers);
         tableViewDisplayMember->setObjectName(QString::fromUtf8("tableViewDisplayMember"));
         tableViewDisplayMember->setGeometry(QRect(20, 30, 481, 441));
+        buttonClearPurchases = new QPushButton(tabDisplayMembers);
+        buttonClearPurchases->setObjectName(QString::fromUtf8("buttonClearPurchases"));
+        buttonClearPurchases->setGeometry(QRect(540, 390, 211, 24));
         tabWidget->addTab(tabDisplayMembers, QString());
         tabEditMembers = new QWidget();
         tabEditMembers->setObjectName(QString::fromUtf8("tabEditMembers"));
@@ -341,7 +345,7 @@ public:
 
         retranslateUi(Menu);
 
-        tabWidget->setCurrentIndex(4);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(Menu);
@@ -383,6 +387,7 @@ public:
 
         label->setText(QCoreApplication::translate("Menu", "Search month:", nullptr));
         load_all->setText(QCoreApplication::translate("Menu", "Load All", nullptr));
+        buttonClearPurchases->setText(QCoreApplication::translate("Menu", "Clear All Purchase Tables", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tabDisplayMembers), QCoreApplication::translate("Menu", "Members", nullptr));
         labelTXTName->setText(QCoreApplication::translate("Menu", "Name:", nullptr));
         labelTXTAddCustomer->setText(QCoreApplication::translate("Menu", "Add Customer", nullptr));
