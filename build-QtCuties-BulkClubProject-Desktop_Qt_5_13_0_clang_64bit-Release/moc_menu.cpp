@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Menu_t {
-    QByteArrayData data[12];
-    char stringdata0[247];
+    QByteArrayData data[13];
+    char stringdata0[279];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -43,7 +43,8 @@ QT_MOC_LITERAL(7, 93, 25), // "on_standardButton_clicked"
 QT_MOC_LITERAL(8, 119, 28), // "on_buttonAddCustomer_clicked"
 QT_MOC_LITERAL(9, 148, 31), // "on_buttonDeleteCustomer_clicked"
 QT_MOC_LITERAL(10, 180, 34), // "on_buttonDeleteCustomerNum_cl..."
-QT_MOC_LITERAL(11, 215, 31) // "on_buttonClearPurchases_clicked"
+QT_MOC_LITERAL(11, 215, 31), // "on_buttonClearPurchases_clicked"
+QT_MOC_LITERAL(12, 247, 31) // "on_comboBoxNameSearch_activated"
 
     },
     "Menu\0on_load_all_clicked\0\0"
@@ -53,7 +54,8 @@ QT_MOC_LITERAL(11, 215, 31) // "on_buttonClearPurchases_clicked"
     "on_buttonAddCustomer_clicked\0"
     "on_buttonDeleteCustomer_clicked\0"
     "on_buttonDeleteCustomerNum_clicked\0"
-    "on_buttonClearPurchases_clicked"
+    "on_buttonClearPurchases_clicked\0"
+    "on_comboBoxNameSearch_activated"
 };
 #undef QT_MOC_LITERAL
 
@@ -63,7 +65,7 @@ static const uint qt_meta_data_Menu[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -71,14 +73,15 @@ static const uint qt_meta_data_Menu[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   54,    2, 0x08 /* Private */,
-       3,    1,   55,    2, 0x08 /* Private */,
-       5,    1,   58,    2, 0x08 /* Private */,
-       7,    0,   61,    2, 0x08 /* Private */,
-       8,    0,   62,    2, 0x08 /* Private */,
-       9,    0,   63,    2, 0x08 /* Private */,
-      10,    0,   64,    2, 0x08 /* Private */,
-      11,    0,   65,    2, 0x08 /* Private */,
+       1,    0,   59,    2, 0x08 /* Private */,
+       3,    1,   60,    2, 0x08 /* Private */,
+       5,    1,   63,    2, 0x08 /* Private */,
+       7,    0,   66,    2, 0x08 /* Private */,
+       8,    0,   67,    2, 0x08 /* Private */,
+       9,    0,   68,    2, 0x08 /* Private */,
+      10,    0,   69,    2, 0x08 /* Private */,
+      11,    0,   70,    2, 0x08 /* Private */,
+      12,    1,   71,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -89,6 +92,7 @@ static const uint qt_meta_data_Menu[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    4,
 
        0        // eod
 };
@@ -107,6 +111,7 @@ void Menu::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         case 5: _t->on_buttonDeleteCustomer_clicked(); break;
         case 6: _t->on_buttonDeleteCustomerNum_clicked(); break;
         case 7: _t->on_buttonClearPurchases_clicked(); break;
+        case 8: _t->on_comboBoxNameSearch_activated((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -141,13 +146,13 @@ int Menu::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 8)
+        if (_id < 9)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 8;
+        _id -= 9;
     }
     return _id;
 }
