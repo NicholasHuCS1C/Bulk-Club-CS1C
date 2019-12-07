@@ -37,6 +37,7 @@ public:
     void createPurchasesTables();
     void clearAllPurchasesTables();
     void loadNumberAddCustomer();
+    void createInventoryTable();
     //QSqlDatabase getDB();
     ~Menu();
 

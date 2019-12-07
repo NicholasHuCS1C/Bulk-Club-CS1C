@@ -29,16 +29,16 @@ Menu::Menu(QWidget *parent) :
 
 
         mydb = QSqlDatabase::addDatabase("QSQLITE");
-        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
-                                                 "/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
-                                                 QFileDialog::ShowDirsOnly
-                                                 | QFileDialog::DontResolveSymlinks);
-
-
 //        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
-//                                                 "C:\\Users\\Sean Hatfield\\Documents\\GitHub\\Bulk-Club-CS1C\\QtCuties-BulkClubProject",
+//                                                 "/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
 //                                                 QFileDialog::ShowDirsOnly
 //                                                 | QFileDialog::DontResolveSymlinks);
+
+
+        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
+                                                 "C:\\Users\\Sean Hatfield\\Documents\\GitHub\\Bulk-Club-CS1C\\QtCuties-BulkClubProject",
+                                                 QFileDialog::ShowDirsOnly
+                                                 | QFileDialog::DontResolveSymlinks);
 
 
 
@@ -440,6 +440,7 @@ void Menu::on_buttonAddCustomer_clicked()
 //    loadDeleteComboBox();
 //    loadDeleteNumberComboBox();
     loadAllComboBoxes();
+    loadAddPurchaseCustomerCombo();
 
 
     QMessageBox::information(this, tr("Customer Info"), tr("Customer Added!"));
@@ -1040,3 +1041,37 @@ void Menu::loadNumberAddCustomer()
 
 }
 
+
+//WORK ON THIS FUNCTION
+void Menu::createInventoryTable()
+{
+    QSqlQuery query;
+    QSqlQuery query2;
+
+    query.prepare("create table if not exists inventoryTable (\"Description\" TEXT, \"Price\" NUMERIC)");
+
+    if(query.exec())
+    {
+        qDebug() << "Inventory table created!";
+    } else {
+        qDebug() << query.lastError().text();
+    }
+
+
+    query2.prepare("select \"Description\", \"Price\" from \"12345\"");
+
+    if(query2.exec())
+    {
+        qDebug() << "Inventory table created!";
+
+        QSqlRecord recrd = query.record();
+        while(query.next())
+        {
+
+        }
+
+
+
+    }
+
+}
