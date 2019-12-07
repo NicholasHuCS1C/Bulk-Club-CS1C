@@ -67,6 +67,7 @@ Menu::Menu(QWidget *parent) :
         createCustomerPurchasesDB();
 
         loadNumberAddCustomer();
+        createInventoryTable();
 
 
 
@@ -1058,20 +1059,78 @@ void Menu::createInventoryTable()
     }
 
 
-    query2.prepare("select \"Description\", \"Price\" from \"12345\"");
 
-    if(query2.exec())
+    QString tempNumber;
+    QString tempDescription;
+    QString tempPrice;
+
+
+    query.prepare("SELECT Number from customerTable");
+
+    if(query.exec())
     {
-        qDebug() << "Inventory table created!";
 
-        QSqlRecord recrd = query.record();
-        while(query.next())
+        while (query.next())
         {
+            const QSqlRecord recrd = query.record();
 
+            for(int i = 0;i < recrd.count();++i)
+            {
+                tempNumber = recrd.value(i).toString();
+
+
+
+
+
+                query2.prepare("select Description, Price from \"" + tempNumber + "\"");
+
+                if(query2.exec())
+                {
+                    qDebug() << "Reading in Purchases from" << tempNumber;
+
+                    while(query2.next())
+                    {
+                        QSqlRecord recrd = query2.record();
+
+                        for(int i = 0;i < recrd.count();i += 2)
+                        {
+                            tempDescription = recrd.value(i).toString();
+                            tempPrice = recrd.value(i + 1).toString();
+
+                            qDebug() << "Description: " << tempDescription;
+                            qDebug() << "Price: " << tempPrice;
+
+                            //INSERT ITEM INTO TABLE IF NOT EXISTS
+                            QSqlQuery query3;
+                            query3.prepare("");
+
+
+                        }
+                    }
+
+
+
+                }
+
+
+
+
+            }
+
+        }
+    }else {
+            qDebug() << query.lastError().text();
         }
 
 
 
-    }
+
+
+
+
+
+
+
+
 
 }
