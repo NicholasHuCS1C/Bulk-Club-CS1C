@@ -13,9 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    QPixmap pix("/Users/allisonchu/Desktop/BulkClub/logo.png");
-    //int w = ui->logo->width();
-    //int h = ui->logo->height();
+    QPixmap pix(":/resources/img/logo.png");
     ui->logo->setPixmap(pix.scaled(120,120,Qt::KeepAspectRatio));
 //    if(mydb.open())
 //    {

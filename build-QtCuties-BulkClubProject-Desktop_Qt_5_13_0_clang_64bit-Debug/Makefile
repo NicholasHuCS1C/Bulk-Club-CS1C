@@ -54,11 +54,13 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../QtCuties-BulkClubProject/main.cpp \
 		../QtCuties-BulkClubProject/mainwindow.cpp \
-		../QtCuties-BulkClubProject/menu.cpp moc_mainwindow.cpp \
+		../QtCuties-BulkClubProject/menu.cpp qrc_resources.cpp \
+		moc_mainwindow.cpp \
 		moc_menu.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		menu.o \
+		qrc_resources.o \
 		moc_mainwindow.o \
 		moc_menu.o
 DIST          = ../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/spec_pre.prf \
@@ -476,6 +478,7 @@ Makefile: ../QtCuties-BulkClubProject/QtCuties-BulkClubProject.pro ../../Qt5.13.
 		../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/yacc.prf \
 		../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/lex.prf \
 		../QtCuties-BulkClubProject/QtCuties-BulkClubProject.pro \
+		../QtCuties-BulkClubProject/resources.qrc \
 		../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/QtWidgets.prl \
 		../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/QtGui.prl \
 		../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/QtSql.prl \
@@ -676,6 +679,7 @@ Makefile: ../QtCuties-BulkClubProject/QtCuties-BulkClubProject.pro ../../Qt5.13.
 ../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/yacc.prf:
 ../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/lex.prf:
 ../QtCuties-BulkClubProject/QtCuties-BulkClubProject.pro:
+../QtCuties-BulkClubProject/resources.qrc:
 ../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/QtWidgets.prl:
 ../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/QtGui.prl:
 ../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/QtSql.prl:
@@ -709,6 +713,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents ../QtCuties-BulkClubProject/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../QtCuties-BulkClubProject/mainwindow.h ../QtCuties-BulkClubProject/menu.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../QtCuties-BulkClubProject/main.cpp ../QtCuties-BulkClubProject/mainwindow.cpp ../QtCuties-BulkClubProject/menu.cpp $(DISTDIR)/
@@ -739,8 +744,14 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_resources.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_resources.cpp
+qrc_resources.cpp: ../QtCuties-BulkClubProject/resources.qrc \
+		../../Qt5.13.0/5.13.0/clang_64/bin/rcc \
+		../QtCuties-BulkClubProject/img/logo.png
+	/Users/allisonchu/Qt5.13.0/5.13.0/clang_64/bin/rcc -name resources ../QtCuties-BulkClubProject/resources.qrc -o qrc_resources.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
@@ -836,7 +847,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -950,6 +961,9 @@ menu.o: ../QtCuties-BulkClubProject/menu.cpp ../QtCuties-BulkClubProject/menu.h 
 		../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o menu.o ../QtCuties-BulkClubProject/menu.cpp
+
+qrc_resources.o: qrc_resources.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
