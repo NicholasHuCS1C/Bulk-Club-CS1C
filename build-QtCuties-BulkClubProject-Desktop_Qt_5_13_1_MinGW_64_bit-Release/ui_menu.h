@@ -95,6 +95,8 @@ public:
     QLabel *labelPricePerItem;
     QLabel *labelTotalPrice;
     QPushButton *buttonAddPurchase;
+    QPushButton *buttonCalcTotalPrice;
+    QTableView *tableViewDisplayPurchases;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -293,7 +295,7 @@ public:
         comboBoxNameSearch->setGeometry(QRect(110, 80, 151, 22));
         labelTXTItemSearch = new QLabel(tabAddPurchase);
         labelTXTItemSearch->setObjectName(QString::fromUtf8("labelTXTItemSearch"));
-        labelTXTItemSearch->setGeometry(QRect(370, 80, 51, 16));
+        labelTXTItemSearch->setGeometry(QRect(500, 80, 51, 16));
         labelTXTMemberNumInput = new QLabel(tabAddPurchase);
         labelTXTMemberNumInput->setObjectName(QString::fromUtf8("labelTXTMemberNumInput"));
         labelTXTMemberNumInput->setGeometry(QRect(30, 130, 71, 16));
@@ -305,34 +307,40 @@ public:
         labelMemberNum->setFrameShape(QFrame::StyledPanel);
         comboBoxItemSearch = new QComboBox(tabAddPurchase);
         comboBoxItemSearch->setObjectName(QString::fromUtf8("comboBoxItemSearch"));
-        comboBoxItemSearch->setGeometry(QRect(420, 80, 191, 22));
+        comboBoxItemSearch->setGeometry(QRect(550, 80, 191, 22));
         lineEditQuantityInput = new QLineEdit(tabAddPurchase);
         lineEditQuantityInput->setObjectName(QString::fromUtf8("lineEditQuantityInput"));
-        lineEditQuantityInput->setGeometry(QRect(420, 130, 61, 22));
+        lineEditQuantityInput->setGeometry(QRect(550, 130, 61, 22));
         labelQuantityInput = new QLabel(tabAddPurchase);
         labelQuantityInput->setObjectName(QString::fromUtf8("labelQuantityInput"));
-        labelQuantityInput->setGeometry(QRect(350, 130, 51, 16));
+        labelQuantityInput->setGeometry(QRect(480, 130, 51, 16));
         labelTXTPricePerItem = new QLabel(tabAddPurchase);
         labelTXTPricePerItem->setObjectName(QString::fromUtf8("labelTXTPricePerItem"));
-        labelTXTPricePerItem->setGeometry(QRect(320, 180, 91, 16));
+        labelTXTPricePerItem->setGeometry(QRect(470, 180, 91, 16));
         labelTXTTotalPrice = new QLabel(tabAddPurchase);
         labelTXTTotalPrice->setObjectName(QString::fromUtf8("labelTXTTotalPrice"));
-        labelTXTTotalPrice->setGeometry(QRect(340, 220, 71, 16));
+        labelTXTTotalPrice->setGeometry(QRect(470, 220, 71, 16));
         labelPricePerItem = new QLabel(tabAddPurchase);
         labelPricePerItem->setObjectName(QString::fromUtf8("labelPricePerItem"));
-        labelPricePerItem->setGeometry(QRect(420, 180, 131, 21));
+        labelPricePerItem->setGeometry(QRect(550, 180, 131, 21));
         labelPricePerItem->setFont(font);
         labelPricePerItem->setAutoFillBackground(false);
         labelPricePerItem->setFrameShape(QFrame::StyledPanel);
         labelTotalPrice = new QLabel(tabAddPurchase);
         labelTotalPrice->setObjectName(QString::fromUtf8("labelTotalPrice"));
-        labelTotalPrice->setGeometry(QRect(420, 220, 131, 21));
+        labelTotalPrice->setGeometry(QRect(550, 220, 131, 21));
         labelTotalPrice->setFont(font);
         labelTotalPrice->setAutoFillBackground(false);
         labelTotalPrice->setFrameShape(QFrame::StyledPanel);
         buttonAddPurchase = new QPushButton(tabAddPurchase);
         buttonAddPurchase->setObjectName(QString::fromUtf8("buttonAddPurchase"));
-        buttonAddPurchase->setGeometry(QRect(420, 290, 93, 28));
+        buttonAddPurchase->setGeometry(QRect(480, 280, 93, 28));
+        buttonCalcTotalPrice = new QPushButton(tabAddPurchase);
+        buttonCalcTotalPrice->setObjectName(QString::fromUtf8("buttonCalcTotalPrice"));
+        buttonCalcTotalPrice->setGeometry(QRect(610, 280, 111, 31));
+        tableViewDisplayPurchases = new QTableView(tabAddPurchase);
+        tableViewDisplayPurchases->setObjectName(QString::fromUtf8("tableViewDisplayPurchases"));
+        tableViewDisplayPurchases->setGeometry(QRect(20, 190, 421, 301));
         tabWidget->addTab(tabAddPurchase, QString());
         Menu->setCentralWidget(centralwidget);
         menubar = new QMenuBar(Menu);
@@ -423,6 +431,7 @@ public:
         labelPricePerItem->setText(QString());
         labelTotalPrice->setText(QString());
         buttonAddPurchase->setText(QCoreApplication::translate("Menu", "Add Purchase", nullptr));
+        buttonCalcTotalPrice->setText(QCoreApplication::translate("Menu", "Calculate Total Price", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tabAddPurchase), QCoreApplication::translate("Menu", "Purchases", nullptr));
     } // retranslateUi
 
