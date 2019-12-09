@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    QPixmap pix(":/img/resources/logo.png");
+    ui->logo->setPixmap(pix.scaled(120,120,Qt::KeepAspectRatio));
 //    if(mydb.open())
 //    {
 //        mydb.close();

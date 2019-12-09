@@ -11,6 +11,8 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
@@ -18,6 +20,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -26,12 +29,18 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    QLineEdit *lineEditPassword;
-    QLabel *labelUsername;
-    QLabel *labelPassword;
-    QLineEdit *lineEditUsername;
-    QPushButton *pushButton;
     QLabel *Status;
+    QLabel *logo;
+    QGroupBox *groupBox;
+    QPushButton *pushButton;
+    QWidget *widget;
+    QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout;
+    QLabel *labelUsername;
+    QLineEdit *lineEditUsername;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *labelPassword;
+    QLineEdit *lineEditPassword;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -43,31 +52,75 @@ public:
         MainWindow->resize(852, 656);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        lineEditPassword = new QLineEdit(centralWidget);
-        lineEditPassword->setObjectName(QString::fromUtf8("lineEditPassword"));
-        lineEditPassword->setGeometry(QRect(320, 230, 441, 61));
-        QFont font;
-        font.setPointSize(20);
-        lineEditPassword->setFont(font);
-        labelUsername = new QLabel(centralWidget);
-        labelUsername->setObjectName(QString::fromUtf8("labelUsername"));
-        labelUsername->setGeometry(QRect(100, 70, 201, 121));
-        labelUsername->setFont(font);
-        labelPassword = new QLabel(centralWidget);
-        labelPassword->setObjectName(QString::fromUtf8("labelPassword"));
-        labelPassword->setGeometry(QRect(100, 200, 201, 121));
-        labelPassword->setFont(font);
-        lineEditUsername = new QLineEdit(centralWidget);
-        lineEditUsername->setObjectName(QString::fromUtf8("lineEditUsername"));
-        lineEditUsername->setGeometry(QRect(320, 110, 441, 61));
-        lineEditUsername->setFont(font);
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(320, 390, 201, 81));
-        pushButton->setFont(font);
         Status = new QLabel(centralWidget);
         Status->setObjectName(QString::fromUtf8("Status"));
         Status->setGeometry(QRect(20, 570, 181, 16));
+        logo = new QLabel(centralWidget);
+        logo->setObjectName(QString::fromUtf8("logo"));
+        logo->setGeometry(QRect(370, 50, 261, 161));
+        groupBox = new QGroupBox(centralWidget);
+        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        groupBox->setGeometry(QRect(220, 200, 401, 231));
+        pushButton = new QPushButton(groupBox);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setGeometry(QRect(60, 140, 281, 41));
+        QFont font;
+        font.setFamily(QString::fromUtf8("Arial"));
+        font.setPointSize(16);
+        font.setBold(false);
+        font.setItalic(false);
+        font.setWeight(50);
+        pushButton->setFont(font);
+        pushButton->setStyleSheet(QString::fromUtf8("font: 16pt \"Arial\";"));
+        widget = new QWidget(groupBox);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        widget->setGeometry(QRect(60, 60, 278, 70));
+        verticalLayout = new QVBoxLayout(widget);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        labelUsername = new QLabel(widget);
+        labelUsername->setObjectName(QString::fromUtf8("labelUsername"));
+        labelUsername->setFont(font);
+        labelUsername->setStyleSheet(QString::fromUtf8("font: 16pt \"Arial\";"));
+
+        horizontalLayout->addWidget(labelUsername);
+
+        lineEditUsername = new QLineEdit(widget);
+        lineEditUsername->setObjectName(QString::fromUtf8("lineEditUsername"));
+        QFont font1;
+        font1.setPointSize(20);
+        lineEditUsername->setFont(font1);
+
+        horizontalLayout->addWidget(lineEditUsername);
+
+
+        verticalLayout->addLayout(horizontalLayout);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        labelPassword = new QLabel(widget);
+        labelPassword->setObjectName(QString::fromUtf8("labelPassword"));
+        labelPassword->setFont(font);
+        labelPassword->setStyleSheet(QString::fromUtf8("font: 16pt \"Arial\";"));
+
+        horizontalLayout_2->addWidget(labelPassword);
+
+        lineEditPassword = new QLineEdit(widget);
+        lineEditPassword->setObjectName(QString::fromUtf8("lineEditPassword"));
+        lineEditPassword->setFont(font1);
+        lineEditPassword->setEchoMode(QLineEdit::Password);
+
+        horizontalLayout_2->addWidget(lineEditPassword);
+
+
+        verticalLayout->addLayout(horizontalLayout_2);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -88,12 +141,14 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        lineEditPassword->setText(QString());
-        labelUsername->setText(QCoreApplication::translate("MainWindow", "Username", nullptr));
-        labelPassword->setText(QCoreApplication::translate("MainWindow", "Password", nullptr));
-        lineEditUsername->setText(QString());
-        pushButton->setText(QCoreApplication::translate("MainWindow", "Login", nullptr));
         Status->setText(QCoreApplication::translate("MainWindow", "Connected or not", nullptr));
+        logo->setText(QString());
+        groupBox->setTitle(QCoreApplication::translate("MainWindow", "Login", nullptr));
+        pushButton->setText(QCoreApplication::translate("MainWindow", "Login", nullptr));
+        labelUsername->setText(QCoreApplication::translate("MainWindow", "Username", nullptr));
+        lineEditUsername->setText(QString());
+        labelPassword->setText(QCoreApplication::translate("MainWindow", "Password ", nullptr));
+        lineEditPassword->setText(QString());
     } // retranslateUi
 
 };
