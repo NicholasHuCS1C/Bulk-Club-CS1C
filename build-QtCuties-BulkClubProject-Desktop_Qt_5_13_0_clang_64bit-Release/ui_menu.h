@@ -45,7 +45,7 @@ public:
     QWidget *tabDisplayMembers;
     QLineEdit *lineEditSearchNum;
     QLabel *labelTXTSearchNum;
-    QComboBox *comboBox;
+    QComboBox *comboBoxSearchMonth;
     QLabel *label;
     QPushButton *load_all;
     QTableView *tableViewDisplayMember;
@@ -53,6 +53,7 @@ public:
     QPushButton *buttonSearchMemberName;
     QLabel *labelTXTSearchNum_3;
     QLineEdit *lineEditSearchName;
+    QPushButton *buttonSearchMonth;
     QWidget *tabEditMembers;
     QLineEdit *lineEditAddName;
     QLabel *labelTXTName;
@@ -184,22 +185,22 @@ public:
         labelTXTSearchNum = new QLabel(tabDisplayMembers);
         labelTXTSearchNum->setObjectName(QString::fromUtf8("labelTXTSearchNum"));
         labelTXTSearchNum->setGeometry(QRect(570, 30, 55, 16));
-        comboBox = new QComboBox(tabDisplayMembers);
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->setObjectName(QString::fromUtf8("comboBox"));
-        comboBox->setGeometry(QRect(660, 220, 61, 22));
+        comboBoxSearchMonth = new QComboBox(tabDisplayMembers);
+        comboBoxSearchMonth->addItem(QString());
+        comboBoxSearchMonth->addItem(QString());
+        comboBoxSearchMonth->addItem(QString());
+        comboBoxSearchMonth->addItem(QString());
+        comboBoxSearchMonth->addItem(QString());
+        comboBoxSearchMonth->addItem(QString());
+        comboBoxSearchMonth->addItem(QString());
+        comboBoxSearchMonth->addItem(QString());
+        comboBoxSearchMonth->addItem(QString());
+        comboBoxSearchMonth->addItem(QString());
+        comboBoxSearchMonth->addItem(QString());
+        comboBoxSearchMonth->addItem(QString());
+        comboBoxSearchMonth->addItem(QString());
+        comboBoxSearchMonth->setObjectName(QString::fromUtf8("comboBoxSearchMonth"));
+        comboBoxSearchMonth->setGeometry(QRect(660, 220, 61, 22));
         label = new QLabel(tabDisplayMembers);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(540, 220, 101, 31));
@@ -221,6 +222,9 @@ public:
         lineEditSearchName = new QLineEdit(tabDisplayMembers);
         lineEditSearchName->setObjectName(QString::fromUtf8("lineEditSearchName"));
         lineEditSearchName->setGeometry(QRect(650, 130, 113, 22));
+        buttonSearchMonth = new QPushButton(tabDisplayMembers);
+        buttonSearchMonth->setObjectName(QString::fromUtf8("buttonSearchMonth"));
+        buttonSearchMonth->setGeometry(QRect(650, 260, 80, 31));
         tabWidget->addTab(tabDisplayMembers, QString());
         tabEditMembers = new QWidget();
         tabEditMembers->setObjectName(QString::fromUtf8("tabEditMembers"));
@@ -410,7 +414,7 @@ public:
 
         retranslateUi(Menu);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(Menu);
@@ -438,25 +442,26 @@ public:
         labelStandardCustomerNum->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(tabSalesReport), QCoreApplication::translate("Menu", "Sales Report", nullptr));
         labelTXTSearchNum->setText(QCoreApplication::translate("Menu", "Search #:", nullptr));
-        comboBox->setItemText(0, QCoreApplication::translate("Menu", "01", nullptr));
-        comboBox->setItemText(1, QCoreApplication::translate("Menu", "02", nullptr));
-        comboBox->setItemText(2, QCoreApplication::translate("Menu", "03", nullptr));
-        comboBox->setItemText(3, QCoreApplication::translate("Menu", "04", nullptr));
-        comboBox->setItemText(4, QCoreApplication::translate("Menu", "05", nullptr));
-        comboBox->setItemText(5, QCoreApplication::translate("Menu", "06", nullptr));
-        comboBox->setItemText(6, QCoreApplication::translate("Menu", "07", nullptr));
-        comboBox->setItemText(7, QCoreApplication::translate("Menu", "08", nullptr));
-        comboBox->setItemText(8, QCoreApplication::translate("Menu", "09", nullptr));
-        comboBox->setItemText(9, QCoreApplication::translate("Menu", "10", nullptr));
-        comboBox->setItemText(10, QCoreApplication::translate("Menu", "11", nullptr));
-        comboBox->setItemText(11, QCoreApplication::translate("Menu", "12", nullptr));
-        comboBox->setItemText(12, QString());
+        comboBoxSearchMonth->setItemText(0, QCoreApplication::translate("Menu", "01", nullptr));
+        comboBoxSearchMonth->setItemText(1, QCoreApplication::translate("Menu", "02", nullptr));
+        comboBoxSearchMonth->setItemText(2, QCoreApplication::translate("Menu", "03", nullptr));
+        comboBoxSearchMonth->setItemText(3, QCoreApplication::translate("Menu", "04", nullptr));
+        comboBoxSearchMonth->setItemText(4, QCoreApplication::translate("Menu", "05", nullptr));
+        comboBoxSearchMonth->setItemText(5, QCoreApplication::translate("Menu", "06", nullptr));
+        comboBoxSearchMonth->setItemText(6, QCoreApplication::translate("Menu", "07", nullptr));
+        comboBoxSearchMonth->setItemText(7, QCoreApplication::translate("Menu", "08", nullptr));
+        comboBoxSearchMonth->setItemText(8, QCoreApplication::translate("Menu", "09", nullptr));
+        comboBoxSearchMonth->setItemText(9, QCoreApplication::translate("Menu", "10", nullptr));
+        comboBoxSearchMonth->setItemText(10, QCoreApplication::translate("Menu", "11", nullptr));
+        comboBoxSearchMonth->setItemText(11, QCoreApplication::translate("Menu", "12", nullptr));
+        comboBoxSearchMonth->setItemText(12, QString());
 
         label->setText(QCoreApplication::translate("Menu", "Search month:", nullptr));
         load_all->setText(QCoreApplication::translate("Menu", "Load All", nullptr));
         buttonSearchMemberNumber->setText(QCoreApplication::translate("Menu", "Search", nullptr));
         buttonSearchMemberName->setText(QCoreApplication::translate("Menu", "Search", nullptr));
         labelTXTSearchNum_3->setText(QCoreApplication::translate("Menu", "Search Name: ", nullptr));
+        buttonSearchMonth->setText(QCoreApplication::translate("Menu", "Search", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tabDisplayMembers), QCoreApplication::translate("Menu", "Members", nullptr));
         labelTXTName->setText(QCoreApplication::translate("Menu", "Name:", nullptr));
         labelTXTAddCustomer->setText(QCoreApplication::translate("Menu", "Add Customer", nullptr));
