@@ -81,6 +81,7 @@ Menu::Menu(QWidget *parent) :
 
 
 
+
 }
 
 Menu::~Menu()
@@ -99,6 +100,9 @@ void Menu::on_load_all_clicked()
 
 void Menu::on_comboBoxDays_activated(const QString &arg1)
 {
+
+    loadCustomerAmountLabels();
+
     QString argVar;
     argVar = arg1;
     daySelected = arg1;
@@ -180,6 +184,8 @@ void Menu::on_comboBoxDays_activated(const QString &arg1)
 
         qDebug() << (modal->rowCount());
         displayRevenue(argVar);
+
+
 
 }
 
@@ -263,14 +269,8 @@ void Menu::loadDeleteNumberComboBox()
 
 void Menu::loadFirstSalesReport()
 {
-    //Load Sunday on salesReportTableView when window is opened
 
-
-    //    Date of purchase
-    //    Customer number who bought the product
-    //    Product description
-    //    Price of product
-    //    Quantity
+        loadCustomerAmountLabels();
 
         QString tempDate;
         QString tempCustomerNum;
@@ -346,6 +346,8 @@ void Menu::loadFirstSalesReport()
         displayRevenue("Sunday");
 
 
+
+
         //END Load Sunday
 }
 
@@ -368,53 +370,29 @@ void Menu::on_standardButton_clicked()
 {
     QSqlQueryModel * modal = new QSqlQueryModel();
     QSqlQuery* qry = new QSqlQuery(this->mydb);
-    QString standardNum;
 
-    QSqlQuery query;
+
 
     QString daySelected;
     daySelected = ui->comboBoxDays->currentText();
 
-    query.prepare("select Number from customerTable where Type=\"Regular\"");
 
-    if(query.exec())
+
+
+    qry->prepare("SELECT '"+daySelected+"'.date,'"+daySelected+"'.Number,'"+daySelected+"'.Description, '"+daySelected+"'.Price, '"+daySelected+"'.Quantity FROM '"+daySelected+"' INNER JOIN customerTable ON '"+daySelected+"'.Number=customerTable.Number WHERE customerTable.Type=\"Regular\"");
+    if(qry->exec())
     {
-
-        while (query.next())
-        {
-            QSqlRecord recrd = query.record();
-
-            for(int i = 0;i < recrd.count();++i)
-            {
-                standardNum = recrd.value(i).toString();
-                qDebug() << "Standard Number: " << recrd.value(i).toString();
-
-
-
-                qry->prepare("select * from '"+daySelected+"' where Number='"+standardNum+"'");
-
-                if(qry->exec())
-                {
-                    qDebug() << "Success!";
-                    //ADD CODE TO ADD EACH ITEM TO TABLE
-
-                }
-                else {
-                    qDebug() << qry->lastError().text();
-                }
-            }
-        }
-
-    }else {
-        qDebug() << query.lastError().text();
-}
-
+        qDebug() << "Selected Standard Members Only!";
+    }
 
 
 
     modal->setQuery(*qry);
     ui->salesReportTableView->setModel(modal);
     ui->salesReportTableView->resizeColumnsToContents();
+
+    ui->labelStandardCustomerNum->setText(QString::number(modal->rowCount()));
+
 }
 
 void Menu::on_buttonAddCustomer_clicked()
@@ -738,6 +716,8 @@ void Menu::displayRevenue(QString day)
    query.finish();
    query2.finish();
 
+   totalRevenue = totalRevenue * 1.0775;
+
    ui->labelTotalRevenue->setText("$ " + QString::number(totalRevenue));
 
 
@@ -791,6 +771,7 @@ void Menu::loadAllComboBoxes()
     loadItemsPurchaseCombo();
     loadInventoryTable();
     loadDeleteItemComboBox();
+    displayTotalCustomerPurchases();
 
 
 }
@@ -1051,6 +1032,98 @@ void Menu::loadNumberAddCustomer()
    } else {
        qDebug() << query.lastError().text();
    }
+
+   double totalRevenue = 0;
+   int tempQuantity;
+   double tempPrice;
+   QString tempNumber;
+
+   //QSqlQuery query;
+   QSqlQuery query2;
+
+   tempNumber = ui->labelMemberNum->text();
+
+   query.prepare("SELECT Quantity FROM '"+tempNumber+"'");
+   query2.prepare("SELECT Price FROM '"+tempNumber+"'");
+
+
+   if(query.exec())
+   {
+       if(query2.exec())
+       {
+           while (query.next() && query2.next())
+           {
+
+               const QSqlRecord recrd = query.record();
+               const QSqlRecord recrdPrice = query2.record();
+
+               for(int i = 0;i < recrd.count();++i)
+               {
+                   tempQuantity = recrd.value(i).toInt();
+                   tempPrice = recrdPrice.value(i).toDouble();
+
+                   qDebug() << "Temp Quantity: " << tempQuantity;
+                   qDebug() << "Temp Price: " << tempPrice;
+
+
+
+                   totalRevenue += (tempQuantity*tempPrice);
+
+
+
+
+                   qDebug() << totalRevenue;
+               }
+
+
+           }
+       }
+
+   }
+
+
+
+   totalRevenue = totalRevenue * 1.0775;
+
+   double rebate = totalRevenue * .02;
+
+   ui->labelTotalAmountSpent->setText("$ " + QString::number(totalRevenue));
+   ui->labelRebateAmount->setText("$ " + QString::number(rebate));
+
+
+
+   query.prepare("select * from customerTable where Number=\"" + tempNumber + "\" and Type=\"Executive\"");
+   if(query.exec())
+   {
+       int numberOfRows = 0;
+       if(query.last())
+       {
+           numberOfRows =  query.at() + 1;
+           query.first();
+           query.previous();
+       }
+
+       if(numberOfRows != 1)
+       {
+           ui->labelRebateAmount->hide();
+           ui->labelRebateAmountText->hide();
+           ui->labelExecutiveMember->hide();
+       } else {
+           ui->labelRebateAmount->show();
+           ui->labelRebateAmountText->show();
+           ui->labelExecutiveMember->show();
+       }
+
+       qDebug() << "Query Size: " << numberOfRows;
+
+   } else {
+       query.lastError().text();
+   }
+
+
+
+
+
 
 }
 
@@ -1542,6 +1615,7 @@ void Menu::on_buttonSearchMemberNumber_clicked()
 {
     QSqlQueryModel * modal = new QSqlQueryModel();
     QSqlQuery* qry = new QSqlQuery(this->mydb);
+    QSqlQuery query;
 
     QString tempNumber;
     tempNumber = ui->lineEditSearchNum->text();
@@ -1564,4 +1638,122 @@ void Menu::on_buttonSearchMemberNumber_clicked()
 
 
 
+}
+
+
+void Menu::loadCustomerAmountLabels()
+{
+    on_executiveButton_clicked();
+    on_standardButton_clicked();
+}
+
+void Menu::on_executiveButton_clicked()
+{
+    QSqlQueryModel * modal = new QSqlQueryModel();
+    QSqlQuery* qry = new QSqlQuery(this->mydb);
+
+
+
+    QString daySelected;
+    daySelected = ui->comboBoxDays->currentText();
+
+
+
+
+    qry->prepare("SELECT '"+daySelected+"'.date,'"+daySelected+"'.Number,'"+daySelected+"'.Description, '"+daySelected+"'.Price, '"+daySelected+"'.Quantity FROM '"+daySelected+"' INNER JOIN customerTable ON '"+daySelected+"'.Number=customerTable.Number WHERE customerTable.Type=\"Executive\"");
+    if(qry->exec())
+    {
+        qDebug() << "Selected Executive Members Only!";
+    }
+
+
+
+    modal->setQuery(*qry);
+    ui->salesReportTableView->setModel(modal);
+    ui->salesReportTableView->resizeColumnsToContents();
+
+    ui->labelExecCustomerNum->setText(QString::number(modal->rowCount()));
+}
+
+void Menu::on_buttonSearchMemberName_clicked()
+{
+    QSqlQueryModel * modal = new QSqlQueryModel();
+    QSqlQuery* qry = new QSqlQuery(this->mydb);
+
+
+    QString tempNumber;
+    tempNumber = ui->lineEditSearchName->text();
+
+
+    qry->prepare("select * from customerTable where Name=\"" + tempNumber + "\"");
+
+    if(qry->exec())
+    {
+        modal->setQuery(*qry);
+        ui->tableViewDisplayMember->setModel(modal);
+        ui->tableViewDisplayMember->resizeColumnsToContents();
+
+        ui->lineEditSearchName->clear();
+
+        loadAllComboBoxes();
+    } else {
+        QMessageBox::information(this, tr("Search Info"), tr("Member Was Not Found!"));
+    }
+}
+
+void Menu::displayTotalCustomerPurchases()
+{
+//    double totalRevenue = 0;
+//    int tempQuantity;
+//    double tempPrice;
+//    QString tempNumber;
+
+//    QSqlQuery query;
+//    QSqlQuery query2;
+
+//    tempNumber = ui->labelMemberNum->text();
+
+//    query.prepare("SELECT Quantity FROM '"+tempNumber+"'");
+//    query2.prepare("SELECT Price FROM '"+tempNumber+"'");
+
+
+//    if(query.exec())
+//    {
+//        if(query2.exec())
+//        {
+//            while (query.next() && query2.next())
+//            {
+
+//                const QSqlRecord recrd = query.record();
+//                const QSqlRecord recrdPrice = query2.record();
+
+//                for(int i = 0;i < recrd.count();++i)
+//                {
+//                    tempQuantity = recrd.value(i).toInt();
+//                    tempPrice = recrdPrice.value(i).toDouble();
+
+//                    qDebug() << "Temp Quantity: " << tempQuantity;
+//                    qDebug() << "Temp Price: " << tempPrice;
+
+
+
+//                    totalRevenue += (tempQuantity*tempPrice);
+
+
+
+
+//                    qDebug() << totalRevenue;
+//                }
+
+
+//            }
+//        }
+
+//    }
+
+
+
+//    totalRevenue = totalRevenue * 1.0775;
+
+//    ui->labelTotalAmountSpent->setText("$ " + QString::number(totalRevenue));
 }
