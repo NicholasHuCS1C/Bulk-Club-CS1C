@@ -49,6 +49,7 @@ public:
         QFont font;
         font.setPointSize(20);
         lineEditPassword->setFont(font);
+        lineEditPassword->setEchoMode(QLineEdit::Password);
         labelUsername = new QLabel(centralWidget);
         labelUsername->setObjectName(QString::fromUtf8("labelUsername"));
         labelUsername->setGeometry(QRect(100, 70, 201, 121));

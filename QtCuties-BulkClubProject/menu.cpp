@@ -29,16 +29,16 @@ Menu::Menu(QWidget *parent) :
 
 
         mydb = QSqlDatabase::addDatabase("QSQLITE");
-//        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
-//                                                 "/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
-//                                                 QFileDialog::ShowDirsOnly
-//                                                 | QFileDialog::DontResolveSymlinks);
-
-
         dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
-                                                 "C:\\Users\\Sean Hatfield\\Documents\\GitHub\\Bulk-Club-CS1C\\QtCuties-BulkClubProject",
+                                                 "/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
                                                  QFileDialog::ShowDirsOnly
                                                  | QFileDialog::DontResolveSymlinks);
+
+
+//        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
+//                                                 "C:\\Users\\Sean Hatfield\\Documents\\GitHub\\Bulk-Club-CS1C\\QtCuties-BulkClubProject",
+//                                                 QFileDialog::ShowDirsOnly
+//                                                 | QFileDialog::DontResolveSymlinks);
 
 
 
@@ -1756,4 +1756,5 @@ void Menu::displayTotalCustomerPurchases()
 //    totalRevenue = totalRevenue * 1.0775;
 
 //    ui->labelTotalAmountSpent->setText("$ " + QString::number(totalRevenue));
+
 }

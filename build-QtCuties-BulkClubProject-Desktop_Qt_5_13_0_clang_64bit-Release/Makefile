@@ -205,6 +205,7 @@ DIST          = ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/spec_pre.p
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/qt_config.prf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/spec_post.prf \
+		../QtCuties-BulkClubProject/.qmake.stash \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/mac/sdk.prf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/toolchain.prf \
@@ -402,6 +403,7 @@ Makefile: ../QtCuties-BulkClubProject/QtCuties-BulkClubProject.pro ../../../../Q
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/qt_config.prf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/mac/sdk.prf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/toolchain.prf \
@@ -579,6 +581,7 @@ Makefile: ../QtCuties-BulkClubProject/QtCuties-BulkClubProject.pro ../../../../Q
 ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/qt_config.prf:
 ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/macx-clang/qmake.conf:
 ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/exclusive_builds.prf:
 ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/mac/sdk.prf:
 ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/toolchain.prf:
@@ -653,6 +656,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r QtCuties-BulkClubProject.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -875,7 +879,15 @@ menu.o: ../QtCuties-BulkClubProject/menu.cpp ../QtCuties-BulkClubProject/menu.h 
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFileInfo \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfileinfo.h \
-		ui_menu.h
+		ui_menu.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o menu.o ../QtCuties-BulkClubProject/menu.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
