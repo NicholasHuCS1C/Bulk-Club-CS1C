@@ -34,11 +34,11 @@ public:
     QTabWidget *tabWidget;
     QWidget *tabSalesReport;
     QComboBox *comboBoxDays;
-    QTableWidget *tableWidgetSalesReport;
     QCheckBox *checkBoxStandard;
     QCheckBox *checkBoxExecutive;
     QLabel *labelTXTTotalRevenue;
     QLabel *labelTotalRevenue;
+    QTableView *salesReportTableView;
     QWidget *tabDisplayMembers;
     QLineEdit *lineEditSearchNum;
     QLabel *labelTXTSearchNum;
@@ -104,7 +104,7 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         tabWidget = new QTabWidget(centralwidget);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
-        tabWidget->setGeometry(QRect(10, 20, 781, 541));
+        tabWidget->setGeometry(QRect(10, 0, 781, 541));
         tabSalesReport = new QWidget();
         tabSalesReport->setObjectName(QString::fromUtf8("tabSalesReport"));
         comboBoxDays = new QComboBox(tabSalesReport);
@@ -117,9 +117,6 @@ public:
         comboBoxDays->addItem(QString());
         comboBoxDays->setObjectName(QString::fromUtf8("comboBoxDays"));
         comboBoxDays->setGeometry(QRect(640, 20, 111, 31));
-        tableWidgetSalesReport = new QTableWidget(tabSalesReport);
-        tableWidgetSalesReport->setObjectName(QString::fromUtf8("tableWidgetSalesReport"));
-        tableWidgetSalesReport->setGeometry(QRect(10, 20, 611, 481));
         checkBoxStandard = new QCheckBox(tabSalesReport);
         checkBoxStandard->setObjectName(QString::fromUtf8("checkBoxStandard"));
         checkBoxStandard->setGeometry(QRect(640, 90, 121, 20));
@@ -138,6 +135,9 @@ public:
         labelTotalRevenue->setAutoFillBackground(false);
         labelTotalRevenue->setFrameShape(QFrame::StyledPanel);
         labelTotalRevenue->setFrameShadow(QFrame::Plain);
+        salesReportTableView = new QTableView(tabSalesReport);
+        salesReportTableView->setObjectName(QString::fromUtf8("salesReportTableView"));
+        salesReportTableView->setGeometry(QRect(10, 20, 601, 461));
         tabWidget->addTab(tabSalesReport, QString());
         tabDisplayMembers = new QWidget();
         tabDisplayMembers->setObjectName(QString::fromUtf8("tabDisplayMembers"));
@@ -318,7 +318,7 @@ public:
         labelTotalPrice->setFrameShape(QFrame::StyledPanel);
         buttonAddPurchase = new QPushButton(tabAddPurchase);
         buttonAddPurchase->setObjectName(QString::fromUtf8("buttonAddPurchase"));
-        buttonAddPurchase->setGeometry(QRect(420, 290, 93, 28));
+        buttonAddPurchase->setGeometry(QRect(420, 290, 101, 28));
         tabWidget->addTab(tabAddPurchase, QString());
         Menu->setCentralWidget(centralwidget);
         menubar = new QMenuBar(Menu);
@@ -331,7 +331,7 @@ public:
 
         retranslateUi(Menu);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(Menu);
