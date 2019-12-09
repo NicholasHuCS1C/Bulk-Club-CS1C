@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "menu.h"
+#include "managermenu.h"
 #include <QMainWindow>
 #include <QtSql>
 #include <QSqlDatabase>
@@ -9,7 +11,11 @@
 #include <QSqlError>
 #include <QtDebug>
 #include <QFileInfo>
-
+#include <QString>
+#include <QMessageBox>
+#include <QPixmap>
+#include <QDesktopServices>
+#include <QUrl>
 
 
 namespace Ui {

@@ -1,8 +1,19 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include <QMainWindow>
 #include "mainwindow.h"
+#include <QMainWindow>
+#include <QtSql>
+#include <QSqlDatabase>
+#include <QSqlDriver>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QtDebug>
+#include <QFileInfo>
+#include <QString>
+#include <QFileDialog>
+#include <QFile>
+#include <QMessageBox>
 
 namespace Ui {
 class Menu;

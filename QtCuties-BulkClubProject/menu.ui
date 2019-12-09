@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tabSalesReport">
      <attribute name="title">
@@ -247,7 +247,7 @@
     </widget>
     <widget class="QWidget" name="tabDisplayMembers">
      <attribute name="title">
-      <string>Members</string>
+      <string>Member Search</string>
      </attribute>
      <widget class="QLineEdit" name="lineEditSearchNum">
       <property name="geometry">
@@ -1111,8 +1111,8 @@
       <property name="geometry">
        <rect>
         <x>540</x>
-        <y>470</y>
-        <width>141</width>
+        <y>460</y>
+        <width>181</width>
         <height>21</height>
        </rect>
       </property>
@@ -1125,6 +1125,19 @@
        <string>Executive Member!</string>
       </property>
      </widget>
+     <widget class="QLabel" name="labelStatusChange">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>480</y>
+        <width>171</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -1134,7 +1147,7 @@
      <x>0</x>
      <y>0</y>
      <width>803</width>
-     <height>20</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

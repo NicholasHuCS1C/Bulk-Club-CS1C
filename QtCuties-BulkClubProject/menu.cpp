@@ -1,18 +1,6 @@
 #include "menu.h"
 #include "ui_menu.h"
-#include <QMainWindow>
-#include <QtSql>
-#include <QSqlDatabase>
-#include <QSqlDriver>
-#include <QSqlQuery>
-#include <QSqlError>
-#include <QtDebug>
-#include <QFileInfo>
-#include "mainwindow.h"
-#include <QString>
-#include <QFileDialog>
-#include <QFile>
-#include <QMessageBox>
+
 
 Menu::Menu(QWidget *parent) :
     QMainWindow(parent),
@@ -26,8 +14,6 @@ Menu::Menu(QWidget *parent) :
         mydb.removeDatabase(QSqlDatabase::defaultConnection);
     }
 
-
-
         mydb = QSqlDatabase::addDatabase("QSQLITE");
 //        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
 //                                                 "/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
@@ -35,10 +21,13 @@ Menu::Menu(QWidget *parent) :
 //                                                 | QFileDialog::DontResolveSymlinks);
 
 
-        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
-                                                 "C:\\Users\\Sean Hatfield\\Documents\\GitHub\\Bulk-Club-CS1C\\QtCuties-BulkClubProject",
-                                                 QFileDialog::ShowDirsOnly
-                                                 | QFileDialog::DontResolveSymlinks);
+        QFile();
+//        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
+//                                                 "C:\\Users\\Sean Hatfield\\Documents\\GitHub\\Bulk-Club-CS1C\\QtCuties-BulkClubProject",
+//                                                 QFileDialog::ShowDirsOnly
+//                                                 | QFileDialog::DontResolveSymlinks);
+
+        dataPath = "C:/Users/Nicholas/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject/Data";
 
 
 
@@ -60,8 +49,6 @@ Menu::Menu(QWidget *parent) :
 
         loadFirstSalesReport();
 
-
-
         loadMembersTable();
         createPurchasesTables();
         createCustomerPurchasesDB();
@@ -71,17 +58,10 @@ Menu::Menu(QWidget *parent) :
 
         loadCustomerPurchasesTable();
 
-
         loadAllComboBoxes();
 
         loadNumberAddCustomer();
         loadCustomerPurchasesTable();
-
-
-
-
-
-
 }
 
 Menu::~Menu()
@@ -384,7 +364,6 @@ void Menu::on_standardButton_clicked()
     {
         qDebug() << "Selected Standard Members Only!";
     }
-
 
 
     modal->setQuery(*qry);
@@ -989,12 +968,8 @@ void Menu::clearAllPurchasesTables()
                 } else {
                     qDebug() << clearTables.lastError().text();
                 }
-
-
             }
-
         }
-
     }
     getIdNum.finish();
     clearTables.finish();
@@ -1080,15 +1055,21 @@ void Menu::loadNumberAddCustomer()
        }
 
    }
-
-
-
    totalRevenue = totalRevenue * 1.0775;
 
    double rebate = totalRevenue * .02;
 
    ui->labelTotalAmountSpent->setText("$ " + QString::number(totalRevenue));
    ui->labelRebateAmount->setText("$ " + QString::number(rebate));
+
+//   if (rebate >= 55)
+//   {
+//       ui->labelStatusChange->setText("CHANGE TO EXECUTIVE");
+//   }
+//   else
+//   {
+//       ui->labelStatusChange->setText("CHANGE TO STANDARD");
+//   }
 
 
 
@@ -1103,15 +1084,25 @@ void Menu::loadNumberAddCustomer()
            query.previous();
        }
 
-       if(numberOfRows != 1)
+       if (numberOfRows != 1)
        {
            ui->labelRebateAmount->hide();
            ui->labelRebateAmountText->hide();
            ui->labelExecutiveMember->hide();
-       } else {
+           if (rebate >= 55)
+           {
+               ui->labelStatusChange->setText("SET EXECUTIVE");
+           }
+       }
+       else
+       {
            ui->labelRebateAmount->show();
            ui->labelRebateAmountText->show();
            ui->labelExecutiveMember->show();
+           if (rebate < 55)
+           {
+               ui->labelStatusChange->setText("SET STANDARD");
+           }
        }
 
        qDebug() << "Query Size: " << numberOfRows;
@@ -1119,12 +1110,6 @@ void Menu::loadNumberAddCustomer()
    } else {
        query.lastError().text();
    }
-
-
-
-
-
-
 }
 
 
@@ -1217,20 +1202,12 @@ void Menu::createInventoryTable()
                 } else{
                     qDebug() << query2.lastError().text();
                 }
-
-
-
-
             }
 
         }
     }else {
             qDebug() << query.lastError().text();
         }
-
-
-
-
 }
 
 
@@ -1310,11 +1287,7 @@ void Menu::on_comboBoxItemSearch_currentIndexChanged(const QString &arg1)
     }else {
             qDebug() << query.lastError().text();
         }
-
-
     ui->labelTotalPrice->clear();
-
-
 }
 
 void Menu::on_buttonCalcTotalPrice_clicked()
@@ -1343,8 +1316,6 @@ void Menu::on_buttonCalcTotalPrice_clicked()
                 QString totalValueString;
                 totalValueString.setNum(totalValue);
                 ui->labelTotalPrice->setText("$" + totalValueString);
-
-
             }
 
         }
