@@ -11,7 +11,6 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -33,8 +32,6 @@ public:
     QTabWidget *tabWidget;
     QWidget *tabSalesReport;
     QComboBox *comboBoxDays;
-    QCheckBox *checkBoxStandard;
-    QCheckBox *checkBoxExecutive;
     QLabel *labelTXTTotalRevenue;
     QLabel *labelTotalRevenue;
     QTableView *salesReportTableView;
@@ -48,6 +45,7 @@ public:
     QLabel *label;
     QPushButton *load_all;
     QTableView *tableViewDisplayMember;
+    QPushButton *buttonSearchMemberNumber;
     QWidget *tabEditMembers;
     QLineEdit *lineEditAddName;
     QLabel *labelTXTName;
@@ -78,6 +76,8 @@ public:
     QLabel *labelTXTSearchName;
     QPushButton *buttonDeleteItem;
     QTableView *tableViewInventory;
+    QPushButton *pushButtonSearchInventory;
+    QPushButton *pushButtonReloadInventory;
     QWidget *tabAddPurchase;
     QLabel *labelTXTAddPurchase;
     QLabel *labelTXTCustomerSearch;
@@ -93,7 +93,6 @@ public:
     QLabel *labelPricePerItem;
     QLabel *labelTotalPrice;
     QPushButton *buttonAddPurchase;
-    QPushButton *buttonCalcTotalPrice;
     QTableView *tableViewDisplayPurchases;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -120,12 +119,6 @@ public:
         comboBoxDays->addItem(QString());
         comboBoxDays->setObjectName(QString::fromUtf8("comboBoxDays"));
         comboBoxDays->setGeometry(QRect(640, 20, 111, 31));
-        checkBoxStandard = new QCheckBox(tabSalesReport);
-        checkBoxStandard->setObjectName(QString::fromUtf8("checkBoxStandard"));
-        checkBoxStandard->setGeometry(QRect(640, 90, 121, 20));
-        checkBoxExecutive = new QCheckBox(tabSalesReport);
-        checkBoxExecutive->setObjectName(QString::fromUtf8("checkBoxExecutive"));
-        checkBoxExecutive->setGeometry(QRect(640, 130, 111, 20));
         labelTXTTotalRevenue = new QLabel(tabSalesReport);
         labelTXTTotalRevenue->setObjectName(QString::fromUtf8("labelTXTTotalRevenue"));
         labelTXTTotalRevenue->setGeometry(QRect(640, 200, 101, 16));
@@ -174,16 +167,19 @@ public:
         comboBox->addItem(QString());
         comboBox->addItem(QString());
         comboBox->setObjectName(QString::fromUtf8("comboBox"));
-        comboBox->setGeometry(QRect(680, 90, 61, 22));
+        comboBox->setGeometry(QRect(660, 150, 61, 22));
         label = new QLabel(tabDisplayMembers);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(570, 80, 81, 31));
+        label->setGeometry(QRect(560, 140, 81, 31));
         load_all = new QPushButton(tabDisplayMembers);
         load_all->setObjectName(QString::fromUtf8("load_all"));
         load_all->setGeometry(QRect(580, 310, 121, 28));
         tableViewDisplayMember = new QTableView(tabDisplayMembers);
         tableViewDisplayMember->setObjectName(QString::fromUtf8("tableViewDisplayMember"));
         tableViewDisplayMember->setGeometry(QRect(20, 30, 481, 441));
+        buttonSearchMemberNumber = new QPushButton(tabDisplayMembers);
+        buttonSearchMemberNumber->setObjectName(QString::fromUtf8("buttonSearchMemberNumber"));
+        buttonSearchMemberNumber->setGeometry(QRect(680, 70, 80, 21));
         tabWidget->addTab(tabDisplayMembers, QString());
         tabEditMembers = new QWidget();
         tabEditMembers->setObjectName(QString::fromUtf8("tabEditMembers"));
@@ -276,6 +272,12 @@ public:
         tableViewInventory = new QTableView(tabDisplayInventory);
         tableViewInventory->setObjectName(QString::fromUtf8("tableViewInventory"));
         tableViewInventory->setGeometry(QRect(10, 10, 511, 491));
+        pushButtonSearchInventory = new QPushButton(tabDisplayInventory);
+        pushButtonSearchInventory->setObjectName(QString::fromUtf8("pushButtonSearchInventory"));
+        pushButtonSearchInventory->setGeometry(QRect(640, 70, 80, 21));
+        pushButtonReloadInventory = new QPushButton(tabDisplayInventory);
+        pushButtonReloadInventory->setObjectName(QString::fromUtf8("pushButtonReloadInventory"));
+        pushButtonReloadInventory->setGeometry(QRect(590, 460, 151, 21));
         tabWidget->addTab(tabDisplayInventory, QString());
         tabAddPurchase = new QWidget();
         tabAddPurchase->setObjectName(QString::fromUtf8("tabAddPurchase"));
@@ -329,10 +331,7 @@ public:
         labelTotalPrice->setFrameShape(QFrame::StyledPanel);
         buttonAddPurchase = new QPushButton(tabAddPurchase);
         buttonAddPurchase->setObjectName(QString::fromUtf8("buttonAddPurchase"));
-        buttonAddPurchase->setGeometry(QRect(480, 280, 93, 28));
-        buttonCalcTotalPrice = new QPushButton(tabAddPurchase);
-        buttonCalcTotalPrice->setObjectName(QString::fromUtf8("buttonCalcTotalPrice"));
-        buttonCalcTotalPrice->setGeometry(QRect(610, 280, 111, 31));
+        buttonAddPurchase->setGeometry(QRect(580, 280, 93, 28));
         tableViewDisplayPurchases = new QTableView(tabAddPurchase);
         tableViewDisplayPurchases->setObjectName(QString::fromUtf8("tableViewDisplayPurchases"));
         tableViewDisplayPurchases->setGeometry(QRect(20, 190, 421, 301));
@@ -365,8 +364,6 @@ public:
         comboBoxDays->setItemText(5, QCoreApplication::translate("Menu", "Friday", nullptr));
         comboBoxDays->setItemText(6, QCoreApplication::translate("Menu", "Saturday", nullptr));
 
-        checkBoxStandard->setText(QCoreApplication::translate("Menu", "Standard Only", nullptr));
-        checkBoxExecutive->setText(QCoreApplication::translate("Menu", "Executive Only", nullptr));
         labelTXTTotalRevenue->setText(QCoreApplication::translate("Menu", "Total Revenue:", nullptr));
         labelTotalRevenue->setText(QString());
         standardButton->setText(QCoreApplication::translate("Menu", "Standard Only", nullptr));
@@ -390,6 +387,7 @@ public:
 
         label->setText(QCoreApplication::translate("Menu", "Search month:", nullptr));
         load_all->setText(QCoreApplication::translate("Menu", "Load All", nullptr));
+        buttonSearchMemberNumber->setText(QCoreApplication::translate("Menu", "Search", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tabDisplayMembers), QCoreApplication::translate("Menu", "Members", nullptr));
         labelTXTName->setText(QCoreApplication::translate("Menu", "Name:", nullptr));
         labelTXTAddCustomer->setText(QCoreApplication::translate("Menu", "Add Customer", nullptr));
@@ -413,6 +411,8 @@ public:
         labelTXTDeleteItem->setText(QCoreApplication::translate("Menu", "Delete item:", nullptr));
         labelTXTSearchName->setText(QCoreApplication::translate("Menu", "Name", nullptr));
         buttonDeleteItem->setText(QCoreApplication::translate("Menu", "Delete", nullptr));
+        pushButtonSearchInventory->setText(QCoreApplication::translate("Menu", "Search", nullptr));
+        pushButtonReloadInventory->setText(QCoreApplication::translate("Menu", "Reload Inventory", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tabDisplayInventory), QCoreApplication::translate("Menu", "Inventory", nullptr));
         labelTXTAddPurchase->setText(QCoreApplication::translate("Menu", "Add a purchase to an existing customer:", nullptr));
         labelTXTCustomerSearch->setText(QCoreApplication::translate("Menu", "Customer:", nullptr));
@@ -425,7 +425,6 @@ public:
         labelPricePerItem->setText(QString());
         labelTotalPrice->setText(QString());
         buttonAddPurchase->setText(QCoreApplication::translate("Menu", "Add Purchase", nullptr));
-        buttonCalcTotalPrice->setText(QCoreApplication::translate("Menu", "Calculate Total Price", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tabAddPurchase), QCoreApplication::translate("Menu", "Purchases", nullptr));
     } // retranslateUi
 

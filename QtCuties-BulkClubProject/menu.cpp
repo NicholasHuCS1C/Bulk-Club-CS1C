@@ -60,7 +60,7 @@ Menu::Menu(QWidget *parent) :
 
         loadFirstSalesReport();
 
-        loadAllComboBoxes();
+
 
         loadMembersTable();
         createPurchasesTables();
@@ -69,6 +69,12 @@ Menu::Menu(QWidget *parent) :
         loadNumberAddCustomer();
         createInventoryTable();
 
+        loadCustomerPurchasesTable();
+
+
+        loadAllComboBoxes();
+
+        loadNumberAddCustomer();
         loadCustomerPurchasesTable();
 
 
@@ -784,6 +790,7 @@ void Menu::loadAllComboBoxes()
     loadAddPurchaseCustomerCombo();
     loadItemsPurchaseCombo();
     loadInventoryTable();
+    loadDeleteItemComboBox();
 
 
 }
@@ -1023,6 +1030,7 @@ void Menu::on_comboBoxNameSearch_activated(const QString &arg1)
     qDebug() << arg1;
     loadNumberAddCustomer();
     loadCustomerPurchasesTable();
+    ui->lineEditQuantityInput->clear();
 }
 
 void Menu::loadNumberAddCustomer()
@@ -1358,5 +1366,202 @@ void Menu::on_buttonAddPurchase_clicked()
 
 
     loadCustomerPurchasesTable();
+
+}
+
+void Menu::on_pushButtonReloadInventory_clicked()
+{
+    loadInventoryTable();
+}
+
+void Menu::on_pushButtonSearchInventory_clicked()
+{
+    QSqlQueryModel * modal = new QSqlQueryModel();
+    QSqlQuery* qry = new QSqlQuery(this->mydb);
+
+    QString tempDescription;
+    tempDescription = ui->lineEditSearchItem->text();
+
+
+    qry->prepare("select * from inventoryTable where Description=\"" + tempDescription + "\"");
+
+
+    if(qry->exec())
+    {
+        modal->setQuery(*qry);
+        ui->tableViewInventory->setModel(modal);
+        ui->tableViewInventory->resizeColumnsToContents();
+
+        ui->lineEditSearchItem->clear();
+
+        loadAllComboBoxes();
+
+    } else {
+        QMessageBox::information(this, tr("Search Info"), tr("Member Was Not Found!"));
+    }
+}
+
+
+void Menu::addItemToInventory()
+{
+    QSqlQuery query;
+    QString tempDescription;
+    QString tempPrice;
+
+    tempDescription = ui->lineEditAddItem->text();
+    tempPrice = ui->lineEditAddPrice->text();
+
+    query.prepare("insert or ignore into inventoryTable values ('"+tempDescription+"','"+tempPrice+"')");
+    if(query.exec())
+    {
+        qDebug() << "Item Added successfully!";
+    } else {
+        qDebug() << query.lastError().text();
+    }
+
+
+
+
+    loadInventoryTable();
+}
+
+void Menu::on_buttonAddItem_clicked()
+{
+    addItemToInventory();
+    ui->lineEditAddItem->clear();
+    ui->lineEditAddPrice->clear();
+
+    QMessageBox::information(this, tr("Inventory Info"), tr("Item Added!"));
+
+    loadAllComboBoxes();
+}
+
+void Menu::loadDeleteItemComboBox()
+{
+    QSqlQuery query;
+    QString itemName;
+
+    ui->comboBoxDeleteItem->clear();
+
+    query.prepare("SELECT Description from inventoryTable");
+
+    if(query.exec())
+    {
+        qDebug() << "Success for delete";
+        while (query.next())
+        {
+            QSqlRecord recrd = query.record();
+
+            for(int i = 0;i < recrd.count();++i)
+            {
+                itemName = recrd.value(i).toString();
+                ui->comboBoxDeleteItem->addItem(itemName);
+
+            }
+
+        }
+    }else {
+            qDebug() << query.lastError().text();
+        }
+}
+void Menu::deleteItemFromInventory()
+{
+    QSqlQuery query;
+    QString tempDescription;
+
+    tempDescription = ui->comboBoxDeleteItem->currentText();
+
+    query.prepare("delete from inventoryTable where Description=\"" + tempDescription + "\"");
+
+    if(query.exec())
+    {
+        QMessageBox::information(this, tr("Inventory Info"), tr("Item Deleted!"));
+        qDebug() << "Item Deleted!";
+    } else {
+        qDebug() << query.lastError().text();
+    }
+
+
+}
+
+void Menu::on_buttonDeleteItem_clicked()
+{
+
+    deleteItemFromInventory();
+    loadInventoryTable();
+    loadAllComboBoxes();
+
+    if(ui->comboBoxDeleteItem->currentIndex() != 0)
+    {
+        ui->comboBoxDeleteItem->setCurrentIndex(0);
+    } else{
+        ui->comboBoxDeleteItem->setCurrentIndex(1);
+        ui->comboBoxDeleteItem->setCurrentIndex(0);
+    }
+}
+
+void Menu::on_lineEditQuantityInput_textChanged(const QString &arg1)
+{
+    QSqlQuery query;
+    QString itemName;
+    int quantity;
+    float totalValue;
+
+    qDebug() << arg1;
+
+    itemName = ui->comboBoxItemSearch->currentText();
+    query.prepare("select Price from inventoryTable where Description='"+itemName+"'");
+
+    float tempPrice;
+    if(query.exec())
+    {
+        while (query.next())
+        {
+            const QSqlRecord recrd = query.record();
+
+            for(int i = 0;i < recrd.count();++i)
+            {
+                tempPrice = recrd.value(i).toFloat();
+                quantity = ui->lineEditQuantityInput->text().toInt();
+
+                totalValue = tempPrice * quantity;
+                QString totalValueString;
+                totalValueString.setNum(totalValue);
+                ui->labelTotalPrice->setText("$" + totalValueString);
+
+
+            }
+
+        }
+    }
+}
+
+
+
+void Menu::on_buttonSearchMemberNumber_clicked()
+{
+    QSqlQueryModel * modal = new QSqlQueryModel();
+    QSqlQuery* qry = new QSqlQuery(this->mydb);
+
+    QString tempNumber;
+    tempNumber = ui->lineEditSearchNum->text();
+
+
+    qry->prepare("select * from customerTable where Number=\"" + tempNumber + "\"");
+
+    if(qry->exec())
+    {
+        modal->setQuery(*qry);
+        ui->tableViewDisplayMember->setModel(modal);
+        ui->tableViewDisplayMember->resizeColumnsToContents();
+
+        ui->lineEditSearchNum->clear();
+
+        loadAllComboBoxes();
+    } else {
+        QMessageBox::information(this, tr("Search Info"), tr("Member Was Not Found!"));
+    }
+
+
 
 }

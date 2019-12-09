@@ -40,6 +40,9 @@ public:
     void createInventoryTable();
     void loadCustomerPurchasesTable();
     void loadInventoryTable();
+    void addItemToInventory();
+    void loadDeleteItemComboBox();
+    void deleteItemFromInventory();
     //QSqlDatabase getDB();
     ~Menu();
 
@@ -58,6 +61,13 @@ private slots:
     void on_comboBoxItemSearch_currentIndexChanged(const QString &arg1);
     void on_buttonCalcTotalPrice_clicked();
     void on_buttonAddPurchase_clicked();
+    void on_pushButtonReloadInventory_clicked();
+    void on_pushButtonSearchInventory_clicked();
+    void on_buttonAddItem_clicked();
+    void on_buttonDeleteItem_clicked();
+    void on_lineEditQuantityInput_textChanged(const QString &arg1);
+    //void on_pushButton_clicked();
+    void on_buttonSearchMemberNumber_clicked();
 };
 
 //QSqlDatabase Menu::getDB()
