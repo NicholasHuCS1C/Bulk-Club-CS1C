@@ -1,18 +1,6 @@
 #include "menu.h"
 #include "ui_menu.h"
-#include <QMainWindow>
-#include <QtSql>
-#include <QSqlDatabase>
-#include <QSqlDriver>
-#include <QSqlQuery>
-#include <QSqlError>
-#include <QtDebug>
-#include <QFileInfo>
-#include "mainwindow.h"
-#include <QString>
-#include <QFileDialog>
-#include <QFile>
-#include <QMessageBox>
+
 
 Menu::Menu(QWidget *parent) :
     QMainWindow(parent),
@@ -26,24 +14,19 @@ Menu::Menu(QWidget *parent) :
         mydb.removeDatabase(QSqlDatabase::defaultConnection);
     }
 
-
-
         mydb = QSqlDatabase::addDatabase("QSQLITE");
-        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
-                                                 "/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
-                                                 QFileDialog::ShowDirsOnly
-                                                 | QFileDialog::DontResolveSymlinks);
-
 
 //        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
-//                                                 "C:\\Users\\Sean Hatfield\\Documents\\GitHub\\Bulk-Club-CS1C\\QtCuties-BulkClubProject",
+//                                                 "/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
 //                                                 QFileDialog::ShowDirsOnly
 //                                                 | QFileDialog::DontResolveSymlinks);
 
-
+        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
+                                                 "/Users/Nicholas/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
+                                                 QFileDialog::ShowDirsOnly
+                                                 | QFileDialog::DontResolveSymlinks);
 
         mydb.setDatabaseName(dataPath + "/database.db");
-
 
         if (!mydb.open())
         {
@@ -60,18 +43,12 @@ Menu::Menu(QWidget *parent) :
         loadDeleteComboBox();
         loadDeleteNumberComboBox();
         loadMembersTable();
-
-
-
 }
 
 Menu::~Menu()
 {
     delete ui;
 }
-
-
-
 
 void Menu::on_load_all_clicked()
 {
@@ -95,8 +72,6 @@ void Menu::on_comboBoxDays_activated(const QString &arg1)
 
     qDebug() << "Text name: " << textName;
 
-
-
     //    Date of purchase
     //    Customer number who bought the product
     //    Product description
@@ -116,9 +91,6 @@ void Menu::on_comboBoxDays_activated(const QString &arg1)
             QMessageBox::warning(this, "title", "file not open");
         }
         QTextStream in(&file);
-
-
-
 
         QSqlQueryModel * modal = new QSqlQueryModel();
 
@@ -194,15 +166,12 @@ void Menu::loadDeleteComboBox()
                 qDebug() << recrd.value(i).toString();
                 itemName = recrd.value(i).toString();
                 ui->comboBoxDeleteName->addItem(itemName);
-
             }
-
         }
     }else {
             qDebug() << query.lastError().text();
         }
 }
-
 
 void Menu::loadDeleteNumberComboBox()
 {
@@ -398,7 +367,6 @@ void Menu::on_buttonAddCustomer_clicked()
     loadDeleteComboBox();
     loadDeleteNumberComboBox();
 
-
     QMessageBox::information(this, tr("Customer Info"), tr("Customer Added!"));
 }
 
@@ -416,8 +384,6 @@ void Menu::loadDatabaseFromFile()
         QMessageBox::warning(this, "title", "file not open");
     }
     QTextStream in(&file);
-
-
 
     QSqlQuery* qry = new QSqlQuery(this->mydb);
 
@@ -463,7 +429,6 @@ void Menu::saveDatabaseTxt()
         qDebug() << totalCount;
     }
 
-
     QFile file(dataPath + "/warehouse shoppers.txt");
     if(!file.open(QFile::WriteOnly | QFile::Text | QFile::Truncate))
     {
@@ -494,8 +459,6 @@ void Menu::saveDatabaseTxt()
                 {
                     outFile << endl;
                 }
-
-
             }
         }
     }
@@ -530,15 +493,10 @@ void Menu::on_buttonDeleteCustomer_clicked()
             ui->comboBoxDeleteName->setCurrentIndex(1);
             ui->comboBoxDeleteName->setCurrentIndex(0);
         }
-
     } else {
         qDebug() << query.lastError().text();
     }
-
-
 }
-
-
 
 void Menu::on_buttonDeleteCustomerNum_clicked()
 {
@@ -592,9 +550,6 @@ void Menu::loadMembersTable()
         QMessageBox::warning(this, "title", "file not open");
     }
     QTextStream in(&file);
-
-
-
 
     QSqlQueryModel * modal = new QSqlQueryModel();
 
@@ -660,23 +615,30 @@ void Menu::displayRevenue(QString day)
                    qDebug() << "Temp Quantity: " << tempQuantity;
                    qDebug() << "Temp Price: " << tempPrice;
 
-
-
                    totalRevenue += (tempQuantity*tempPrice);
     //               itemName = recrd.value(i).toString();
     //               ui->comboBoxDeleteName->addItem(itemName);
 
-
                    qDebug() << totalRevenue;
                }
-
-
            }
        }
-
    }
 
    ui->labelTotalRevenue->setText("$ " + QString::number(totalRevenue));
 
+}
 
+void Menu::on_buttonLogout_clicked()
+{
+    MainWindow * logoutScreen = new MainWindow;
+
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Logout Confirmation", "Do you want to logout?",
+                                  QMessageBox::Yes|QMessageBox::No);
+    if (reply == QMessageBox::Yes)
+    {
+        logoutScreen->show();
+        this->close();
+    }
 }

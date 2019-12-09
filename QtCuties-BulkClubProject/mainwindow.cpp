@@ -1,12 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QString>
-#include <QMessageBox>
-#include "menu.h"
-#include <QMessageBox>
-#include <QPixmap>
-#include <QDesktopServices>
-#include <QUrl>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -46,17 +39,25 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     Menu * m1 = new Menu;
+    ManagerMenu * m2 = new ManagerMenu;
 
     const QString ADMIN_USERNAME = "A";
     const QString ADMIN_PASSWORD = "A";
+    const QString MANAGER_USERNAME = "S";
+    const QString MANAGER_PASSWORD = "S";
 
-    if (ui->lineEditUsername->text() != ADMIN_USERNAME || ui->lineEditPassword->text() != ADMIN_PASSWORD)
-    {
-        QMessageBox::warning(this, "Invalid", "Invalid credentials. Try again bitch.");
-    }
-    else
+    if (ui->lineEditUsername->text() == ADMIN_USERNAME && ui->lineEditPassword->text() == ADMIN_PASSWORD)
     {
         m1->show();
         this->close();
+    }
+    else if (ui->lineEditUsername->text() == MANAGER_USERNAME && ui->lineEditPassword->text() == MANAGER_PASSWORD)
+    {
+        m2->show();
+        this->close();
+    }
+    else
+    {
+        QMessageBox::warning(this, "Invalid", "Invalid credentials. Try again bitch.");
     }
 }

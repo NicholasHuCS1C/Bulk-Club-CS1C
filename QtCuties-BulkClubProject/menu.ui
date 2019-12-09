@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>803</width>
-    <height>593</height>
+    <height>613</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -896,6 +896,24 @@
      </widget>
     </widget>
    </widget>
+   <widget class="QPushButton" name="buttonLogout">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>10</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>6</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>LOGOUT</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -903,7 +921,7 @@
      <x>0</x>
      <y>0</y>
      <width>803</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

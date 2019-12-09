@@ -27,14 +27,17 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
+        managermenu.cpp \
         menu.cpp
 
 HEADERS += \
         mainwindow.h \
+        managermenu.h \
         menu.h
 
 FORMS += \
         mainwindow.ui \
+        managermenu.ui \
         menu.ui
 
 # Default rules for deployment.

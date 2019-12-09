@@ -4,6 +4,18 @@
 #include <QMainWindow>
 #include "mainwindow.h"
 
+#include <QtSql>
+#include <QSqlDatabase>
+#include <QSqlDriver>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QtDebug>
+#include <QFileInfo>
+#include <QString>
+#include <QFileDialog>
+#include <QFile>
+#include <QMessageBox>
+
 namespace Ui {
 class Menu;
 }
@@ -35,14 +47,13 @@ public:
 
 private slots:
     void on_load_all_clicked();
-
-
     void on_comboBoxDays_activated(const QString &arg1);
     void on_checkBoxStandard_toggled(bool checked);
     void on_standardButton_clicked();
     void on_buttonAddCustomer_clicked();
     void on_buttonDeleteCustomer_clicked();
     void on_buttonDeleteCustomerNum_clicked();
+    void on_buttonLogout_clicked();
 };
 
 //QSqlDatabase Menu::getDB()
