@@ -7,10 +7,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QPixmap pix(":/resources/resources/logo.png");
+    QPixmap logo(":/resources/resources/logo.png");
     int w = ui->labelPic->width();
     int h= ui->labelPic->height();
-    ui->labelPic->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
+    ui->labelPic->setPixmap(logo.scaled(w,h,Qt::KeepAspectRatio));
+
+    QPixmap arnold(":/resources/resources/arnold.jpg");
+    w = ui->labelArnold->width();
+    h = ui->labelArnold->height();
+    ui->labelArnold->setPixmap(arnold);
 
 //    if(mydb.open())
 //    {
