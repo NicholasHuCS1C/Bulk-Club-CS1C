@@ -74,6 +74,7 @@ Menu::Menu(QWidget *parent) :
 
 
 
+
 }
 
 Menu::~Menu()
@@ -782,6 +783,8 @@ void Menu::loadAllComboBoxes()
     loadDeleteNumberComboBox();
     loadAddPurchaseCustomerCombo();
     loadItemsPurchaseCombo();
+    loadInventoryTable();
+
 
 }
 
@@ -1019,6 +1022,7 @@ void Menu::on_comboBoxNameSearch_activated(const QString &arg1)
 {
     qDebug() << arg1;
     loadNumberAddCustomer();
+    loadCustomerPurchasesTable();
 }
 
 void Menu::loadNumberAddCustomer()
@@ -1204,12 +1208,10 @@ void Menu::on_comboBoxItemSearch_currentIndexChanged(const QString &arg1)
 {
     qDebug() << arg1;
     QSqlQuery query;
-    QString itemName;
-
-    itemName = ui->comboBoxItemSearch->currentText();
-    query.prepare("select Price from inventoryTable where Description='"+itemName+"'");
-
     QString tempPrice;
+
+    query.prepare("select Price from inventoryTable where Description='"+arg1+"'");
+
     if(query.exec())
     {
         while (query.next())
@@ -1228,9 +1230,10 @@ void Menu::on_comboBoxItemSearch_currentIndexChanged(const QString &arg1)
             qDebug() << query.lastError().text();
         }
 
+
     ui->labelTotalPrice->clear();
 
-    loadCustomerPurchasesTable();
+
 }
 
 void Menu::on_buttonCalcTotalPrice_clicked()
@@ -1282,4 +1285,78 @@ void Menu::loadCustomerPurchasesTable()
     modal->setQuery(*qry);
     ui->tableViewDisplayPurchases->setModel(modal);
     ui->tableViewDisplayPurchases->resizeColumnsToContents();
+}
+
+void Menu::loadInventoryTable()
+{
+    QSqlQueryModel * modal = new QSqlQueryModel();
+    QSqlQuery* qry = new QSqlQuery(this->mydb);
+
+
+    qry->prepare("select * from inventoryTable");
+
+    qry->exec();
+    modal->setQuery(*qry);
+    ui->tableViewInventory->setModel(modal);
+    ui->tableViewInventory->resizeColumnsToContents();
+}
+
+void Menu::on_buttonAddPurchase_clicked()
+{
+    QSqlQuery query;
+    int tempNumber;
+    QString tempDescription;
+    QString tempPrice;
+    QString tempQuantity;
+    int tempQuantityInt;
+
+    tempNumber = ui->labelMemberNum->text().toInt();
+
+    tempQuantity = ui->lineEditQuantityInput->text();
+    tempQuantityInt = tempQuantity.toInt();
+
+    tempDescription = ui->comboBoxItemSearch->currentText();
+
+    QString itemName;
+
+    itemName = ui->comboBoxItemSearch->currentText();
+    query.prepare("select Price from inventoryTable where Description='"+itemName+"'");
+
+    if(query.exec())
+    {
+        while (query.next())
+        {
+            const QSqlRecord recrd = query.record();
+
+            for(int i = 0;i < recrd.count();++i)
+            {
+                tempPrice = recrd.value(i).toString();
+
+            }
+
+        }
+    }else {
+            qDebug() << query.lastError().text();
+        }
+
+
+
+
+
+    if (tempQuantityInt > 0)
+    {
+
+        query.prepare("insert into \"" + QString::number(tempNumber) + "\"(Description,Quantity,Price) values('"+tempDescription+"','"+tempQuantity+"','"+tempPrice+"')");
+        if(query.exec())
+        {
+            qDebug() << "Item Added successfully!";
+        } else {
+            qDebug() << query.lastError().text();
+        }
+
+    }
+
+
+    loadCustomerPurchasesTable();
+
 }

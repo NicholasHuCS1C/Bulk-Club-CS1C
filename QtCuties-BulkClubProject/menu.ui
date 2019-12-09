@@ -329,19 +329,6 @@
        </rect>
       </property>
      </widget>
-     <widget class="QPushButton" name="buttonClearPurchases">
-      <property name="geometry">
-       <rect>
-        <x>540</x>
-        <y>390</y>
-        <width>211</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Clear All Purchase Tables</string>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="tabEditMembers">
      <attribute name="title">
@@ -542,16 +529,6 @@
      <attribute name="title">
       <string>Inventory</string>
      </attribute>
-     <widget class="QTableWidget" name="tableWidgetInventory">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>541</width>
-        <height>491</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QLabel" name="labelTXTSearchNum_2">
       <property name="geometry">
        <rect>
@@ -694,6 +671,16 @@
       </property>
       <property name="text">
        <string>Delete</string>
+      </property>
+     </widget>
+     <widget class="QTableView" name="tableViewInventory">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>511</width>
+        <height>491</height>
+       </rect>
       </property>
      </widget>
     </widget>

@@ -22,7 +22,6 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableView>
-#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -49,7 +48,6 @@ public:
     QLabel *label;
     QPushButton *load_all;
     QTableView *tableViewDisplayMember;
-    QPushButton *buttonClearPurchases;
     QWidget *tabEditMembers;
     QLineEdit *lineEditAddName;
     QLabel *labelTXTName;
@@ -67,7 +65,6 @@ public:
     QComboBox *addCustomerStatus;
     QPushButton *buttonDeleteCustomerNum;
     QWidget *tabDisplayInventory;
-    QTableWidget *tableWidgetInventory;
     QLabel *labelTXTSearchNum_2;
     QLineEdit *lineEditSearchItem;
     QLabel *labelTXTAddItem_2;
@@ -80,6 +77,7 @@ public:
     QComboBox *comboBoxDeleteItem;
     QLabel *labelTXTSearchName;
     QPushButton *buttonDeleteItem;
+    QTableView *tableViewInventory;
     QWidget *tabAddPurchase;
     QLabel *labelTXTAddPurchase;
     QLabel *labelTXTCustomerSearch;
@@ -186,9 +184,6 @@ public:
         tableViewDisplayMember = new QTableView(tabDisplayMembers);
         tableViewDisplayMember->setObjectName(QString::fromUtf8("tableViewDisplayMember"));
         tableViewDisplayMember->setGeometry(QRect(20, 30, 481, 441));
-        buttonClearPurchases = new QPushButton(tabDisplayMembers);
-        buttonClearPurchases->setObjectName(QString::fromUtf8("buttonClearPurchases"));
-        buttonClearPurchases->setGeometry(QRect(540, 390, 211, 24));
         tabWidget->addTab(tabDisplayMembers, QString());
         tabEditMembers = new QWidget();
         tabEditMembers->setObjectName(QString::fromUtf8("tabEditMembers"));
@@ -242,9 +237,6 @@ public:
         tabWidget->addTab(tabEditMembers, QString());
         tabDisplayInventory = new QWidget();
         tabDisplayInventory->setObjectName(QString::fromUtf8("tabDisplayInventory"));
-        tableWidgetInventory = new QTableWidget(tabDisplayInventory);
-        tableWidgetInventory->setObjectName(QString::fromUtf8("tableWidgetInventory"));
-        tableWidgetInventory->setGeometry(QRect(10, 20, 541, 491));
         labelTXTSearchNum_2 = new QLabel(tabDisplayInventory);
         labelTXTSearchNum_2->setObjectName(QString::fromUtf8("labelTXTSearchNum_2"));
         labelTXTSearchNum_2->setGeometry(QRect(560, 30, 55, 16));
@@ -281,6 +273,9 @@ public:
         buttonDeleteItem = new QPushButton(tabDisplayInventory);
         buttonDeleteItem->setObjectName(QString::fromUtf8("buttonDeleteItem"));
         buttonDeleteItem->setGeometry(QRect(670, 360, 51, 28));
+        tableViewInventory = new QTableView(tabDisplayInventory);
+        tableViewInventory->setObjectName(QString::fromUtf8("tableViewInventory"));
+        tableViewInventory->setGeometry(QRect(10, 10, 511, 491));
         tabWidget->addTab(tabDisplayInventory, QString());
         tabAddPurchase = new QWidget();
         tabAddPurchase->setObjectName(QString::fromUtf8("tabAddPurchase"));
@@ -395,7 +390,6 @@ public:
 
         label->setText(QCoreApplication::translate("Menu", "Search month:", nullptr));
         load_all->setText(QCoreApplication::translate("Menu", "Load All", nullptr));
-        buttonClearPurchases->setText(QCoreApplication::translate("Menu", "Clear All Purchase Tables", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tabDisplayMembers), QCoreApplication::translate("Menu", "Members", nullptr));
         labelTXTName->setText(QCoreApplication::translate("Menu", "Name:", nullptr));
         labelTXTAddCustomer->setText(QCoreApplication::translate("Menu", "Add Customer", nullptr));
