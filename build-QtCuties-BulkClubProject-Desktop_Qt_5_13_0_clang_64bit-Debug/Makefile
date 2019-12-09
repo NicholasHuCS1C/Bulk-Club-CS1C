@@ -874,7 +874,15 @@ menu.o: ../QtCuties-BulkClubProject/menu.cpp ../QtCuties-BulkClubProject/menu.h 
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFileInfo \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfileinfo.h \
-		ui_menu.h
+		ui_menu.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o menu.o ../QtCuties-BulkClubProject/menu.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
