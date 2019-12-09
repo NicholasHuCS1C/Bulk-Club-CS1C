@@ -16,6 +16,7 @@
 #include <QPixmap>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QPixmap>
 
 
 namespace Ui {
