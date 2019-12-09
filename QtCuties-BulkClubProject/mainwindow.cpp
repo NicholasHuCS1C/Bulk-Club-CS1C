@@ -52,10 +52,10 @@ void MainWindow::on_pushButton_clicked()
     Menu * m1 = new Menu;
     managerMenu * m2 = new managerMenu;
 
-    const QString ADMIN_USERNAME = "A";
-    const QString ADMIN_PASSWORD = "A";
-    const QString MANAGER_USERNAME = "M";
-    const QString MANAGER_PASSWORD = "M";
+    const QString ADMIN_USERNAME = "admin";
+    const QString ADMIN_PASSWORD = "password";
+    const QString MANAGER_USERNAME = "manager";
+    const QString MANAGER_PASSWORD = "password";
 
     if (ui->lineEditUsername->text() == ADMIN_USERNAME && ui->lineEditPassword->text() == ADMIN_PASSWORD)
     {
@@ -69,7 +69,7 @@ void MainWindow::on_pushButton_clicked()
     }
     else
     {
-         QMessageBox::warning(this, "Invalid", "Invalid credentials. Try again bitch.");
+         QMessageBox::warning(this, "Invalid", "Invalid credentials.");
     }
 
 

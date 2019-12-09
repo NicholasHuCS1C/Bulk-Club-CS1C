@@ -1705,3 +1705,10 @@ void managerMenu::displayTotalCustomerPurchases()
 
 //    ui->labelTotalAmountSpent->setText("$ " + QString::number(totalRevenue));
 }
+
+void managerMenu::on_buttonLogout_clicked()
+{
+    MainWindow * loginScreen = new MainWindow;
+    loginScreen->show();
+    this->close();
+}

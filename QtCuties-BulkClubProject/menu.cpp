@@ -1728,3 +1728,10 @@ void Menu::displayTotalCustomerPurchases()
 
 //    ui->labelTotalAmountSpent->setText("$ " + QString::number(totalRevenue));
 }
+
+void Menu::on_pushButton_clicked()
+{
+    MainWindow * loginScreen = new MainWindow;
+    loginScreen->show();
+    this->close();
+}
