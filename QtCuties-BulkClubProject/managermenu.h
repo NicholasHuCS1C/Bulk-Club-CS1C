@@ -81,6 +81,7 @@ private slots:
     void on_buttonSearchMemberName_clicked();
 
     void on_buttonLogout_clicked();
+    void on_buttonSearchMonth_clicked();
 };
 
 #endif // MANAGERMENU_H

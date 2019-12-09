@@ -83,7 +83,8 @@ private slots:
     void on_buttonSearchMemberNumber_clicked();
     void on_executiveButton_clicked();
     void on_buttonSearchMemberName_clicked();
-    void on_pushButton_clicked();
+    void on_buttonLogout_clicked();
+    void on_buttonSearchMonth_clicked();
 };
 
 //QSqlDatabase Menu::getDB()

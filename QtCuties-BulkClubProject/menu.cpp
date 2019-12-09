@@ -1422,13 +1422,13 @@ void Menu::on_pushButtonSearchInventory_clicked()
 {
     QSqlQueryModel * modal = new QSqlQueryModel();
     QSqlQuery* qry = new QSqlQuery(this->mydb);
+    QSqlQuery query;
 
     QString tempDescription;
     tempDescription = ui->lineEditSearchItem->text();
 
 
     qry->prepare("select * from inventoryTable where Description=\"" + tempDescription + "\"");
-
 
     if(qry->exec())
     {
@@ -1438,13 +1438,12 @@ void Menu::on_pushButtonSearchInventory_clicked()
 
         ui->lineEditSearchItem->clear();
 
-        loadAllComboBoxes();
-
+        //loadAllComboBoxes();
     } else {
         QMessageBox::information(this, tr("Search Info"), tr("Member Was Not Found!"));
+        ui->lineEditSearchItem->clear();
     }
 }
-
 
 void Menu::addItemToInventory()
 {
@@ -1729,9 +1728,38 @@ void Menu::displayTotalCustomerPurchases()
 //    ui->labelTotalAmountSpent->setText("$ " + QString::number(totalRevenue));
 }
 
-void Menu::on_pushButton_clicked()
+void Menu::on_buttonLogout_clicked()
 {
     MainWindow * loginScreen = new MainWindow;
     loginScreen->show();
     this->close();
+}
+
+void Menu::on_buttonSearchMonth_clicked()
+{
+    QSqlQueryModel * modal = new QSqlQueryModel();
+        QSqlQuery* qry = new QSqlQuery(this->mydb);
+
+
+
+        QString tempDate;
+        tempDate = ui->comboBoxSearchMonth->currentText();
+
+        //tempDate = "SELECT * from customerTable WHERE Expiration like '%'"+tempDate+"'/%' AND Expiration NOT like '%/'"+tempDate+"'/%'";
+        qDebug() << tempDate;
+
+        qry->prepare("SELECT * from customerTable WHERE Expiration like '%" + tempDate + "/%' AND Expiration NOT like '%/" + tempDate + "/%'");
+
+        if(qry->exec())
+        {
+            modal->setQuery(*qry);
+            ui->tableViewDisplayMember->setModel(modal);
+            ui->tableViewDisplayMember->resizeColumnsToContents();
+
+            ui->lineEditSearchName->clear();
+
+            loadAllComboBoxes();
+        } else {
+            QMessageBox::information(this, tr("Search Info"), tr("Member Was Not Found!"));
+        }
 }

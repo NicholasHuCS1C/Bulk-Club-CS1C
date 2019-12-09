@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tabSalesReport">
      <attribute name="title">
@@ -272,7 +272,7 @@
        <string>Search #:</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="comboBox">
+     <widget class="QComboBox" name="comboBoxSearchMonth">
       <property name="geometry">
        <rect>
         <x>660</x>
@@ -430,6 +430,19 @@
         <width>113</width>
         <height>22</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="buttonSearchMonth">
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>260</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Load month</string>
       </property>
      </widget>
     </widget>
@@ -1140,7 +1153,7 @@
      </widget>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="buttonLogout">
     <property name="geometry">
      <rect>
       <x>690</x>
