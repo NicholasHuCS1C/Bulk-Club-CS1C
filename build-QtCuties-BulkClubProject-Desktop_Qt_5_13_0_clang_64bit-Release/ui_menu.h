@@ -202,7 +202,7 @@ public:
         comboBox->setGeometry(QRect(660, 220, 61, 22));
         label = new QLabel(tabDisplayMembers);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(560, 210, 81, 31));
+        label->setGeometry(QRect(540, 220, 101, 31));
         load_all = new QPushButton(tabDisplayMembers);
         load_all->setObjectName(QString::fromUtf8("load_all"));
         load_all->setGeometry(QRect(580, 360, 121, 28));
@@ -217,7 +217,7 @@ public:
         buttonSearchMemberName->setGeometry(QRect(670, 170, 80, 31));
         labelTXTSearchNum_3 = new QLabel(tabDisplayMembers);
         labelTXTSearchNum_3->setObjectName(QString::fromUtf8("labelTXTSearchNum_3"));
-        labelTXTSearchNum_3->setGeometry(QRect(534, 130, 81, 20));
+        labelTXTSearchNum_3->setGeometry(QRect(534, 130, 91, 20));
         lineEditSearchName = new QLineEdit(tabDisplayMembers);
         lineEditSearchName->setObjectName(QString::fromUtf8("lineEditSearchName"));
         lineEditSearchName->setGeometry(QRect(650, 130, 113, 22));
@@ -410,7 +410,7 @@ public:
 
         retranslateUi(Menu);
 
-        tabWidget->setCurrentIndex(4);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(Menu);
@@ -456,7 +456,7 @@ public:
         load_all->setText(QCoreApplication::translate("Menu", "Load All", nullptr));
         buttonSearchMemberNumber->setText(QCoreApplication::translate("Menu", "Search", nullptr));
         buttonSearchMemberName->setText(QCoreApplication::translate("Menu", "Search", nullptr));
-        labelTXTSearchNum_3->setText(QCoreApplication::translate("Menu", "Search Name:", nullptr));
+        labelTXTSearchNum_3->setText(QCoreApplication::translate("Menu", "Search Name: ", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tabDisplayMembers), QCoreApplication::translate("Menu", "Members", nullptr));
         labelTXTName->setText(QCoreApplication::translate("Menu", "Name:", nullptr));
         labelTXTAddCustomer->setText(QCoreApplication::translate("Menu", "Add Customer", nullptr));
