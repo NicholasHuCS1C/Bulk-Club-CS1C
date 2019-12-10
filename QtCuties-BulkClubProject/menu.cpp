@@ -1086,13 +1086,19 @@ void Menu::loadNumberAddCustomer()
 
        if (numberOfRows != 1)
        {
+           //standard
            ui->labelRebateAmount->hide();
            ui->labelRebateAmountText->hide();
            ui->labelExecutiveMember->hide();
            if (rebate >= 55)
            {
+               qDebug() << "rebate for standard " << rebate;
                ui->labelStatusChange->setText("SET EXECUTIVE");
            }
+//           else if (rebate < 55)
+//           {
+//               ui->labelStatusChange->hide();
+//           }
        }
        else
        {
@@ -1101,15 +1107,34 @@ void Menu::loadNumberAddCustomer()
            ui->labelExecutiveMember->show();
            if (rebate < 55)
            {
+               qDebug() << "rebate for executive " << rebate;
                ui->labelStatusChange->setText("SET STANDARD");
            }
+//           else if (rebate >= 55)
+//           {
+//               ui->labelStatusChange->hide();
+//           }
        }
 
        qDebug() << "Query Size: " << numberOfRows;
 
+//       if((ui->labelStatusChange->text() == "SET STANDARD") && (numberOfRows != 1) && (rebate < 55))
+//       {
+//           ui->labelStatusChange->hide();
+//       }
+
+//       if()
+
+//       if((ui->labelStatusChange->text() == "SET EXECUTIVE") && (numberOfRows == 1) && (rebate >= 55))
+//       {
+//           ui->labelStatusChange->hide();
+//       }
+
    } else {
        query.lastError().text();
    }
+
+
 }
 
 

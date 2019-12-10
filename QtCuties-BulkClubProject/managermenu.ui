@@ -30,7 +30,7 @@
      <string notr="true">alternate-background-color: rgb(225, 225, 225);</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tabSalesReport">
      <attribute name="title">
@@ -1711,6 +1711,19 @@
       </property>
       <property name="text">
        <string>Executive Member!</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelStatusChange">
+      <property name="geometry">
+       <rect>
+        <x>580</x>
+        <y>480</y>
+        <width>55</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
       </property>
      </widget>
     </widget>

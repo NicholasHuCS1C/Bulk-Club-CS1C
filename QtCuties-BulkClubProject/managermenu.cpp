@@ -68,13 +68,13 @@ managerMenu::~managerMenu()
     delete ui;
 }
 
-void managerMenu::on_load_all_clicked()
+void managerMenu::on_load_all_clicked()///Loads all current members
 {
     loadMembersTable();
 }
 
 
-void managerMenu::on_comboBoxDays_activated(const QString &arg1)
+void managerMenu::on_comboBoxDays_activated(const QString &arg1) ///Pick day in the combobox
 {
 
     loadCustomerAmountLabels();
@@ -243,7 +243,7 @@ void managerMenu::on_comboBoxDays_activated(const QString &arg1)
 //    query.finish();
 //}
 
-void managerMenu::loadFirstSalesReport()
+void managerMenu::loadFirstSalesReport()/// Loads the sales report
 {
 
         loadCustomerAmountLabels();
@@ -342,7 +342,7 @@ void managerMenu::on_checkBoxStandard_toggled(bool checked)
     qDebug() << checked;
 }
 
-void managerMenu::on_standardButton_clicked()
+void managerMenu::on_standardButton_clicked()///Views whether member is standard
 {
     QSqlQueryModel * modal = new QSqlQueryModel();
     QSqlQuery* qry = new QSqlQuery(this->mydb);
@@ -409,7 +409,7 @@ void managerMenu::on_standardButton_clicked()
 //    QMessageBox::information(this, tr("Customer Info"), tr("Customer Added!"));
 //}
 
-void managerMenu::loadDatabaseFromFile()
+void managerMenu::loadDatabaseFromFile()/// loads the database from a file
 {
     QString tempName;
     QString tempMemberNumber;
@@ -449,7 +449,7 @@ void managerMenu::loadDatabaseFromFile()
     }
 }
 
-void managerMenu::saveDatabaseTxt()
+void managerMenu::saveDatabaseTxt()/// Saves the database to a file
 {
     QSqlQuery query;
     int totalCount = 0;
@@ -587,7 +587,7 @@ void managerMenu::saveDatabaseTxt()
 //    query.finish();
 //}
 
-void managerMenu::loadMembersTable()
+void managerMenu::loadMembersTable()/// Loads all members to a table
 {
     //Customer Name
     //Member #
@@ -640,7 +640,7 @@ void managerMenu::loadMembersTable()
     qDebug() << (modal->rowCount());
 }
 
-void managerMenu::displayRevenue(QString day)
+void managerMenu::displayRevenue(QString day)/// Displays revenue for current day
 {
    double totalRevenue = 0;
    int tempQuantity;
@@ -698,7 +698,7 @@ void managerMenu::displayRevenue(QString day)
 
 }
 
-void managerMenu::loadAddPurchaseCustomerCombo()
+void managerMenu::loadAddPurchaseCustomerCombo()/// Loads the add a purchase to a customer
 {
     QSqlQuery query;
     QString itemName;
@@ -737,7 +737,7 @@ void managerMenu::loadAddPurchaseCustomerCombo()
     query.finish();
 }
 
-void managerMenu::loadAllComboBoxes()
+void managerMenu::loadAllComboBoxes()///Loads the combobox with the members
 {
 
     //loadDeleteComboBox();
@@ -751,7 +751,7 @@ void managerMenu::loadAllComboBoxes()
 
 }
 
-void managerMenu::createCustomerPurchasesDB()
+void managerMenu::createCustomerPurchasesDB()///Creates purchase database
 {
     QSqlQuery query;
     QSqlQuery query2;
@@ -869,7 +869,7 @@ void managerMenu::createCustomerPurchasesDB()
 
 }
 
-void managerMenu::createPurchasesTables()
+void managerMenu::createPurchasesTables()///Creates purchase tables
 {
     QSqlQuery getIdNum;
     QSqlQuery createTable;
@@ -920,7 +920,7 @@ void managerMenu::createPurchasesTables()
 
 }
 
-void managerMenu::clearAllPurchasesTables()
+void managerMenu::clearAllPurchasesTables()/// Clears the purchases from the tables
 {
     QSqlQuery getIdNum;
     QSqlQuery clearTables;
@@ -977,7 +977,7 @@ void managerMenu::on_buttonClearPurchases_clicked()
     clearAllPurchasesTables();
 }
 
-void managerMenu::on_comboBoxNameSearch_activated(const QString &arg1)
+void managerMenu::on_comboBoxNameSearch_activated(const QString &arg1)/// Loads names to combobox
 {
     qDebug() << arg1;
     loadNumberAddCustomer();
@@ -985,7 +985,7 @@ void managerMenu::on_comboBoxNameSearch_activated(const QString &arg1)
     ui->lineEditQuantityInput->clear();
 }
 
-void managerMenu::loadNumberAddCustomer()
+void managerMenu::loadNumberAddCustomer()/// Loads the membership number
 {
    QString name = ui->comboBoxNameSearch->currentText();
    QSqlQuery query;
@@ -1076,10 +1076,21 @@ void managerMenu::loadNumberAddCustomer()
            ui->labelRebateAmount->hide();
            ui->labelRebateAmountText->hide();
            ui->labelExecutiveMember->hide();
+           if (rebate >= 55)
+           {
+               qDebug() << "rebate for standard " << rebate;
+               ui->labelStatusChange->setText("SET EXECUTIVE");
+           }
+
        } else {
            ui->labelRebateAmount->show();
            ui->labelRebateAmountText->show();
            ui->labelExecutiveMember->show();
+           if (rebate < 55)
+           {
+               qDebug() << "rebate for executive " << rebate;
+               ui->labelStatusChange->setText("SET STANDARD");
+           }
        }
 
        qDebug() << "Query Size: " << numberOfRows;
@@ -1090,7 +1101,7 @@ void managerMenu::loadNumberAddCustomer()
 }
 
 
-void managerMenu::createInventoryTable()
+void managerMenu::createInventoryTable()/// creates the inventory table
 {
     QSqlQuery query;
     QSqlQuery query2;
@@ -1188,7 +1199,7 @@ void managerMenu::createInventoryTable()
 }
 
 
-void managerMenu::loadItemsPurchaseCombo()
+void managerMenu::loadItemsPurchaseCombo()/// Load all purchasable items
 {
     QSqlQuery query;
     QString itemName;
@@ -1239,7 +1250,7 @@ void managerMenu::loadItemsPurchaseCombo()
         }
 }
 
-void managerMenu::on_comboBoxItemSearch_currentIndexChanged(const QString &arg1)
+void managerMenu::on_comboBoxItemSearch_currentIndexChanged(const QString &arg1)/// Searches for item in inventory
 {
     qDebug() << arg1;
     QSqlQuery query;
@@ -1267,7 +1278,7 @@ void managerMenu::on_comboBoxItemSearch_currentIndexChanged(const QString &arg1)
     ui->labelTotalPrice->clear();
 }
 
-void managerMenu::on_buttonCalcTotalPrice_clicked()
+void managerMenu::on_buttonCalcTotalPrice_clicked()/// Calculates total price
 {
     QSqlQuery query;
     QString itemName;
@@ -1299,7 +1310,7 @@ void managerMenu::on_buttonCalcTotalPrice_clicked()
     }
 }
 
-void managerMenu::loadCustomerPurchasesTable()
+void managerMenu::loadCustomerPurchasesTable()/// loads the customer purchase table
 {
 
     QSqlQueryModel * modal = new QSqlQueryModel();
@@ -1316,7 +1327,7 @@ void managerMenu::loadCustomerPurchasesTable()
     ui->tableViewDisplayPurchases->resizeColumnsToContents();
 }
 
-void managerMenu::loadInventoryTable()
+void managerMenu::loadInventoryTable()/// loads inventory to screen
 {
     QSqlQueryModel * modal = new QSqlQueryModel();
     QSqlQuery* qry = new QSqlQuery(this->mydb);
@@ -1330,7 +1341,7 @@ void managerMenu::loadInventoryTable()
     ui->tableViewInventory->resizeColumnsToContents();
 }
 
-void managerMenu::on_buttonAddPurchase_clicked()
+void managerMenu::on_buttonAddPurchase_clicked()/// Allows you to add a purchase
 {
     QSqlQuery query;
     int tempNumber;
@@ -1390,12 +1401,12 @@ void managerMenu::on_buttonAddPurchase_clicked()
 
 }
 
-void managerMenu::on_pushButtonReloadInventory_clicked()
+void managerMenu::on_pushButtonReloadInventory_clicked()/// refreshes the inventory
 {
     loadInventoryTable();
 }
 
-void managerMenu::on_pushButtonSearchInventory_clicked()
+void managerMenu::on_pushButtonSearchInventory_clicked()/// Searches through inventory
 {
     QSqlQueryModel * modal = new QSqlQueryModel();
     QSqlQuery* qry = new QSqlQuery(this->mydb);
@@ -1521,7 +1532,7 @@ void managerMenu::on_pushButtonSearchInventory_clicked()
 //    }
 //}
 
-void managerMenu::on_lineEditQuantityInput_textChanged(const QString &arg1)
+void managerMenu::on_lineEditQuantityInput_textChanged(const QString &arg1)/// edits quantity of inventory
 {
     QSqlQuery query;
     QString itemName;
@@ -1559,7 +1570,7 @@ void managerMenu::on_lineEditQuantityInput_textChanged(const QString &arg1)
 
 
 
-void managerMenu::on_buttonSearchMemberNumber_clicked()
+void managerMenu::on_buttonSearchMemberNumber_clicked()/// searches for meembership number
 {
     QSqlQueryModel * modal = new QSqlQueryModel();
     QSqlQuery* qry = new QSqlQuery(this->mydb);
@@ -1589,13 +1600,13 @@ void managerMenu::on_buttonSearchMemberNumber_clicked()
 }
 
 
-void managerMenu::loadCustomerAmountLabels()
+void managerMenu::loadCustomerAmountLabels()/// loads amount customer spent
 {
     on_executiveButton_clicked();
     on_standardButton_clicked();
 }
 
-void managerMenu::on_executiveButton_clicked()
+void managerMenu::on_executiveButton_clicked()/// loads executive members only
 {
     QSqlQueryModel * modal = new QSqlQueryModel();
     QSqlQuery* qry = new QSqlQuery(this->mydb);
@@ -1623,7 +1634,7 @@ void managerMenu::on_executiveButton_clicked()
     ui->labelExecCustomerNum->setText(QString::number(modal->rowCount()));
 }
 
-void managerMenu::on_buttonSearchMemberName_clicked()
+void managerMenu::on_buttonSearchMemberName_clicked()/// Searches for members
 {
     QSqlQueryModel * modal = new QSqlQueryModel();
     QSqlQuery* qry = new QSqlQuery(this->mydb);
@@ -1706,14 +1717,14 @@ void managerMenu::displayTotalCustomerPurchases()
 //    ui->labelTotalAmountSpent->setText("$ " + QString::number(totalRevenue));
 }
 
-void managerMenu::on_buttonLogout_clicked()
+void managerMenu::on_buttonLogout_clicked()/// logs out to login menu
 {
     MainWindow * loginScreen = new MainWindow;
     loginScreen->show();
     this->close();
 }
 
-void managerMenu::on_buttonSearchMonth_clicked()
+void managerMenu::on_buttonSearchMonth_clicked()/// searches the month of purchases
 {
     QSqlQueryModel * modal = new QSqlQueryModel();
         QSqlQuery* qry = new QSqlQuery(this->mydb);

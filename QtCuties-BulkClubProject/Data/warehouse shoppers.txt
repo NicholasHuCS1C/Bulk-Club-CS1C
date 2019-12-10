@@ -14,10 +14,6 @@ Linda Livesalone
 35647
 Executive
 12/15/2020
-Sam Single
-31311
-Executive
-12/05/2020
 Mary IsHappy
 96309
 Executive
@@ -58,3 +54,7 @@ Betty Buysalot
 67890
 Regular
 03/12/2020
+Paul Pennypincher
+24680
+Executive
+12/31/2021

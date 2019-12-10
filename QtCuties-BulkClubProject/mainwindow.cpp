@@ -49,9 +49,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    Menu * m1 = new Menu;
-    managerMenu * m2 = new managerMenu;
-
     const QString ADMIN_USERNAME = "admin";
     const QString ADMIN_PASSWORD = "password";
     const QString MANAGER_USERNAME = "manager";
@@ -59,11 +56,13 @@ void MainWindow::on_pushButton_clicked()
 
     if (ui->lineEditUsername->text() == ADMIN_USERNAME && ui->lineEditPassword->text() == ADMIN_PASSWORD)
     {
+        Menu * m1 = new Menu;
         m1->show();
         this->close();
     }
     else if (ui->lineEditUsername->text() == MANAGER_USERNAME && ui->lineEditPassword->text() == MANAGER_PASSWORD)
     {
+         managerMenu * m2 = new managerMenu;
          m2->show();
          this->close();
     }
