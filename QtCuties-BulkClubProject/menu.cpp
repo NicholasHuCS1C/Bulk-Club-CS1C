@@ -15,10 +15,10 @@ Menu::Menu(QWidget *parent) :
     }
 
         mydb = QSqlDatabase::addDatabase("QSQLITE");
-//        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
-//                                                 "/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
-//                                                 QFileDialog::ShowDirsOnly
-//                                                 | QFileDialog::DontResolveSymlinks);
+        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
+                                                 "/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
+                                                 QFileDialog::ShowDirsOnly
+                                                 | QFileDialog::DontResolveSymlinks);
 
 
         QFile();
@@ -27,7 +27,7 @@ Menu::Menu(QWidget *parent) :
 //                                                 QFileDialog::ShowDirsOnly
 //                                                 | QFileDialog::DontResolveSymlinks);
 
-        dataPath = "C:/Users/Nicholas/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject/Data";
+        //dataPath = "C:/Users/Nicholas/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject/Data";
 
 
 
@@ -62,6 +62,7 @@ Menu::Menu(QWidget *parent) :
 
         loadNumberAddCustomer();
         loadCustomerPurchasesTable();
+
 }
 
 Menu::~Menu()
@@ -387,6 +388,7 @@ void Menu::on_buttonAddCustomer_clicked()
     outCustomer << endl;
     outCustomer << ui->lineEditAddName->text() << endl;
     outCustomer << ui->lineEditAddMemberNum->text() << endl;
+    QString addMemberNum;
     QString addMemberStatus;
     if(ui->addCustomerStatus->currentIndex() == 0)
     {
@@ -408,6 +410,16 @@ void Menu::on_buttonAddCustomer_clicked()
 //    loadDeleteNumberComboBox();
     loadAllComboBoxes();
     loadAddPurchaseCustomerCombo();
+
+    QSqlQuery query;
+//    query.prepare("create");
+
+
+    query.prepare("create table if not exists '"+addMemberNum+"' (\"Description\" TEXT, \"Quantity\" NUMERIC, \"Price\" NUMERIC)");
+    if(query.exec())
+    {
+        qDebug() << "Created table for '"+addMemberNum+"'!";
+    }
 
 
     QMessageBox::information(this, tr("Customer Info"), tr("Customer Added!"));
@@ -1403,7 +1415,7 @@ void Menu::on_buttonAddPurchase_clicked()
         {
             qDebug() << "Item Added successfully!";
         } else {
-            qDebug() << query.lastError().text();
+            qDebug() << "failed here" <<query.lastError().text();
         }
 
     }

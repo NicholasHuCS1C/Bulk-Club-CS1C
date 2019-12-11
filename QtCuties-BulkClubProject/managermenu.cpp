@@ -14,10 +14,10 @@ managerMenu::managerMenu(QWidget *parent) :
     }
 
         mydb = QSqlDatabase::addDatabase("QSQLITE");
-//        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
-//                                                 "/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
-//                                                 QFileDialog::ShowDirsOnly
-//                                                 | QFileDialog::DontResolveSymlinks);
+        dataPath = QFileDialog::getExistingDirectory(this, tr("Open Data Folder"),
+                                                 "/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject",
+                                                 QFileDialog::ShowDirsOnly
+                                                 | QFileDialog::DontResolveSymlinks);
 
 
         QFile();
@@ -26,7 +26,7 @@ managerMenu::managerMenu(QWidget *parent) :
 //                                                 QFileDialog::ShowDirsOnly
 //                                                 | QFileDialog::DontResolveSymlinks);
 
-        dataPath = "C:/Users/Nicholas/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject/Data";
+        //dataPath = "C:/Users/Nicholas/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject/Data";
 
 
 

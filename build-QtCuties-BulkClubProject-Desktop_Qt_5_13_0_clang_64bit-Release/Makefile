@@ -54,12 +54,18 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../QtCuties-BulkClubProject/main.cpp \
 		../QtCuties-BulkClubProject/mainwindow.cpp \
-		../QtCuties-BulkClubProject/menu.cpp moc_mainwindow.cpp \
+		../QtCuties-BulkClubProject/managermenu.cpp \
+		../QtCuties-BulkClubProject/menu.cpp qrc_Resources.cpp \
+		moc_mainwindow.cpp \
+		moc_managermenu.cpp \
 		moc_menu.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
+		managermenu.o \
 		menu.o \
+		qrc_Resources.o \
 		moc_mainwindow.o \
+		moc_managermenu.o \
 		moc_menu.o
 DIST          = ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/qdevice.pri \
@@ -205,6 +211,7 @@ DIST          = ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/spec_pre.p
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/qt_config.prf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/spec_post.prf \
+		../QtCuties-BulkClubProject/.qmake.stash \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/mac/sdk.prf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/toolchain.prf \
@@ -233,8 +240,10 @@ DIST          = ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/spec_pre.p
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/yacc.prf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/lex.prf \
 		../QtCuties-BulkClubProject/QtCuties-BulkClubProject.pro ../QtCuties-BulkClubProject/mainwindow.h \
+		../QtCuties-BulkClubProject/managermenu.h \
 		../QtCuties-BulkClubProject/menu.h ../QtCuties-BulkClubProject/main.cpp \
 		../QtCuties-BulkClubProject/mainwindow.cpp \
+		../QtCuties-BulkClubProject/managermenu.cpp \
 		../QtCuties-BulkClubProject/menu.cpp
 QMAKE_TARGET  = QtCuties-BulkClubProject
 DESTDIR       = 
@@ -254,7 +263,7 @@ include /Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/mkspecs/featu
 first: all
 ####### Build rules
 
-QtCuties-BulkClubProject.app/Contents/MacOS/QtCuties-BulkClubProject: ui_mainwindow.h ui_menu.h $(OBJECTS)  
+QtCuties-BulkClubProject.app/Contents/MacOS/QtCuties-BulkClubProject: ui_mainwindow.h ui_managermenu.h ui_menu.h $(OBJECTS)  
 	@test -d QtCuties-BulkClubProject.app/Contents/MacOS/ || mkdir -p QtCuties-BulkClubProject.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -402,6 +411,7 @@ Makefile: ../QtCuties-BulkClubProject/QtCuties-BulkClubProject.pro ../../../../Q
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/qt_config.prf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/mac/sdk.prf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/toolchain.prf \
@@ -430,6 +440,7 @@ Makefile: ../QtCuties-BulkClubProject/QtCuties-BulkClubProject.pro ../../../../Q
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/yacc.prf \
 		../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/lex.prf \
 		../QtCuties-BulkClubProject/QtCuties-BulkClubProject.pro \
+		../QtCuties-BulkClubProject/Resources.qrc \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/QtWidgets.prl \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/QtGui.prl \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/QtSql.prl \
@@ -579,6 +590,7 @@ Makefile: ../QtCuties-BulkClubProject/QtCuties-BulkClubProject.pro ../../../../Q
 ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/qt_config.prf:
 ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/macx-clang/qmake.conf:
 ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/exclusive_builds.prf:
 ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/mac/sdk.prf:
 ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/toolchain.prf:
@@ -607,6 +619,7 @@ Makefile: ../QtCuties-BulkClubProject/QtCuties-BulkClubProject.pro ../../../../Q
 ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/yacc.prf:
 ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/lex.prf:
 ../QtCuties-BulkClubProject/QtCuties-BulkClubProject.pro:
+../QtCuties-BulkClubProject/Resources.qrc:
 ../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/QtWidgets.prl:
 ../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/QtGui.prl:
 ../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/QtSql.prl:
@@ -640,10 +653,11 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents ../QtCuties-BulkClubProject/Resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../QtCuties-BulkClubProject/mainwindow.h ../QtCuties-BulkClubProject/menu.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../QtCuties-BulkClubProject/main.cpp ../QtCuties-BulkClubProject/mainwindow.cpp ../QtCuties-BulkClubProject/menu.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../QtCuties-BulkClubProject/mainwindow.ui ../QtCuties-BulkClubProject/menu.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../QtCuties-BulkClubProject/mainwindow.h ../QtCuties-BulkClubProject/managermenu.h ../QtCuties-BulkClubProject/menu.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../QtCuties-BulkClubProject/main.cpp ../QtCuties-BulkClubProject/mainwindow.cpp ../QtCuties-BulkClubProject/managermenu.cpp ../QtCuties-BulkClubProject/menu.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../QtCuties-BulkClubProject/mainwindow.ui ../QtCuties-BulkClubProject/managermenu.ui ../QtCuties-BulkClubProject/menu.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -653,6 +667,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r QtCuties-BulkClubProject.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -669,8 +684,15 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_Resources.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_Resources.cpp
+qrc_Resources.cpp: ../QtCuties-BulkClubProject/Resources.qrc \
+		../../../../Qt5.13.0/5.13.0/clang_64/bin/rcc \
+		../QtCuties-BulkClubProject/resources/logo.png \
+		../QtCuties-BulkClubProject/resources/arnold.jpg
+	/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/bin/rcc -name Resources ../QtCuties-BulkClubProject/Resources.qrc -o qrc_Resources.cpp
+
 compiler_qmlcache_make_all:
 compiler_qmlcache_clean:
 compiler_qmlcache_loader_make_all: qmlcache_loader.cpp
@@ -682,10 +704,13 @@ compiler_moc_predefs_clean:
 moc_predefs.h: ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/data/dummy.cpp
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -pipe -stdlib=libc++ -O2 -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.12 -Wall -W -dM -E -o moc_predefs.h ../../../../Qt5.13.0/5.13.0/clang_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_menu.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_managermenu.cpp moc_menu.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_menu.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_managermenu.cpp moc_menu.cpp
 moc_mainwindow.cpp: ../QtCuties-BulkClubProject/mainwindow.h \
+		../QtCuties-BulkClubProject/menu.h \
+		../QtCuties-BulkClubProject/mainwindow.h \
+		../QtCuties-BulkClubProject/managermenu.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QtSql \
@@ -712,14 +737,29 @@ moc_mainwindow.cpp: ../QtCuties-BulkClubProject/mainwindow.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFileInfo \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfileinfo.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/QPixmap \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/QDesktopServices \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/qdesktopservices.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
 		moc_predefs.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/bin/moc
 	/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/bin/moc $(DEFINES) --include /Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/build-QtCuties-BulkClubProject-Desktop_Qt_5_13_0_clang_64bit-Release/moc_predefs.h -I/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/mkspecs/macx-clang -I/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject -I/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers -I/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/lib ../QtCuties-BulkClubProject/mainwindow.h -o moc_mainwindow.cpp
 
-moc_menu.cpp: ../QtCuties-BulkClubProject/menu.h \
+moc_managermenu.cpp: ../QtCuties-BulkClubProject/managermenu.h \
+		../QtCuties-BulkClubProject/mainwindow.h \
+		../QtCuties-BulkClubProject/menu.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
-		../QtCuties-BulkClubProject/mainwindow.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QtSql \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qtsqlglobal.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h \
@@ -744,6 +784,69 @@ moc_menu.cpp: ../QtCuties-BulkClubProject/menu.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFileInfo \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfileinfo.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../QtCuties-BulkClubProject/managermenu.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/QPixmap \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/QDesktopServices \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/qdesktopservices.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
+		moc_predefs.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/bin/moc
+	/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/bin/moc $(DEFINES) --include /Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/build-QtCuties-BulkClubProject-Desktop_Qt_5_13_0_clang_64bit-Release/moc_predefs.h -I/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/mkspecs/macx-clang -I/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject -I/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers -I/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/lib ../QtCuties-BulkClubProject/managermenu.h -o moc_managermenu.cpp
+
+moc_menu.cpp: ../QtCuties-BulkClubProject/menu.h \
+		../QtCuties-BulkClubProject/mainwindow.h \
+		../QtCuties-BulkClubProject/menu.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QtSql \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qtsqlglobal.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqldriver.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqldriverplugin.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlfield.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlindex.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlquerymodel.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlrecord.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlrelationaldelegate.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlrelationaltablemodel.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlresult.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqltablemodel.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qtsqlversion.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QSqlDatabase \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QSqlDriver \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QtDebug \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFileInfo \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfileinfo.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../QtCuties-BulkClubProject/managermenu.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/QPixmap \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/QDesktopServices \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/qdesktopservices.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
 		moc_predefs.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/bin/moc
 	/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/bin/moc $(DEFINES) --include /Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/build-QtCuties-BulkClubProject-Desktop_Qt_5_13_0_clang_64bit-Release/moc_predefs.h -I/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/mkspecs/macx-clang -I/Users/SeanVHatfield/SeanHatfield/Documents/GitHub/Bulk-Club-CS1C/QtCuties-BulkClubProject -I/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers -I/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/lib ../QtCuties-BulkClubProject/menu.h -o moc_menu.cpp
@@ -752,12 +855,16 @@ compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_menu.h
+compiler_uic_make_all: ui_mainwindow.h ui_managermenu.h ui_menu.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_menu.h
+	-$(DEL_FILE) ui_mainwindow.h ui_managermenu.h ui_menu.h
 ui_mainwindow.h: ../QtCuties-BulkClubProject/mainwindow.ui \
 		../../../../Qt5.13.0/5.13.0/clang_64/bin/uic
 	/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/bin/uic ../QtCuties-BulkClubProject/mainwindow.ui -o ui_mainwindow.h
+
+ui_managermenu.h: ../QtCuties-BulkClubProject/managermenu.ui \
+		../../../../Qt5.13.0/5.13.0/clang_64/bin/uic
+	/Users/SeanVHatfield/SeanHatfield/Qt5.13.0/5.13.0/clang_64/bin/uic ../QtCuties-BulkClubProject/managermenu.ui -o ui_managermenu.h
 
 ui_menu.h: ../QtCuties-BulkClubProject/menu.ui \
 		../../../../Qt5.13.0/5.13.0/clang_64/bin/uic
@@ -771,11 +878,12 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
 main.o: ../QtCuties-BulkClubProject/main.cpp ../QtCuties-BulkClubProject/mainwindow.h \
+		../QtCuties-BulkClubProject/menu.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QtSql \
@@ -802,55 +910,29 @@ main.o: ../QtCuties-BulkClubProject/main.cpp ../QtCuties-BulkClubProject/mainwin
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFileInfo \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfileinfo.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QApplication \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../QtCuties-BulkClubProject/main.cpp
-
-mainwindow.o: ../QtCuties-BulkClubProject/mainwindow.cpp ../QtCuties-BulkClubProject/mainwindow.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QtSql \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qtsqlglobal.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqldriver.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqldriverplugin.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlfield.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlindex.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlquerymodel.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlrecord.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlrelationaldelegate.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlrelationaltablemodel.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlresult.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqltablemodel.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qtsqlversion.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QSqlDatabase \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QSqlDriver \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QSqlError \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QtDebug \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFileInfo \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfileinfo.h \
-		ui_mainwindow.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
-		../QtCuties-BulkClubProject/menu.h \
+		../QtCuties-BulkClubProject/managermenu.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/QPixmap \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/QDesktopServices \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/qdesktopservices.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
-		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../QtCuties-BulkClubProject/mainwindow.cpp
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QApplication \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../QtCuties-BulkClubProject/main.cpp
 
-menu.o: ../QtCuties-BulkClubProject/menu.cpp ../QtCuties-BulkClubProject/menu.h \
+mainwindow.o: ../QtCuties-BulkClubProject/mainwindow.cpp ../QtCuties-BulkClubProject/mainwindow.h \
+		../QtCuties-BulkClubProject/menu.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
-		../QtCuties-BulkClubProject/mainwindow.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QtSql \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qtsqlglobal.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h \
@@ -875,11 +957,124 @@ menu.o: ../QtCuties-BulkClubProject/menu.cpp ../QtCuties-BulkClubProject/menu.h 
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFileInfo \
 		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfileinfo.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../QtCuties-BulkClubProject/managermenu.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/QPixmap \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/QDesktopServices \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/qdesktopservices.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
+		ui_mainwindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../QtCuties-BulkClubProject/mainwindow.cpp
+
+managermenu.o: ../QtCuties-BulkClubProject/managermenu.cpp ../QtCuties-BulkClubProject/managermenu.h \
+		../QtCuties-BulkClubProject/mainwindow.h \
+		../QtCuties-BulkClubProject/menu.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QtSql \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qtsqlglobal.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqldriver.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqldriverplugin.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlfield.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlindex.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlquerymodel.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlrecord.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlrelationaldelegate.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlrelationaltablemodel.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlresult.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqltablemodel.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qtsqlversion.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QSqlDatabase \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QSqlDriver \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QtDebug \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFileInfo \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfileinfo.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/QPixmap \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/QDesktopServices \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/qdesktopservices.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
+		ui_managermenu.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o managermenu.o ../QtCuties-BulkClubProject/managermenu.cpp
+
+menu.o: ../QtCuties-BulkClubProject/menu.cpp ../QtCuties-BulkClubProject/menu.h \
+		../QtCuties-BulkClubProject/mainwindow.h \
+		../QtCuties-BulkClubProject/managermenu.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QtSql \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qtsqlglobal.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqldriver.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqldriverplugin.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlfield.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlindex.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlquerymodel.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlrecord.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlrelationaldelegate.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlrelationaltablemodel.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqlresult.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qsqltablemodel.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/qtsqlversion.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QSqlDatabase \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QSqlDriver \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QtDebug \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFileInfo \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfileinfo.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/QPixmap \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/QDesktopServices \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtGui.framework/Headers/qdesktopservices.h \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
+		../../../../Qt5.13.0/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
 		ui_menu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o menu.o ../QtCuties-BulkClubProject/menu.cpp
 
+qrc_Resources.o: qrc_Resources.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_Resources.o qrc_Resources.cpp
+
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+
+moc_managermenu.o: moc_managermenu.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_managermenu.o moc_managermenu.cpp
 
 moc_menu.o: moc_menu.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_menu.o moc_menu.cpp
