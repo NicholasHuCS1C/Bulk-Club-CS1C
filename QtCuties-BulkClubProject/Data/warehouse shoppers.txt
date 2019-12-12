@@ -1,5 +1,5 @@
 Fred Frugal
-12897
+12897 
 Executive
 12/15/2020
 Larry Largefamily
@@ -14,10 +14,6 @@ Linda Livesalone
 35647
 Executive
 12/15/2020
-Sam Single
-31311
-Executive
-12/05/2020
 Mary IsHappy
 96309
 Executive
@@ -43,7 +39,7 @@ Sue Shoparound
 Executive
 03/21/2020
 BulkClub Bob
-67899
+67899 
 Regular
 10/22/2020
 Carrie CaresAboutMoney
@@ -58,11 +54,11 @@ Betty Buysalot
 67890
 Regular
 03/12/2020
-Paul Pennypicher
-24680
+Paul Pennypincher
+12345
 Executive
-12/31/2021
-Person 1
-24680
+05/01/2020
+Paul 2
+123456
 Executive
-12/31/2021
+05/01/2020

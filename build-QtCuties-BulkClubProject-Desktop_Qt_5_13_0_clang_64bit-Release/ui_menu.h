@@ -70,6 +70,8 @@ public:
     QPushButton *buttonDeleteCustomer;
     QComboBox *addCustomerStatus;
     QPushButton *buttonDeleteCustomerNum;
+    QLineEdit *lineEditExpDate;
+    QLabel *labelTXTStatus_2;
     QWidget *tabDisplayInventory;
     QLabel *labelTXTSearchNum_2;
     QLineEdit *lineEditSearchItem;
@@ -86,6 +88,8 @@ public:
     QTableView *tableViewInventory;
     QPushButton *pushButtonSearchInventory;
     QPushButton *pushButtonReloadInventory;
+    QLabel *label_3;
+    QLabel *totalRevenueLabel;
     QWidget *tabAddPurchase;
     QLabel *labelTXTAddPurchase;
     QLabel *labelTXTCustomerSearch;
@@ -253,7 +257,7 @@ public:
         labelTXTDeleteCustomer->setGeometry(QRect(390, 30, 111, 16));
         buttonAddCustomer = new QPushButton(tabEditMembers);
         buttonAddCustomer->setObjectName(QString::fromUtf8("buttonAddCustomer"));
-        buttonAddCustomer->setGeometry(QRect(120, 240, 93, 28));
+        buttonAddCustomer->setGeometry(QRect(120, 390, 93, 28));
         comboBoxDeleteName = new QComboBox(tabEditMembers);
         comboBoxDeleteName->setObjectName(QString::fromUtf8("comboBoxDeleteName"));
         comboBoxDeleteName->setGeometry(QRect(450, 70, 161, 22));
@@ -277,6 +281,12 @@ public:
         buttonDeleteCustomerNum = new QPushButton(tabEditMembers);
         buttonDeleteCustomerNum->setObjectName(QString::fromUtf8("buttonDeleteCustomerNum"));
         buttonDeleteCustomerNum->setGeometry(QRect(430, 220, 201, 28));
+        lineEditExpDate = new QLineEdit(tabEditMembers);
+        lineEditExpDate->setObjectName(QString::fromUtf8("lineEditExpDate"));
+        lineEditExpDate->setGeometry(QRect(110, 230, 141, 24));
+        labelTXTStatus_2 = new QLabel(tabEditMembers);
+        labelTXTStatus_2->setObjectName(QString::fromUtf8("labelTXTStatus_2"));
+        labelTXTStatus_2->setGeometry(QRect(20, 230, 71, 16));
         tabWidget->addTab(tabEditMembers, QString());
         tabDisplayInventory = new QWidget();
         tabDisplayInventory->setObjectName(QString::fromUtf8("tabDisplayInventory"));
@@ -325,6 +335,12 @@ public:
         pushButtonReloadInventory = new QPushButton(tabDisplayInventory);
         pushButtonReloadInventory->setObjectName(QString::fromUtf8("pushButtonReloadInventory"));
         pushButtonReloadInventory->setGeometry(QRect(590, 460, 151, 21));
+        label_3 = new QLabel(tabDisplayInventory);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setGeometry(QRect(528, 420, 91, 20));
+        totalRevenueLabel = new QLabel(tabDisplayInventory);
+        totalRevenueLabel->setObjectName(QString::fromUtf8("totalRevenueLabel"));
+        totalRevenueLabel->setGeometry(QRect(630, 420, 59, 16));
         tabWidget->addTab(tabDisplayInventory, QString());
         tabAddPurchase = new QWidget();
         tabAddPurchase->setObjectName(QString::fromUtf8("tabAddPurchase"));
@@ -484,6 +500,7 @@ public:
         addCustomerStatus->setItemText(1, QCoreApplication::translate("Menu", "Standard", nullptr));
 
         buttonDeleteCustomerNum->setText(QCoreApplication::translate("Menu", "Delete By Member Number", nullptr));
+        labelTXTStatus_2->setText(QCoreApplication::translate("Menu", "Exp Date:", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tabEditMembers), QCoreApplication::translate("Menu", "Edit Members", nullptr));
         labelTXTSearchNum_2->setText(QCoreApplication::translate("Menu", "Search:", nullptr));
         labelTXTAddItem_2->setText(QCoreApplication::translate("Menu", "Add item:", nullptr));
@@ -495,6 +512,8 @@ public:
         buttonDeleteItem->setText(QCoreApplication::translate("Menu", "Delete", nullptr));
         pushButtonSearchInventory->setText(QCoreApplication::translate("Menu", "Search", nullptr));
         pushButtonReloadInventory->setText(QCoreApplication::translate("Menu", "Reload Inventory", nullptr));
+        label_3->setText(QCoreApplication::translate("Menu", "Total Revenue: ", nullptr));
+        totalRevenueLabel->setText(QCoreApplication::translate("Menu", "TextLabel", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tabDisplayInventory), QCoreApplication::translate("Menu", "Inventory", nullptr));
         labelTXTAddPurchase->setText(QCoreApplication::translate("Menu", "Add a purchase to an existing customer:", nullptr));
         labelTXTCustomerSearch->setText(QCoreApplication::translate("Menu", "Customer:", nullptr));

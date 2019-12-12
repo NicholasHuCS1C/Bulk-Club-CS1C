@@ -366,12 +366,22 @@ void Menu::on_standardButton_clicked()
         qDebug() << "Selected Standard Members Only!";
     }
 
+    QSqlQuery query2;
+    query2.prepare("SELECT count (DISTINCT '"+daySelected+"'.Number) from '"+daySelected+"' INNER JOIN customerTable ON '"+daySelected+"'.Number=customerTable.Number WHERE customerTable.Type=\"Regular\"");
+    query2.exec();
 
+    QString standardNumber;
+
+    while(query2.next())
+    {
+
+        standardNumber = query2.record().value(0).toString();
+    }
     modal->setQuery(*qry);
     ui->salesReportTableView->setModel(modal);
     ui->salesReportTableView->resizeColumnsToContents();
 
-    ui->labelStandardCustomerNum->setText(QString::number(modal->rowCount()));
+    ui->labelStandardCustomerNum->setText(standardNumber);
 
 }
 
@@ -383,6 +393,8 @@ void Menu::on_buttonAddCustomer_clicked()
         qDebug() << "File not open\n";
     }
     QString date = "12/31/2021";
+
+    date = ui->lineEditExpDate->text();
     QTextStream outCustomer(&file);
 
     outCustomer << endl;
@@ -404,6 +416,7 @@ void Menu::on_buttonAddCustomer_clicked()
 
     ui->lineEditAddName->setText("");
     ui->lineEditAddMemberNum->setText("");
+    ui->lineEditExpDate->setText("");
 
     loadDatabaseFromFile();
 //    loadDeleteComboBox();
@@ -763,6 +776,24 @@ void Menu::loadAllComboBoxes()
     loadInventoryTable();
     loadDeleteItemComboBox();
     displayTotalCustomerPurchases();
+
+    QSqlQuery query6;
+    query6.prepare("select sum(Revenue) FROM inventoryTable");
+    if(query6.exec())
+    {
+        while(query6.next())
+        {
+            QSqlRecord recrd2;
+
+            recrd2 = query6.record();
+
+            qDebug() << "Total Revenue: " << recrd2.value(0).toString();
+            ui->totalRevenueLabel->setText(recrd2.value(0).toString());
+        }
+        qDebug() << "Total Revenue Worked";
+    } else {
+        qDebug() << query6.lastError().text();
+}
 
 
 }
@@ -1130,7 +1161,7 @@ void Menu::createInventoryTable()
     QSqlQuery query;
     QSqlQuery query2;
 
-    query.prepare("create table if not exists inventoryTable (\"Description\" TEXT, \"Price\" NUMERIC)");
+    query.prepare("create table if not exists inventoryTable (\"Description\" TEXT, \"Price\" NUMERIC, \"Quantity\" INTEGER, \"Revenue\" NUMERIC)");
 
     if(query.exec())
     {
@@ -1152,6 +1183,7 @@ void Menu::createInventoryTable()
     QString tempNumber;
     QString tempDescription;
     QString tempPrice;
+    QString tempQuantity;
 
     query.prepare("create unique index inventoryTable_description_price on inventoryTable (Description, Price)");
     if (query.exec())
@@ -1178,7 +1210,7 @@ void Menu::createInventoryTable()
 
 
 
-                query2.prepare("select Description, Price from \"" + tempNumber + "\"");
+                query2.prepare("select Description, Price, Quantity from \"" + tempNumber + "\"");
 
                 if(query2.exec())
                 {
@@ -1188,20 +1220,44 @@ void Menu::createInventoryTable()
                     {
                         QSqlRecord recrd = query2.record();
 
-                        for(int i = 0;i < recrd.count();i += 2)
+                        for(int i = 0;i < recrd.count();i += 3)
                         {
                             tempDescription = recrd.value(i).toString();
                             tempPrice = recrd.value(i + 1).toString();
+                            tempQuantity = recrd.value(i + 2).toString();
 
                             qDebug() << "Description: " << tempDescription;
                             qDebug() << "Price: " << tempPrice;
+                            qDebug() << "Quantity: " << tempQuantity;
 
                             //INSERT ITEM INTO TABLE IF NOT EXISTS
+
+
+
                             QSqlQuery query3;
-                            query3.prepare("insert or ignore into inventoryTable values ('"+tempDescription+"','"+tempPrice+"')");
+                            query3.prepare("insert or ignore into inventoryTable values ('"+tempDescription+"','"+tempPrice+"', 0, 0)");
                             if(query3.exec())
                             {
                                 qDebug() << "Inserted tempDescription: " << tempDescription << " and tempPrice: " << tempPrice;
+
+                                QSqlQuery query4;
+                                query4.prepare("UPDATE inventoryTable SET Quantity = Quantity + '"+tempQuantity+"' WHERE Description='"+tempDescription+"'");
+                                if(query4.exec())
+                                {
+                                    qDebug() << "Quantity: " << tempQuantity << " updated!";
+
+                                    QSqlQuery query5;
+                                    query5.prepare("UPDATE inventoryTable set Revenue = Quantity*Price*1.0775 WHERE Description='"+tempDescription+"'");
+                                    if(query5.exec())
+                                    {
+                                        qDebug() << "Revenue updated";
+
+                                    } else {
+                                        qDebug() << query5.lastError().text();
+                                    }
+                                } else {
+                                    qDebug() << query4.lastError().text();
+                                }
                             } else{
                                 qDebug() << query3.lastError().text();
                             }
@@ -1220,6 +1276,28 @@ void Menu::createInventoryTable()
     }else {
             qDebug() << query.lastError().text();
         }
+
+
+    QSqlQuery query6;
+    query6.prepare("select sum(Revenue) FROM inventoryTable");
+    if(query6.exec())
+    {
+        while(query6.next())
+        {
+            QSqlRecord recrd2;
+
+            recrd2 = query6.record();
+
+            qDebug() << "Total Revenue: " << recrd2.value(0).toString();
+            ui->totalRevenueLabel->setText(recrd2.value(0).toString());
+        }
+        qDebug() << "Total Revenue Worked";
+    } else {
+        qDebug() << query6.lastError().text();
+}
+
+
+
 }
 
 
@@ -1414,6 +1492,24 @@ void Menu::on_buttonAddPurchase_clicked()
         if(query.exec())
         {
             qDebug() << "Item Added successfully!";
+            QSqlQuery query4;
+            query4.prepare("UPDATE inventoryTable SET Quantity = Quantity + '"+tempQuantity+"' WHERE Description='"+tempDescription+"'");
+            if(query4.exec())
+            {
+                qDebug() << "Quantity: " << tempQuantity << " updated!";
+
+                QSqlQuery query5;
+                query5.prepare("UPDATE inventoryTable set Revenue = Quantity*Price*1.0775 WHERE Description='"+tempDescription+"'");
+                if(query5.exec())
+                {
+                    qDebug() << "Revenue updated";
+
+                } else {
+                    qDebug() << query5.lastError().text();
+                }
+            } else {
+                qDebug() << query4.lastError().text();
+            }
         } else {
             qDebug() << "failed here" <<query.lastError().text();
         }
@@ -1466,7 +1562,7 @@ void Menu::addItemToInventory()
     tempDescription = ui->lineEditAddItem->text();
     tempPrice = ui->lineEditAddPrice->text();
 
-    query.prepare("insert or ignore into inventoryTable values ('"+tempDescription+"','"+tempPrice+"')");
+    query.prepare("insert or ignore into inventoryTable values ('"+tempDescription+"','"+tempPrice+"',0,0)");
     if(query.exec())
     {
         qDebug() << "Item Added successfully!";
@@ -1648,13 +1744,30 @@ void Menu::on_executiveButton_clicked()
         qDebug() << "Selected Executive Members Only!";
     }
 
+    QSqlQuery query2;
+    query2.prepare("SELECT count (DISTINCT '"+daySelected+"'.Number) from '"+daySelected+"' INNER JOIN customerTable ON '"+daySelected+"'.Number=customerTable.Number WHERE customerTable.Type=\"Executive\"");
+    query2.exec();
+
+    QString standardNumber;
+
+    while(query2.next())
+    {
+
+        standardNumber = query2.record().value(0).toString();
+    }
+    modal->setQuery(*qry);
+    ui->salesReportTableView->setModel(modal);
+    ui->salesReportTableView->resizeColumnsToContents();
+
+    ui->labelExecCustomerNum->setText(standardNumber);
+
 
 
     modal->setQuery(*qry);
     ui->salesReportTableView->setModel(modal);
     ui->salesReportTableView->resizeColumnsToContents();
 
-    ui->labelExecCustomerNum->setText(QString::number(modal->rowCount()));
+    //ui->labelExecCustomerNum->setText(QString::number(modal->rowCount()));
 }
 
 void Menu::on_buttonSearchMemberName_clicked()

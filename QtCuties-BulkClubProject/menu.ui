@@ -539,7 +539,7 @@
       <property name="geometry">
        <rect>
         <x>120</x>
-        <y>240</y>
+        <y>390</y>
         <width>93</width>
         <height>28</height>
        </rect>
@@ -638,6 +638,29 @@
       </property>
       <property name="text">
        <string>Delete By Member Number</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditExpDate">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>230</y>
+        <width>141</width>
+        <height>24</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelTXTStatus_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>230</y>
+        <width>71</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Exp Date:</string>
       </property>
      </widget>
     </widget>
@@ -823,6 +846,32 @@
       </property>
       <property name="text">
        <string>Reload Inventory</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>528</x>
+        <y>420</y>
+        <width>91</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Total Revenue: </string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="totalRevenueLabel">
+      <property name="geometry">
+       <rect>
+        <x>630</x>
+        <y>420</y>
+        <width>59</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
       </property>
      </widget>
     </widget>
