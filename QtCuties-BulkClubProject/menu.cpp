@@ -787,6 +787,10 @@ void Menu::loadAllComboBoxes()
 
             recrd2 = query6.record();
 
+            double revenue;
+            revenue = recrd2.value(0).toDouble();
+            revenue = revenue * 1.0775;
+
             qDebug() << "Total Revenue: " << recrd2.value(0).toString();
             ui->totalRevenueLabel->setText(recrd2.value(0).toString());
         }
